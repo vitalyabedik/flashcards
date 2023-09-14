@@ -18,7 +18,7 @@ type TabsProps = {
   className?: string
 }
 
-export const Tabs: FC<TabsProps> = ({ value, onChangeActiveTab, tabs }) => {
+export const Tabs = ({ value, onChangeActiveTab, tabs }: TabsProps) => {
   const onClickHandler = (value: string) => {
     onChangeActiveTab(value)
   }
