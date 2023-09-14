@@ -28,3 +28,12 @@
     cursor: not-allowed;
   }
 }
+
+@mixin typography($fontSize, $lineHeight, $fontWeight) {
+  margin: 0;
+
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: var(--color-light-100);
+}
