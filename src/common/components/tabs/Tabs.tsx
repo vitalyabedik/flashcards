@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import * as RaddixTabs from '@radix-ui/react-tabs'
 import cn from 'classnames'
 
@@ -18,7 +16,7 @@ type TabsProps = {
   className?: string
 }
 
-export const Tabs = ({ value, onChangeActiveTab, tabs }: TabsProps) => {
+export const Tabs = ({ value, onChangeActiveTab, tabs }: TabsProps): JSX.Element => {
   const onClickHandler = (value: string) => {
     onChangeActiveTab(value)
   }
