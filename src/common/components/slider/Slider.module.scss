@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  gap: 0.75rem;
+  gap: 1.2rem;
   align-items: center;
   justify-content: center;
 
@@ -12,8 +12,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 3.6rem;
+  height: 3.6rem;
 
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
@@ -34,8 +34,8 @@
 
   flex-grow: 1;
 
-  width: 9.6875rem;
-  height: 0.3125rem;
+  width: 15.5rem;
+  height: 0.5rem;
 
   background-color: var(--color-accent-900);
   border-radius: 2px;
@@ -53,23 +53,21 @@
 
   display: block;
 
-  width: 1rem;
-  height: 1rem;
+  width: 1.6rem;
+  height: 1.6rem;
 
   background-color: var(--color-accent-500);
-  border-radius: 0.625rem;
-
-  transition: transform 0.2s ease-in-out;
+  border-radius: 1rem;
 
   &::after {
     content: '';
 
     position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
+    top: 0.4rem;
+    left: 0.4rem;
 
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
 
     background-color: var(--color-light-100);
     border-radius: 50%;
