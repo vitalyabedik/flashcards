@@ -12,7 +12,7 @@ type RadioGroupProps = { radioGroupItems: RadioItem[] } & ComponentPropsWithoutR
 >
 
 export const RadioGroup = forwardRef<ElementRef<typeof Radio.Root>, RadioGroupProps>(
-  ({ value, radioGroupItems, onValueChange, className, ...props }, ref): JSX.Element => {
+  ({ radioGroupItems, className, ...props }, ref): JSX.Element => {
     const rootClassname = cn(s.root, className)
 
     return (
