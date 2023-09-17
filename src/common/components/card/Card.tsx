@@ -8,7 +8,7 @@ export type CardProps = {} & ComponentPropsWithoutRef<'div'>
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, ...rest }, ref): JSX.Element => {
-    const cardClasses = cn(s.card, className)
+    const cardClasses = cn(s.root, className)
 
     return <div ref={ref} className={cardClasses} {...rest}></div>
   }
