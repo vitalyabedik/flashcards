@@ -5,6 +5,9 @@ import cn from 'classnames'
 
 import s from './Slider.module.scss'
 
+import { Typography } from '@common/components'
+import { TypographyVariant } from '@common/enums'
+
 export type SliderProps = {} & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
 
 export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
@@ -14,7 +17,9 @@ export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, Slider
     return (
       <div className={s.container}>
         <div className={s.valueWrapper}>
-          <span>{props?.value?.[0]}</span>
+          <Typography variant={TypographyVariant.Body1} as="span">
+            {props?.value?.[0]}
+          </Typography>
         </div>
         <SliderPrimitive.Root ref={ref} className={sliderClasses} {...props}>
           <SliderPrimitive.Track className={s.track}>
@@ -24,7 +29,9 @@ export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, Slider
           <SliderPrimitive.Thumb className={s.thumb} aria-label="Volume-max" />
         </SliderPrimitive.Root>
         <div className={s.valueWrapper}>
-          <span>{props?.value?.[1]}</span>
+          <Typography variant={TypographyVariant.Body1} as="span">
+            {props?.value?.[1]}
+          </Typography>
         </div>
       </div>
     )
