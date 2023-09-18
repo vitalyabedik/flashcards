@@ -45,6 +45,7 @@
   align-items: $align;
   justify-content: $justify;
   flex-wrap: $wrap;
+}
 
 @mixin radio($color) {
   content: '';
