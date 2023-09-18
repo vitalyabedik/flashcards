@@ -1,9 +1,10 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, ReactNode, useState } from 'react'
 
 import cn from 'classnames'
 
 import s from './Input.module.scss'
 
+import { OpenEye, ClosedEye } from '@/assets'
 import { Typography } from '@common/components'
 import { TypographyVariant } from '@common/enums'
 
@@ -19,13 +20,18 @@ type InputOwnProps = {
 type InputProps = Partial<InputOwnProps> & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.Element => {
+  const [isOpen, setIsOpen] = useState(false)
+
   const { type, label, error, placeholder, disabled, className, leftIcon } = props
   const classNames = {
     input: cn(s.input, !!error && s.inputError, !!leftIcon && s.isLeftIcon, className),
     label: cn(s.label, disabled && s.disabledText),
     error: s.errorMessage,
     leftIcon: s.leftIcon,
+    rightIcon: s.rightIcon,
   }
+
+  const dynamicInputType = type === 'password' && isOpen ? 'text' : type
 
   return (
     <div className={s.container}>
@@ -38,13 +44,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
         <input
           ref={ref}
           className={classNames.input}
-          type={type}
+          type={dynamicInputType}
           placeholder={placeholder}
           disabled={disabled}
         />
         <Icon icon={leftIcon} className={classNames.leftIcon} />
+        {dynamicInputType === 'password' && (
+          <Icon icon={isOpen ? <OpenEye /> : <ClosedEye />} className={classNames.rightIcon} />
+        )}
       </div>
-      {error && (
+      {!!error && (
         <Typography className={classNames.error} as="span" variant={TypographyVariant.Caption}>
           {error}
         </Typography>
