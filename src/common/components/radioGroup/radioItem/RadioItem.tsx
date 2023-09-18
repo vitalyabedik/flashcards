@@ -16,9 +16,9 @@ export const RadioElement = ({ value, labelTitle, disabled }: RadioItem): JSX.El
   return (
     <div className={s.itemContainer}>
       <Typography
-        as={'label'}
-        variant={TypographyVariant.Body2}
         className={cn(s.label, disabled && s.disabled)}
+        as="label"
+        variant={TypographyVariant.Body2}
       >
         <Radio.Item className={s.item} value={value} disabled={disabled}>
           <Radio.Indicator className={s.indicator} />
