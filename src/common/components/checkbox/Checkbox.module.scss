@@ -26,24 +26,10 @@
     border: 2px solid var(--color-light-900);
   }
 
-  //&:focus-within {
-  //  background-color: green;
-  //  border: 2px solid red;
-  //}
-
-  //&:not([data-state='checked']):focus-within {
-  //  background-color: red;
-  //  border: 2px solid red;
-  //}
-
   &:active {
     background-color: var(--color-dark-900);
     border: 2px solid var(--color-light-100);
   }
-
-  //&[data-state='checked']:focus {
-  //  background-color: var(--color-dark-900);
-  //}
 
   &[data-state='checked']:disabled {
     background-color: var(--color-light-700);
