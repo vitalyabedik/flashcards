@@ -1,0 +1,79 @@
+@use '@styles/_mixins' as *;
+
+.content {
+  position: relative;
+  z-index: 999;
+
+  margin-top: 10px;
+  padding: 1.2rem;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-radius: 0.4rem;
+}
+
+.button {
+  cursor: pointer;
+
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+}
+
+.item {
+  @include flex($align: center, $gap: 0.6rem);
+
+  cursor: pointer;
+  user-select: none;
+
+  width: 100%;
+
+  outline: none;
+
+  fill: var(--color-light-100);
+
+  transition: opacity 0.2s ease-in-out;
+
+  &:not(:last-child) {
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--color-dark-500);
+  }
+
+  &:not(:first-child) {
+    padding-top: 1.2rem;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.7 !important;
+  }
+}
+
+.itemIcon {
+  @include flex($justify: center, $align: center);
+
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.arrow {
+  position: absolute;
+  top: -0.4rem;
+  left: calc(50% - 3px);
+  transform: rotate(45deg);
+
+  width: 1rem;
+  height: 1rem;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-top: none;
+  border-left: none;
+
+  fill: var(--color-dark-700);
+}
