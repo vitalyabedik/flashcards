@@ -1,4 +1,32 @@
 .container {
   position: relative;
   width: 100%;
+
+  .label {
+    color: var(--color-dark-300);
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.6rem 1.2rem;
+
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-m);
+    color: var(--color-dark-300);
+
+    background-color: transparent;
+    border: 1px solid var(--color-dark-300);
+    border-radius: 2px;
+    outline: none;
+
+    &:active {
+      color: var(--color-light-100);
+      border: 1px solid var(--color-light-100);
+    }
+
+    &:focus-visible:not(:active) {
+      border: 1px solid var(--color-info-700);
+    }
+  }
 }
