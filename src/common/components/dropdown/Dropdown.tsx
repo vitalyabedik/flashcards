@@ -6,7 +6,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import s from './Dropdown.module.scss'
 
+import { More } from '@/assets'
+import { Typography } from '@common/components'
 import { dropdownAnimations } from '@common/components/dropdown/dropdownMenuAnimations.ts'
+import { TypographyVariant } from '@common/enums'
 
 export type DropdownProps = {
   children: ReactNode
@@ -22,14 +25,19 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Root>, Dr
     const classNames = {
       button: s.button,
       content: cn(s.content, className),
+      arrowWrapper: s.arrowWrapper,
+      arrow: s.arrow,
     }
 
     return (
       <DropdownPrimitive.Root open={open} onOpenChange={setOpen}>
         <DropdownPrimitive.Trigger asChild>
           {trigger ?? (
-            // TODO: Add icon inside button
-            <button className={classNames.button}>more</button>
+            <button className={classNames.button}>
+              <div style={{ width: '100%', height: '100%' }}>
+                <More />
+              </div>
+            </button>
           )}
         </DropdownPrimitive.Trigger>
         <AnimatePresence>
@@ -44,7 +52,8 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Root>, Dr
                 onClick={event => event.stopPropagation()}
               >
                 <motion.div animate={open ? 'open' : 'closed'} {...dropdownAnimations.menu}>
-                  {children}
+                  <div>{children}</div>
+                  <DropdownPrimitive.Arrow className={classNames.arrow} />
                 </motion.div>
               </DropdownPrimitive.Content>
             </DropdownPrimitive.Portal>
@@ -73,3 +82,26 @@ export const DropdownItem = forwardRef<
     </DropdownPrimitive.Item>
   )
 })
+
+export type DropdownItemWithIconProps = Omit<DropdownItemProps, 'children'> & {
+  icon: ReactNode
+  text: string
+} & ComponentPropsWithoutRef<'div'>
+
+export const DropdownItemWithIcon = forwardRef<HTMLDivElement, DropdownItemWithIconProps>(
+  ({ icon, text, onSelect, className, ...props }, ref): JSX.Element => {
+    const classNames = {
+      item: cn(s.item, className),
+      itemIcon: s.itemIcon,
+    }
+
+    return (
+      <DropdownPrimitive.Item ref={ref} className={classNames.item} asChild {...props}>
+        <motion.div {...dropdownAnimations.item}>
+          <div className={classNames.itemIcon}>{icon}</div>
+          <Typography variant={TypographyVariant.Caption}>{text}</Typography>
+        </motion.div>
+      </DropdownPrimitive.Item>
+    )
+  }
+)

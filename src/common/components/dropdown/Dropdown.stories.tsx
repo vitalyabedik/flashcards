@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Dropdown, DropdownItem } from '@common/components'
+import { PlayCircle, Edit, Delete } from '@/assets'
+import { Dropdown, DropdownItemWithIcon } from '@common/components'
 
 const meta = {
   title: 'Components/Dropdown',
@@ -15,9 +16,9 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <DropdownItem onSelect={() => {}}>Learn</DropdownItem>
-        <DropdownItem onSelect={() => {}}>Edit</DropdownItem>
-        <DropdownItem onSelect={() => {}}>Delete</DropdownItem>
+        <DropdownItemWithIcon icon={<PlayCircle />} text="Learn" onSelect={() => {}} />
+        <DropdownItemWithIcon icon={<Edit />} text="Edit" onSelect={() => {}} />
+        <DropdownItemWithIcon icon={<Delete />} text="Delete" onSelect={() => {}} />
       </>
     ),
   },
