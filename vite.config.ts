@@ -10,6 +10,7 @@ export default defineConfig({
       { find: '@', replacement: path.resolve(__dirname, 'src') },
       { find: '@styles', replacement: path.resolve(__dirname, 'src/styles') },
       { find: '@common', replacement: path.resolve(__dirname, 'src/common') },
+      { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
     ],
   },
 })
