@@ -18,7 +18,16 @@ export const Default: Story = {
     type: 'text',
     placeholder: 'Input',
     label: 'Default input',
-    disabled: true,
+    disabled: false,
+  },
+}
+
+export const DefaultWithValue: Story = {
+  args: {
+    type: 'text',
+    placeholder: 'Input with value',
+    label: 'Input with value',
+    value: 'Test value',
   },
 }
 
@@ -48,6 +57,15 @@ export const DefaultWithSearch: Story = {
     leftIcon: <Search />,
   },
 }
+export const DefaultWithActiveSearch: Story = {
+  args: {
+    type: 'text',
+    placeholder: 'Search Input',
+    label: 'Search input',
+    leftIcon: <Search />,
+    value: 'Search with value',
+  },
+}
 
 export const DefaultWithDisabledSearch: Story = {
   args: {
@@ -56,5 +74,14 @@ export const DefaultWithDisabledSearch: Story = {
     label: 'Search input',
     leftIcon: <Search />,
     disabled: true,
+  },
+}
+
+export const PasswordInput: Story = {
+  args: {
+    type: 'password',
+    placeholder: 'Password Input',
+    label: 'Password input',
+    value: 'password',
   },
 }

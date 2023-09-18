@@ -3,8 +3,15 @@
 
   position: absolute;
   top: 50%;
-  right: $right;
-  left: $left;
+
+  @if $right != 0 {
+    right: $right;
+  }
+
+  @if $left != 0 {
+    left: $left;
+  }
+
   transform: translateY(-50%);
 
   display: flex;
@@ -23,21 +30,20 @@
   width: 100%;
 
   .label {
-    color: var(--color-dark-300);
+    color: var(--color-dark-100);
   }
 
   .inputWrapper {
     position: relative;
-
     display: flex;
     align-items: center;
 
-    border: 1px solid var(--color-dark-300);
-    border-radius: 2px;
-
     &:hover {
       background: var(--color-dark-700);
-      border: 1px solid var(--color-dark-100);
+    }
+
+    &.disabled:hover {
+      background-color: transparent;
     }
 
     .input {
@@ -47,24 +53,16 @@
       font-size: var(--font-size-m);
       font-weight: var(--font-weight-regular);
       line-height: var(--line-height-m);
-      color: var(--color-light-100);
+      color: var(--color-dark-100);
 
       background-color: transparent;
-      border: none;
-
-      /*  border: 1px solid var(--color-dark-300); */
-
-      /* border-radius: 2px; */
+      border: 1px solid var(--color-dark-300);
+      border-radius: 2px;
       outline: none;
 
-      /* &:hover {
+      &:hover {
         background: var(--color-dark-700);
         border: 1px solid var(--color-dark-100);
-      } */
-
-      &:active {
-        color: var(--color-light-100);
-        border: 1px solid var(--color-light-100);
       }
 
       &:disabled {
@@ -77,25 +75,34 @@
       }
 
       &:disabled::placeholder {
-        color: var(--color-dark-300);
+        color: var(--color-dark-100);
       }
 
-      &:focus-visible:not(:active) {
+      &.active:focus-visible {
+        color: var(--color-light-100);
+        border: 1px solid var(--color-light-100);
+      }
+
+      &:focus-visible:not(.active) {
         border: 1px solid var(--color-info-700);
         outline: 1px solid var(--color-info-700);
       }
 
-      &.inputError {
+      &.inputError:not(:focus-visible) {
         color: var(--color-danger-300);
         border: solid 1px var(--color-danger-300);
       }
 
-      &.inputError::placeholder {
+      &.inputError:not(:focus-visible)::placeholder {
         color: var(--color-danger-300);
       }
 
       &.isLeftIcon {
         padding-left: 4rem;
+      }
+
+      &.isRightIcon {
+        padding-right: 4rem;
       }
     }
 
@@ -107,19 +114,19 @@
       @include input-icon(0, 1.2rem);
     }
 
-    .input:active ~ .leftIcon,
-    .input:active ~ .rightIcon {
-      & svg {
-        fill: var(--color-light-100);
-      }
-    }
-
     .input:disabled ~ .leftIcon,
     .input:disabled ~ .rightIcon {
       cursor: auto;
 
       & svg {
         fill: var(--color-dark-300);
+      }
+    }
+
+    .input.active:focus-visible ~ .leftIcon,
+    .input.active:focus-visible ~ .rightIcon {
+      & svg {
+        fill: var(--color-light-100);
       }
     }
   }

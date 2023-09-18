@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import s from './Input.module.scss'
 
-import { OpenEye, ClosedEye } from '@/assets'
+import { ClosedEye, OpenEye } from '@/assets'
 import { Typography } from '@common/components'
 import { TypographyVariant } from '@common/enums'
 
@@ -22,16 +22,41 @@ type InputProps = Partial<InputOwnProps> & ComponentPropsWithoutRef<'input'>
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { type, label, error, placeholder, disabled, className, leftIcon } = props
+  const { type, value, label, error, placeholder, disabled, className, leftIcon, rightIcon } = props
+
+  const setVisiblePasswordHandler = () => {
+    if (isOpen) {
+      setIsOpen(false)
+    } else {
+      setIsOpen(true)
+    }
+  }
+
   const classNames = {
-    input: cn(s.input, !!error && s.inputError, !!leftIcon && s.isLeftIcon, className),
+    input: cn(
+      s.input,
+      !!value && s.active,
+      !!error && s.inputError,
+      !!leftIcon && s.isLeftIcon,
+      !!rightIcon && s.isRightIcon,
+      className
+    ),
     label: cn(s.label, disabled && s.disabledText),
     error: s.errorMessage,
+    inputWrapper: cn(s.inputWrapper, disabled && s.disabled),
     leftIcon: s.leftIcon,
     rightIcon: s.rightIcon,
   }
-
   const dynamicInputType = type === 'password' && isOpen ? 'text' : type
+  let dynamicRightIcon: ReactNode
+
+  if (type === 'password' && isOpen) {
+    dynamicRightIcon = <OpenEye />
+  } else if (type === 'password' && !isOpen) {
+    dynamicRightIcon = <ClosedEye />
+  } else {
+    dynamicRightIcon = rightIcon
+  }
 
   return (
     <div className={s.container}>
@@ -40,18 +65,21 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
           {label}
         </Typography>
       )}
-      <div className={s.inputWrapper}>
+      <div className={classNames.inputWrapper}>
         <input
           ref={ref}
           className={classNames.input}
           type={dynamicInputType}
           placeholder={placeholder}
           disabled={disabled}
+          {...props}
         />
         <Icon icon={leftIcon} className={classNames.leftIcon} />
-        {dynamicInputType === 'password' && (
-          <Icon icon={isOpen ? <OpenEye /> : <ClosedEye />} className={classNames.rightIcon} />
-        )}
+        <Icon
+          className={classNames.rightIcon}
+          icon={dynamicRightIcon}
+          setVisiblePasswordHandler={setVisiblePasswordHandler}
+        />
       </div>
       {!!error && (
         <Typography className={classNames.error} as="span" variant={TypographyVariant.Caption}>
@@ -65,12 +93,21 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
 type IconProps = {
   icon: ReactNode
   className: string
+  setVisiblePasswordHandler?: () => void
 }
 
-const Icon = ({ icon, className }: IconProps) => {
+const Icon = ({ icon, className, setVisiblePasswordHandler }: IconProps) => {
   if (!icon) {
     return null
   }
 
-  return <div className={className}>{icon}</div>
+  return (
+    <div
+      className={className}
+      onMouseDown={setVisiblePasswordHandler}
+      onMouseUp={setVisiblePasswordHandler}
+    >
+      {icon}
+    </div>
+  )
 }
