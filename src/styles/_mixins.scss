@@ -37,3 +37,19 @@
   line-height: $lineHeight;
   color: var(--color-light-100);
 }
+
+@mixin radio($color) {
+  content: '';
+
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  background-color: $color;
+  border-radius: 50%;
+}
