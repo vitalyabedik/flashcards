@@ -1,4 +1,11 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, ReactNode, useState } from 'react'
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ReactNode,
+  useState,
+} from 'react'
 
 import cn from 'classnames'
 
@@ -17,6 +24,7 @@ type InputOwnProps = {
   onChangeValue?: (value: string) => void
   onLeftIconClickHandler?: () => void
   onRightIconClickHandler?: () => void
+  onKeyPress?: () => void
 }
 
 type InputProps = Partial<InputOwnProps> & ComponentPropsWithoutRef<'input'>
@@ -35,9 +43,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
     leftIcon,
     rightIcon,
     onChange,
+    onChangeValue,
     onLeftIconClickHandler,
     onRightIconClickHandler,
-    onChangeValue,
+    onKeyPress,
     ...restProps
   } = props
 
@@ -48,6 +57,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
   const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e)
     onChangeValue?.(e.currentTarget.value)
+  }
+
+  const onPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      onKeyPress?.()
+    }
   }
 
   const classNames = {
@@ -88,8 +103,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
           type={dynamicInputType}
           value={value}
           placeholder={placeholder}
-          onChange={onChangeValueHandler}
           disabled={disabled}
+          onKeyUp={onPressKeyHandler}
+          onChange={onChangeValueHandler}
           {...restProps}
         />
         <Icon className={classNames.leftIcon} icon={leftIcon} onClick={onLeftIconClickHandler} />

@@ -59,6 +59,10 @@ const PasswordInput = () => {
     setValue(value)
   }
 
+  const onKeyPress = () => {
+    alert(`Send data from input: ${value}`)
+  }
+
   return (
     <Input
       type="password"
@@ -66,6 +70,7 @@ const PasswordInput = () => {
       onChangeValue={onChangeValue}
       placeholder="Password input"
       label="Password input"
+      onKeyPress={onKeyPress}
     />
   )
 }
