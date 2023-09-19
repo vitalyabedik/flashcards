@@ -1,0 +1,39 @@
+@use '@styles/_mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.root {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  max-width: 54.2rem;
+
+  .header {
+    @include flex($justify: space-between, $align: center);
+
+    padding: 1.8rem 2.4rem;
+    border-bottom: 1px solid var(--color-dark-500);
+  }
+}
+
+.closeBtn {
+  cursor: pointer;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: var(--color-dark-300);
+  }
+
+  &:active {
+    background-color: var(--color-dark-100);
+  }
+}
