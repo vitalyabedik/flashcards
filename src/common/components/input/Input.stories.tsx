@@ -1,8 +1,10 @@
+import { useState } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Input } from './'
 
-import { Search } from '@/assets'
+import { Clear, Search } from '@/assets'
 
 const meta = {
   title: 'Components/Input',
@@ -12,25 +14,6 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
-
-export const Default: Story = {
-  args: {
-    type: 'text',
-    placeholder: 'Input',
-    label: 'Default input',
-    value: '',
-    disabled: false,
-  },
-}
-
-export const DefaultWithValue: Story = {
-  args: {
-    type: 'text',
-    placeholder: 'Input with value',
-    label: 'Input with value',
-    value: 'Test value',
-  },
-}
 
 export const DefaultWithError: Story = {
   args: {
@@ -70,11 +53,87 @@ export const DefaultWithDisabledSearch: Story = {
   },
 }
 
-export const PasswordInput: Story = {
-  args: {
-    type: 'password',
-    placeholder: 'Password Input',
-    label: 'Password input',
-    value: 'password',
-  },
+const PasswordInput = () => {
+  const [value, setValue] = useState('')
+  const onChangeValue = (value: string) => {
+    setValue(value)
+  }
+
+  return (
+    <Input
+      type="password"
+      value={value}
+      onChangeValue={onChangeValue}
+      placeholder="Password input"
+      label="Password input"
+    />
+  )
 }
+
+export const PasswordInputWithAction = () => <PasswordInput />
+
+const DefaultInput = () => {
+  const [value, setValue] = useState('')
+  const onChangeValue = (value: string) => {
+    setValue(value)
+  }
+
+  return (
+    <Input
+      value={value}
+      onChangeValue={onChangeValue}
+      placeholder="Default input"
+      label="Default input"
+    />
+  )
+}
+
+export const DefaultInputWithAction = () => <DefaultInput />
+
+const SearchInput = () => {
+  const [value, setValue] = useState('')
+  const onChangeValue = (value: string) => {
+    setValue(value)
+  }
+  const onLeftIconClickHandler = () => {
+    alert(value)
+  }
+
+  return (
+    <Input
+      type="search"
+      value={value}
+      onChangeValue={onChangeValue}
+      placeholder="Search input"
+      label="Search input"
+      leftIcon={<Search />}
+      onLeftIconClickHandler={onLeftIconClickHandler}
+    />
+  )
+}
+
+export const SearchInputWithAction = () => <SearchInput />
+
+const ClearInput = () => {
+  const [value, setValue] = useState('')
+  const onChangeValue = (value: string) => {
+    setValue(value)
+  }
+  const onRightIconClickHandler = () => {
+    setValue('')
+  }
+
+  return (
+    <Input
+      type="text"
+      value={value}
+      onChangeValue={onChangeValue}
+      placeholder="Input with clear icon"
+      label="Input with clear icon"
+      rightIcon={<Clear />}
+      onRightIconClickHandler={onRightIconClickHandler}
+    />
+  )
+}
+
+export const ClearInputWithAction = () => <ClearInput />

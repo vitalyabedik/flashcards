@@ -15,12 +15,14 @@ type InputOwnProps = {
   leftIcon: ReactNode
   rightIcon: ReactNode
   onChangeValue?: (value: string) => void
+  onLeftIconClickHandler?: () => void
+  onRightIconClickHandler?: () => void
 }
 
 type InputProps = Partial<InputOwnProps> & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   const {
     type,
@@ -33,6 +35,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
     leftIcon,
     rightIcon,
     onChange,
+    onLeftIconClickHandler,
+    onRightIconClickHandler,
     onChangeValue,
     ...restProps
   } = props
@@ -88,11 +92,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
           disabled={disabled}
           {...restProps}
         />
-        <Icon icon={leftIcon} className={classNames.leftIcon} />
+        <Icon className={classNames.leftIcon} icon={leftIcon} onClick={onLeftIconClickHandler} />
         <Icon
           className={classNames.rightIcon}
           icon={dynamicRightIcon}
-          onClick={setVisiblePasswordHandler}
+          onClick={onRightIconClickHandler ? onRightIconClickHandler : setVisiblePasswordHandler}
         />
       </div>
       {!!error && (
