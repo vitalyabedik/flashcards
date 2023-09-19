@@ -1,0 +1,77 @@
+@use '@styles/_mixins' as *;
+
+.root {
+  @include flex($align: center, $justify: center);
+
+  cursor: pointer;
+
+  width: 1.4rem;
+  height: 1.4rem;
+
+  background-color: var(--color-dark-900);
+  border-radius: 2px;
+
+  &:not([data-state='checked']) {
+    border: 2px solid var(--color-light-900);
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    cursor: initial;
+    border: 2px solid var(--color-dark-100);
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: var(--color-dark-900);
+    border: 2px solid var(--color-light-100);
+  }
+
+  &:not([data-state='checked']):focus-within {
+    background-color: var(--color-dark-100);
+    border: 2px solid var(--color-light-900);
+  }
+
+  &[data-state='checked'][data-disabled] {
+    background-color: var(--color-light-700);
+  }
+}
+
+.checkboxWrapper {
+  @include flex($align: center, $justify: center);
+
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+
+  &:focus-within {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover:not(.disabled) {
+    background-color: var(--color-dark-500);
+  }
+
+  &:hover:not(.disabled) .root:not([data-state='checked']) {
+    background-color: var(--color-dark-500);
+  }
+
+  &.left {
+    margin-left: -0.9rem;
+  }
+}
+
+.label {
+  @include flex($align: center, $gap: 2px);
+
+  cursor: pointer;
+
+  &.disabled {
+    cursor: initial;
+    color: var(--color-dark-100);
+  }
+}
+
+.indicator {
+  width: 1.8rem;
+  height: 1.8rem;
+}

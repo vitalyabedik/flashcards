@@ -1,5 +1,7 @@
+export { default as Check } from './check'
 export { default as More } from './More'
 export { default as PlayCircle } from './PlayCircle'
 export { default as Edit } from './Edit'
 export { default as Delete } from './Delete'
 export { default as Close } from './Close'
+export { default as Delete } from './Delete'
