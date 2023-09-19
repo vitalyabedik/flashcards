@@ -38,6 +38,15 @@
   color: var(--color-light-100);
 }
 
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0, $wrap: nowrap) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  gap: $gap;
+  align-items: $align;
+  justify-content: $justify;
+  flex-wrap: $wrap;
+}
+
 @mixin radio($color) {
   content: '';
 
