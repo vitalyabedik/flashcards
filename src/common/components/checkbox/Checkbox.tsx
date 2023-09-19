@@ -26,7 +26,7 @@ export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, Checkb
   ({ checked, onChange, disabled, required, label, id, position, className }, ref): JSX.Element => {
     const classNames = {
       container: className,
-      checkboxWrapper: cn(s.checkboxWrapper, disabled && disabled, position === 'left' && s.left),
+      checkboxWrapper: cn(s.checkboxWrapper, disabled && s.disabled, position === 'left' && s.left),
       root: s.root,
       indicator: s.indicator,
       label: cn(s.label, disabled && s.disabled),

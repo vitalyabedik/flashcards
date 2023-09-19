@@ -15,13 +15,13 @@
     border: 2px solid var(--color-light-900);
   }
 
-  &:disabled {
+  &[data-disabled] {
     pointer-events: none;
     cursor: initial;
     border: 2px solid var(--color-dark-100);
   }
 
-  &:active {
+  &:active:not([data-disabled]) {
     background-color: var(--color-dark-900);
     border: 2px solid var(--color-light-100);
   }
@@ -31,7 +31,7 @@
     border: 2px solid var(--color-light-900);
   }
 
-  &[data-state='checked']:disabled {
+  &[data-state='checked'][data-disabled] {
     background-color: var(--color-light-700);
   }
 }
@@ -51,12 +51,8 @@
     background-color: var(--color-dark-500);
   }
 
-  &:hover .root:not([data-state='checked']) {
+  &:hover:not(.disabled) .root:not([data-state='checked']) {
     background-color: var(--color-dark-500);
-  }
-
-  &.disabled {
-    cursor: inherit;
   }
 
   &.left {
