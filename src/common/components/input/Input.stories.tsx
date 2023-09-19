@@ -18,6 +18,7 @@ export const Default: Story = {
     type: 'text',
     placeholder: 'Input',
     label: 'Default input',
+    value: '',
     disabled: false,
   },
 }
@@ -51,19 +52,11 @@ export const DefaultWithDisableState: Story = {
 
 export const DefaultWithSearch: Story = {
   args: {
-    type: 'text',
+    type: 'search',
     placeholder: 'Search Input',
     label: 'Search input',
+    value: '',
     leftIcon: <Search />,
-  },
-}
-export const DefaultWithActiveSearch: Story = {
-  args: {
-    type: 'text',
-    placeholder: 'Search Input',
-    label: 'Search input',
-    leftIcon: <Search />,
-    value: 'Search with value',
   },
 }
 

@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, ReactNode, useState } from 'react'
 
 import cn from 'classnames'
 
@@ -14,36 +14,48 @@ type InputOwnProps = {
   error: string
   leftIcon: ReactNode
   rightIcon: ReactNode
-  onChangeValue: (value: string) => void
+  onChangeValue?: (value: string) => void
 }
 
 type InputProps = Partial<InputOwnProps> & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
-  const { type, value, label, error, placeholder, disabled, className, leftIcon, rightIcon } = props
+  const {
+    type,
+    value,
+    label,
+    error,
+    placeholder,
+    disabled,
+    className,
+    leftIcon,
+    rightIcon,
+    onChange,
+    onChangeValue,
+    ...restProps
+  } = props
 
   const setVisiblePasswordHandler = () => {
-    if (isOpen) {
-      setIsOpen(false)
-    } else {
-      setIsOpen(true)
-    }
+    setIsOpen(!isOpen)
+  }
+
+  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e)
+    onChangeValue?.(e.currentTarget.value)
   }
 
   const classNames = {
-    input: cn(
-      s.input,
-      !!value && s.active,
-      !!error && s.inputError,
-      !!leftIcon && s.isLeftIcon,
-      !!rightIcon && s.isRightIcon,
-      className
-    ),
+    input: cn(s.input, !!leftIcon && s.isLeftIcon, !!rightIcon && s.isRightIcon, className),
     label: cn(s.label, disabled && s.disabledText),
     error: s.errorMessage,
-    inputWrapper: cn(s.inputWrapper, disabled && s.disabled),
+    inputWrapper: cn(
+      s.inputWrapper,
+      !!value && s.active,
+      disabled && s.disabled,
+      !!error && s.error
+    ),
     leftIcon: s.leftIcon,
     rightIcon: s.rightIcon,
   }
@@ -65,20 +77,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
           {label}
         </Typography>
       )}
-      <div className={classNames.inputWrapper}>
+      <div className={classNames.inputWrapper} tabIndex={0}>
         <input
           ref={ref}
           className={classNames.input}
           type={dynamicInputType}
+          value={value}
           placeholder={placeholder}
+          onChange={onChangeValueHandler}
           disabled={disabled}
-          {...props}
+          {...restProps}
         />
         <Icon icon={leftIcon} className={classNames.leftIcon} />
         <Icon
           className={classNames.rightIcon}
           icon={dynamicRightIcon}
-          setVisiblePasswordHandler={setVisiblePasswordHandler}
+          onClick={setVisiblePasswordHandler}
         />
       </div>
       {!!error && (
@@ -93,20 +107,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
 type IconProps = {
   icon: ReactNode
   className: string
-  setVisiblePasswordHandler?: () => void
+  onClick?: () => void
 }
 
-const Icon = ({ icon, className, setVisiblePasswordHandler }: IconProps) => {
+const Icon = ({ icon, className, onClick }: IconProps) => {
   if (!icon) {
     return null
   }
 
   return (
-    <div
-      className={className}
-      onMouseDown={setVisiblePasswordHandler}
-      onMouseUp={setVisiblePasswordHandler}
-    >
+    <div className={className} onClick={onClick}>
       {icon}
     </div>
   )

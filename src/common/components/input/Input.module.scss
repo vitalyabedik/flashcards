@@ -35,15 +35,74 @@
 
   .inputWrapper {
     position: relative;
+
+    overflow: hidden;
     display: flex;
     align-items: center;
 
+    color: var(--color-dark-100);
+
+    border: 1px solid var(--color-dark-300);
+    border-radius: 2px;
+
     &:hover {
       background: var(--color-dark-700);
+      border: 1px solid var(--color-dark-100);
+    }
+
+    &.disabled {
+      color: var(--color-dark-300);
+      border: 1px solid var(--color-dark-300);
     }
 
     &.disabled:hover {
       background-color: transparent;
+    }
+
+    &.disabled .input::placeholder {
+      color: var(--color-dark-300);
+    }
+
+    &.active:focus-within {
+      border: 1px solid var(--color-light-100);
+      outline: none;
+    }
+
+    &:focus-visible:not(.active) {
+      border: 1px solid var(--color-info-700);
+      outline: 1px solid var(--color-info-700);
+    }
+
+    &.error:not(:focus-visible) {
+      border: solid 1px var(--color-danger-300);
+    }
+
+    &.error:not(:focus-visible)::placeholder {
+      color: var(--color-danger-300);
+    }
+
+    .leftIcon {
+      @include input-icon(1.2rem, 0);
+    }
+
+    .rightIcon {
+      @include input-icon(0, 1.2rem);
+    }
+
+    &.disabled .leftIcon,
+    &.disabled .rightIcon {
+      cursor: auto;
+
+      & svg {
+        fill: var(--color-dark-300);
+      }
+    }
+
+    &.active:focus-within .leftIcon,
+    &.active:focus-within .rightIcon {
+      & svg {
+        fill: var(--color-light-100);
+      }
     }
 
     .input {
@@ -56,46 +115,8 @@
       color: var(--color-dark-100);
 
       background-color: transparent;
-      border: 1px solid var(--color-dark-300);
-      border-radius: 2px;
+      border: none;
       outline: none;
-
-      &:hover {
-        background: var(--color-dark-700);
-        border: 1px solid var(--color-dark-100);
-      }
-
-      &:disabled {
-        color: var(--color-dark-300);
-        border: 1px solid var(--color-dark-300);
-      }
-
-      &:disabled:hover {
-        background-color: transparent;
-      }
-
-      &:disabled::placeholder {
-        color: var(--color-dark-100);
-      }
-
-      &.active:focus-visible {
-        color: var(--color-light-100);
-        border: 1px solid var(--color-light-100);
-      }
-
-      &:focus-visible:not(.active) {
-        border: 1px solid var(--color-info-700);
-        outline: 1px solid var(--color-info-700);
-      }
-
-      &.inputError:not(:focus-visible) {
-        color: var(--color-danger-300);
-        border: solid 1px var(--color-danger-300);
-      }
-
-      &.inputError:not(:focus-visible)::placeholder {
-        color: var(--color-danger-300);
-      }
 
       &.isLeftIcon {
         padding-left: 4rem;
@@ -106,28 +127,16 @@
       }
     }
 
-    .leftIcon {
-      @include input-icon(1.2rem, 0);
+    &.active:focus-within .input {
+      color: var(--color-light-100);
     }
 
-    .rightIcon {
-      @include input-icon(0, 1.2rem);
+    &.error:not(:focus-visible) .input {
+      color: var(--color-danger-300);
     }
 
-    .input:disabled ~ .leftIcon,
-    .input:disabled ~ .rightIcon {
-      cursor: auto;
-
-      & svg {
-        fill: var(--color-dark-300);
-      }
-    }
-
-    .input.active:focus-visible ~ .leftIcon,
-    .input.active:focus-visible ~ .rightIcon {
-      & svg {
-        fill: var(--color-light-100);
-      }
+    &.error:not(:focus-visible) .input::placeholder {
+      color: var(--color-danger-300);
     }
   }
 
