@@ -1,12 +1,12 @@
+@use '@styles/_mixins' as *;
+
 .root {
+  @include flex($align: center, $justify: center);
+
   cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 14px;
-  height: 14px;
+  width: 1.4rem;
+  height: 1.4rem;
 
   background-color: var(--color-dark-900);
   border-radius: 2px;
@@ -21,14 +21,14 @@
     border: 2px solid var(--color-dark-100);
   }
 
-  &:not([data-state='checked']):focus-within {
-    background-color: var(--color-dark-100);
-    border: 2px solid var(--color-light-900);
-  }
-
   &:active {
     background-color: var(--color-dark-900);
     border: 2px solid var(--color-light-100);
+  }
+
+  &:not([data-state='checked']):focus-within {
+    background-color: var(--color-dark-100);
+    border: 2px solid var(--color-light-900);
   }
 
   &[data-state='checked']:disabled {
@@ -37,13 +37,10 @@
 }
 
 .checkboxWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex($align: center, $justify: center);
 
-  width: 36px;
-  height: 36px;
-
+  width: 3.6rem;
+  height: 3.6rem;
   border-radius: 50%;
 
   &:focus-within {
@@ -63,15 +60,14 @@
   }
 
   &.left {
-    margin-left: -9px;
+    margin-left: -0.9rem;
   }
 }
 
 .label {
+  @include flex($align: center, $gap: 2px);
+
   cursor: pointer;
-  display: flex;
-  gap: 2px;
-  align-items: center;
 
   &.disabled {
     cursor: initial;
@@ -80,6 +76,6 @@
 }
 
 .indicator {
-  width: 18px;
-  height: 18px;
+  width: 1.8rem;
+  height: 1.8rem;
 }
