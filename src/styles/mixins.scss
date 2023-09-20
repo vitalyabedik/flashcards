@@ -41,10 +41,10 @@
 @mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0, $wrap: nowrap) {
   display: flex;
   flex-flow: $direction $wrap;
+  flex-wrap: $wrap;
   gap: $gap;
   align-items: $align;
   justify-content: $justify;
-  flex-wrap: $wrap;
 }
 
 @mixin radio($color) {
