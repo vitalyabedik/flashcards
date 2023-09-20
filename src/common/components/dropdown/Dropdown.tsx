@@ -34,9 +34,7 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
         <DropdownPrimitive.Trigger asChild>
           {trigger ?? (
             <button className={classNames.button}>
-              <div style={{ width: '100%', height: '100%' }}>
-                <More />
-              </div>
+              <More />
             </button>
           )}
         </DropdownPrimitive.Trigger>
