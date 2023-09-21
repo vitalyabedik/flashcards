@@ -4,7 +4,10 @@
   cursor: pointer;
   user-select: none;
 
-  display: inline-block;
+  display: inline-flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
 
   padding: 0.6rem 2.8rem;
 
@@ -41,10 +44,10 @@
 @mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0, $wrap: nowrap) {
   display: flex;
   flex-flow: $direction $wrap;
+  flex-wrap: $wrap;
   gap: $gap;
   align-items: $align;
   justify-content: $justify;
-  flex-wrap: $wrap;
 }
 
 @mixin radio($color) {

@@ -16,9 +16,9 @@ export type DropdownProps = {
   trigger?: ReactNode
   align?: 'start' | 'center' | 'end'
   className?: string
-} & ComponentPropsWithoutRef<typeof DropdownPrimitive.Root>
+} & ComponentPropsWithoutRef<typeof DropdownPrimitive.Content>
 
-export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Root>, DropdownProps>(
+export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>, DropdownProps>(
   ({ children, trigger, align = 'end', className }, ref): JSX.Element => {
     const [open, setOpen] = useState(false)
 
@@ -34,9 +34,7 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Root>, Dr
         <DropdownPrimitive.Trigger asChild>
           {trigger ?? (
             <button className={classNames.button}>
-              <div style={{ width: '100%', height: '100%' }}>
-                <More />
-              </div>
+              <More />
             </button>
           )}
         </DropdownPrimitive.Trigger>

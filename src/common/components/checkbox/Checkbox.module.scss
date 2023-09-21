@@ -1,4 +1,4 @@
-@use '@styles/_mixins' as *;
+@import '@styles/mixins';
 
 .root {
   @include flex($align: center, $justify: center);
