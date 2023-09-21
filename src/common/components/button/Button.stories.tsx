@@ -73,7 +73,7 @@ export const PrimaryWithIcon: Story = {
     variant: 'primary',
     children: (
       <>
-        <LogoutIcon />
+        <LogoutIcon size={1.6} />
         Primary Button
       </>
     ),
@@ -86,7 +86,7 @@ export const SecondaryWithIcon: Story = {
     variant: 'secondary',
     children: (
       <>
-        <LogoutIcon />
+        <LogoutIcon size={1.6} />
         Secondary Button
       </>
     ),

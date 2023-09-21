@@ -39,7 +39,7 @@ export const DefaultWithSearch: Story = {
     placeholder: 'Search Input',
     label: 'Search input',
     value: '',
-    leftIcon: <Search />,
+    leftIcon: <Search size={1.9} />,
   },
 }
 
@@ -48,7 +48,7 @@ export const DefaultWithDisabledSearch: Story = {
     type: 'text',
     placeholder: 'Search Input',
     label: 'Search input',
-    leftIcon: <Search />,
+    leftIcon: <Search size={1.9} />,
     disabled: true,
   },
 }
