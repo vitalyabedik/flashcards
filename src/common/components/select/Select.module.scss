@@ -1,0 +1,128 @@
+@use '@styles/_mixins' as *;
+
+.label {
+  color: var(--color-dark-100);
+}
+
+.labelDisabled {
+  color: var(--color-dark-300);
+}
+
+.content {
+  @include flex($align: center, $justify: space-between);
+
+  cursor: pointer;
+  box-sizing: border-box;
+  width: var(--radix-select-trigger-width);
+  border: 1px solid var(--color-dark-300);
+
+  &[data-disabled] {
+    cursor: initial;
+    color: var(--color-dark-300);
+    border-color: var(--color-dark-300);
+  }
+
+  &[data-state='open'] {
+    border-color: var(--color-dark-100);
+    border-top: none;
+    border-radius: 0 0 2px 2px;
+  }
+
+  .text {
+    &:hover {
+      color: var(--color-accent-300);
+    }
+
+    &:active {
+      color: var(--color-light-100);
+    }
+  }
+
+  .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.trigger {
+  @include flex($align: center, $justify: space-between);
+
+  pointer-events: auto;
+  cursor: pointer;
+
+  box-sizing: border-box;
+  padding: 0.6rem 1.2rem;
+
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
+  &[data-disabled] {
+    cursor: initial;
+    color: var(--color-dark-300);
+    border-color: var(--color-dark-300);
+  }
+
+  &[data-state='open'] {
+    border-color: var(--color-dark-100);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .icon {
+    pointer-events: auto;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  &:focus {
+    border: 2px solid var(--color-info-700);
+  }
+
+  &:hover:not([data-disabled]) {
+    background-color: var(--color-dark-500);
+  }
+
+  &[data-state='open'] .icon {
+    transform: rotate(180deg);
+  }
+
+  &[data-disabled] .text {
+    color: var(--color-dark-300);
+  }
+
+  &[data-disabled] svg path {
+    fill: var(--color-dark-300);
+  }
+}
+
+.items {
+  @include flex($direction: column, $gap: 1.2rem);
+
+  border: 1px solid var(--color-dark-300);
+}
+
+.selectItem {
+  cursor: pointer;
+  user-select: none;
+  width: var(--radix-select-trigger-width);
+
+  &:hover:not([data-disabled]) {
+    background-color: var(--color-accent-900);
+    border: 1px solid var(--color-dark-100);
+    border-top: none;
+    border-bottom: none;
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: initial;
+  }
+
+  &[data-highlighted] {
+    color: var(--color-accent-300);
+    background-color: var(--color-accent-900);
+    outline: none;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
