@@ -65,3 +65,18 @@
   background-color: $color;
   border-radius: 50%;
 }
+
+@mixin iconButton {
+  all: unset;
+
+  cursor: pointer;
+
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+}
