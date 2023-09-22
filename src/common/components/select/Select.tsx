@@ -70,7 +70,7 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
               <RadixSelect.Value className={s.value} placeholder={placeholder} />
             </Typography>
             <RadixSelect.Icon className={s.icon}>
-              <ArrowUp />
+              <ArrowUp size={1.6} />
             </RadixSelect.Icon>
           </RadixSelect.Trigger>
           <RadixSelect.Portal>
