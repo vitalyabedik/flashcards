@@ -24,10 +24,7 @@
 }
 
 .closeBtn {
-  cursor: pointer;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
+  @include iconButton;
 
   &:hover {
     background-color: var(--color-dark-300);
