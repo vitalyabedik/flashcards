@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Tabs } from './Tabs'
+import { Tabs } from './'
 
 const meta = {
   title: 'Components/Tabs',
@@ -28,17 +28,14 @@ export const DefaultTabs: Story = {
   },
 }
 
-export const TabsWithActions: Story = {
-  args: {
-    value: '1',
-    tabs: initialTabsState,
-  },
-  render: ({ value, tabs }) => {
-    const [activeTab, setActiveTab] = useState(value)
-    const onChangeActiveTab = (value: string) => {
-      setActiveTab(value)
-    }
+const TabsExample = () => {
+  const [activeTab, setActiveTab] = useState(initialTabsState[0].value)
+  const tabs = initialTabsState
+  const changeActiveTab = (tabValue: string) => {
+    setActiveTab(tabValue)
+  }
 
-    return <Tabs value={activeTab} tabs={tabs} onChangeActiveTab={onChangeActiveTab} />
-  },
+  return <Tabs value={activeTab} onValueChange={changeActiveTab} tabs={tabs} />
 }
+
+export const TabsWithActions = () => <TabsExample />
