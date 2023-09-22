@@ -16,9 +16,9 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <DropdownItemWithIcon icon={<PlayCircle />} text="Learn" onSelect={() => {}} />
-        <DropdownItemWithIcon icon={<Edit />} text="Edit" onSelect={() => {}} />
-        <DropdownItemWithIcon icon={<Delete />} text="Delete" onSelect={() => {}} />
+        <DropdownItemWithIcon icon={<PlayCircle size={1.6} />} text="Learn" onSelect={() => {}} />
+        <DropdownItemWithIcon icon={<Edit size={1.6} />} text="Edit" onSelect={() => {}} />
+        <DropdownItemWithIcon icon={<Delete size={1.6} />} text="Delete" onSelect={() => {}} />
       </>
     ),
   },
