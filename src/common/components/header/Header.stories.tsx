@@ -13,16 +13,15 @@ type Story = StoryObj<typeof meta>
 
 export const HeaderWithButton: Story = {
   args: {
-    data: null,
+    isLoggedIn: false,
   },
 }
 
 export const HeaderWithAvatar: Story = {
   args: {
-    data: {
-      avatar: 'https://placehold.co/96',
-      name: 'Ivan',
-      email: 'j&johnson@gmail.com',
-    },
+    avatar: 'https://placehold.co/96',
+    name: 'Ivan',
+    email: 'j&johnson@gmail.com',
+    isLoggedIn: true,
   },
 }

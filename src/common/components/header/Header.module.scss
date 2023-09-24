@@ -24,7 +24,7 @@
   border-bottom: 2px dashed var(--color-light-100);
 }
 
-.profileBlockWrapper {
+.blockWrapper {
   @include flex($justify: space-between, $align: center, $gap: 1.4rem);
 }
 

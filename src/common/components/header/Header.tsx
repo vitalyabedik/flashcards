@@ -15,26 +15,26 @@ import {
 } from '@common/components'
 import { TypographyVariant } from '@common/enums'
 
-export type ProfileInfoType = {
-  name: string
-  avatar: string
-  email: string
-}
-
 type Props = {
-  data: ProfileInfoType | null
+  isLoggedIn: boolean
+  name?: string
+  avatar?: string
+  email?: string
   className?: string
 } & ComponentPropsWithoutRef<'div'>
 
 export const Header = forwardRef<HTMLDivElement, Props>(
-  ({ data, className, ...rest }, ref): JSX.Element => {
+  (
+    { name = 'name', avatar = 'avatar', email = 'email', isLoggedIn, className },
+    ref
+  ): JSX.Element => {
     const classNames = {
       root: cn(s.root, className),
       headerContainer: s.headerContainer,
       logo: s.logo,
       userName: s.userName,
+      blockWrapper: s.blockWrapper,
       dropdownItemsWrapper: s.profileBlockWrapper,
-      profileBlockWrapper: s.profileBlockWrapper,
       profileBlockInfoWrapper: s.profileBlockInfoWrapper,
       profileBlockInfoTextWrapper: s.profileBlockInfoTextWrapper,
       profileBlockInfoText: s.profileBlockInfoText,
@@ -42,25 +42,25 @@ export const Header = forwardRef<HTMLDivElement, Props>(
 
     return (
       <header ref={ref} className={classNames.root}>
-        <div className={classNames.headerContainer} {...rest}>
+        <div className={classNames.headerContainer}>
           <Logo className={classNames.logo} />
-          {data ? (
-            <div className={classNames.profileBlockWrapper}>
+          {isLoggedIn ? (
+            <div className={classNames.blockWrapper}>
               <Typography className={classNames.userName} variant={TypographyVariant.Subtitle1}>
-                {data.name}
+                {name}
               </Typography>
-              <Dropdown trigger={<Avatar image={data.avatar} userName={data.name} size="small" />}>
+              <Dropdown trigger={<Avatar image={avatar} userName={name} size="small" />}>
                 <div className={s.dropdownItemsWrapper}>
                   <DropdownItem>
                     <div className={classNames.profileBlockInfoWrapper}>
-                      <Avatar image={data.avatar} userName={data.name} size="small" />
+                      <Avatar image={avatar} userName={name} size="small" />
                       <div className={classNames.profileBlockInfoTextWrapper}>
-                        <Typography variant={TypographyVariant.Subtitle1}>{data.name}</Typography>{' '}
+                        <Typography variant={TypographyVariant.Subtitle1}>{name}</Typography>
                         <Typography
                           className={classNames.profileBlockInfoText}
                           variant={TypographyVariant.Caption}
                         >
-                          {data.email}
+                          {email}
                         </Typography>
                       </div>
                     </div>
