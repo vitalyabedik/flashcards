@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import s from './Default.module.scss'
 
-import { Select, SelectItemOwnProps } from '@common/components'
+import { DefaultClassNameType, OptionType, Select } from '@common/components'
 
 const meta = {
   title: 'Components/Select',
@@ -13,14 +13,14 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const initialSelectState: SelectItemOwnProps[] = [
+const initialSelectState: OptionType[] = [
   { value: 'first', title: 'First Select' },
   { value: 'second', title: 'Second Select' },
   { value: 'third', title: 'Third Select' },
   { value: 'fourth', title: 'Fourth Select' },
 ]
 
-const defaultClasses = {
+const defaultClassNames: DefaultClassNameType = {
   container: s.default,
   selectItemPaddings: s.selectItemPaddings,
 }
@@ -30,9 +30,8 @@ export const Default: Story = {
     options: initialSelectState,
     disabled: false,
     fullWidth: false,
-    defaultClasses,
+    defaultClassNames,
   },
-  render: args => <Select {...args} />,
 }
 
 export const SelectWithLabel: Story = {
@@ -41,7 +40,6 @@ export const SelectWithLabel: Story = {
     label: 'Select label',
     disabled: false,
     fullWidth: false,
-    defaultClasses,
+    defaultClassNames,
   },
-  render: args => <Select {...args} onValueChange={() => {}} />,
 }
