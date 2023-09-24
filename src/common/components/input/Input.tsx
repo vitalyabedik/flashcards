@@ -15,30 +15,24 @@ import { ClosedEye, OpenEye } from '@/assets'
 import { Typography } from '@common/components'
 import { TypographyVariant } from '@common/enums'
 
-type InputOwnProps = {
-  label: string
-  className: string
-  error: string
-  leftIcon: ReactNode
-  rightIcon: ReactNode
+type InputProps = {
+  label?: string
+  error?: string
+  leftIcon?: ReactNode
+  rightIcon?: ReactNode
   onChangeValue?: (value: string) => void
   onLeftIconClickHandler?: () => void
   onRightIconClickHandler?: () => void
-  onKeyPress?: () => void
-}
-
-type InputProps = Partial<InputOwnProps> & ComponentPropsWithoutRef<'input'>
+  onEnter?: ComponentPropsWithoutRef<'input'>['onKeyDown']
+} & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false)
 
   const {
     type,
-    value,
     label,
     error,
-    placeholder,
-    disabled,
     className,
     leftIcon,
     rightIcon,
@@ -46,12 +40,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
     onChangeValue,
     onLeftIconClickHandler,
     onRightIconClickHandler,
-    onKeyPress,
+    onKeyDown,
+    onEnter,
     ...restProps
   } = props
 
   const setVisiblePasswordHandler = () => {
-    setIsOpen(!isOpen)
+    setIsVisiblePassword(prevState => !prevState)
   }
 
   const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,38 +54,30 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
     onChangeValue?.(e.currentTarget.value)
   }
 
-  const onPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
-      onKeyPress?.()
+      onEnter?.(e)
     }
+    onKeyDown?.(e)
   }
 
   const classNames = {
     input: cn(s.input, !!leftIcon && s.isLeftIcon, !!rightIcon && s.isRightIcon, className),
-    label: cn(s.label, disabled && s.disabledText),
-    error: s.errorMessage,
+    label: cn(s.label, restProps.disabled && s.disabledText),
     inputWrapper: cn(
       s.inputWrapper,
-      !!value && s.active,
-      disabled && s.disabled,
+      !!restProps.value && s.active,
+      restProps.disabled && s.disabled,
       !!error && s.error
     ),
     leftIcon: s.leftIcon,
     rightIcon: s.rightIcon,
   }
-  const dynamicInputType = type === 'password' && isOpen ? 'text' : type
-  let dynamicRightIcon: ReactNode
-
-  if (type === 'password' && isOpen) {
-    dynamicRightIcon = <OpenEye />
-  } else if (type === 'password' && !isOpen) {
-    dynamicRightIcon = <ClosedEye />
-  } else {
-    dynamicRightIcon = rightIcon
-  }
+  const inputType = type === 'password' && isVisiblePassword ? 'text' : type
+  const dynamicRightIcon = getRightInputIcon(type || 'text', isVisiblePassword, rightIcon)
 
   return (
-    <div className={s.container}>
+    <div className={s.root}>
       {label && (
         <Typography className={classNames.label} as="label" variant={TypographyVariant.Body2}>
           {label}
@@ -100,23 +87,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
         <input
           ref={ref}
           className={classNames.input}
-          type={dynamicInputType}
-          value={value}
-          placeholder={placeholder}
-          disabled={disabled}
-          onKeyUp={onPressKeyHandler}
+          type={inputType}
+          onKeyDown={onKeyPressHandler}
           onChange={onChangeValueHandler}
           {...restProps}
         />
-        <Icon className={classNames.leftIcon} icon={leftIcon} onClick={onLeftIconClickHandler} />
-        <Icon
+        <InputIcon
+          className={classNames.leftIcon}
+          icon={leftIcon}
+          onClick={onLeftIconClickHandler}
+        />
+        <InputIcon
           className={classNames.rightIcon}
           icon={dynamicRightIcon}
-          onClick={onRightIconClickHandler ? onRightIconClickHandler : setVisiblePasswordHandler}
+          onClick={type === 'password' ? setVisiblePasswordHandler : onRightIconClickHandler}
         />
       </div>
       {!!error && (
-        <Typography className={classNames.error} as="span" variant={TypographyVariant.Caption}>
+        <Typography as="span" variant={TypographyVariant.ERROR}>
           {error}
         </Typography>
       )}
@@ -125,19 +113,29 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
 })
 
 type IconProps = {
-  icon: ReactNode
-  className: string
+  icon?: ReactNode
+  className?: string
   onClick?: () => void
 }
 
-const Icon = ({ icon, className, onClick }: IconProps) => {
+const InputIcon = ({ icon, className, onClick }: IconProps) => {
   if (!icon) {
     return null
   }
 
   return (
-    <div className={className} onClick={onClick}>
+    <button className={className} onClick={onClick}>
       {icon}
-    </div>
+    </button>
   )
+}
+
+const getRightInputIcon = (type: string, isVisible: boolean, rightIcon: ReactNode) => {
+  if (type === 'password' && isVisible) {
+    return <OpenEye />
+  } else if (type === 'password' && !isVisible) {
+    return <ClosedEye />
+  } else {
+    return rightIcon
+  }
 }

@@ -25,7 +25,7 @@
   }
 }
 
-.container {
+.root {
   position: relative;
   width: 100%;
 
@@ -45,51 +45,107 @@
     display: flex;
     align-items: center;
 
-    color: var(--color-dark-100);
-
-    border: 1px solid var(--color-dark-300);
     border-radius: 2px;
 
-    &:hover {
+    .input {
+      width: 100%;
+      padding: 0.6rem 1.2rem;
+
+      font-size: var(--font-size-m);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-m);
+      color: var(--color-dark-100);
+
+      background-color: transparent;
+      border: 1px solid var(--color-dark-300);
+      border-radius: 2px;
+      outline: none;
+
+      &.isLeftIcon {
+        padding-left: 4rem;
+      }
+
+      &.isRightIcon {
+        padding-right: 4rem;
+      }
+
+      &:disabled {
+        color: var(--color-dark-300);
+        border: 1px solid var(--color-dark-300);
+      }
+
+      &:disabled::placeholder {
+        color: var(--color-dark-300);
+      }
+    }
+
+    &:hover .input {
       background: var(--color-dark-700);
       border: 1px solid var(--color-dark-100);
     }
 
-    &.disabled {
-      color: var(--color-dark-300);
+    &:focus-visible .input,
+    &:focus-within .input {
+      border: 1px solid var(--color-info-700);
+      outline: 1px solid var(--color-info-700);
+    }
+
+    &.active:focus-visible .input,
+    &.active:focus-within .input {
+      color: var(--color-light-100);
+      border: 1px solid var(--color-light-100);
+    }
+
+    &.disabled:focus-visible .input,
+    &.disabled:focus-within .input {
       border: 1px solid var(--color-dark-300);
     }
 
-    &.disabled:hover {
+    &.disabled:hover .input {
       background-color: transparent;
     }
 
-    &.disabled .input::placeholder {
-      color: var(--color-dark-300);
+    &:focus-visible {
+      outline: none;
     }
 
-    &.active:focus-within {
+    /* &.disabled:focus-visible,
+    &.disabled:focus,
+    &.active:focus-within,
+    &.active:focus,
+    &:focus-within:not(.active),
+    &:focus:not(.active) {
+      border: none;
+      outline: none;
+    } */
+
+    /* &.active:focus-within .input {
+      color: var(--color-light-100);
       border: 1px solid var(--color-light-100);
       outline: none;
     }
 
-    &:focus-within:not(.active) {
+    &:focus-within:not(.active) .input {
       border: 1px solid var(--color-info-700);
       outline: 1px solid var(--color-info-700);
-    }
+    } */
 
-    &:focus-visible:not(.active) {
+    /* &:focus-visible:not(.active) {
       border: 1px solid var(--color-info-700);
       outline: 1px solid var(--color-info-700);
-    }
+    } */
 
-    &.error:not(:focus-visible) {
+    /* &.error:not(:focus-visible) {
       border: solid 1px var(--color-danger-300);
     }
 
-    &.error:not(:focus-visible)::placeholder {
+    &.error:focus-visible {
+      border: 1px solid var(--color-info-700);
+    } */
+
+    /* &.error:not(:focus-visible)::placeholder {
       color: var(--color-danger-300);
-    }
+    } */
 
     .leftIcon {
       @include input-icon(1.2rem, 0);
@@ -108,47 +164,30 @@
       }
     }
 
-    &.active:focus-within .leftIcon,
+    /* &.active:focus-within .leftIcon,
     &.active:focus-within .rightIcon {
       & svg {
         fill: var(--color-light-100);
       }
     }
 
-    .input {
-      width: 100%;
-      padding: 0.6rem 1.2rem;
+    &.error .input::placeholder {
+      color: var(--color-danger-300);
+    } */
 
-      font-size: var(--font-size-m);
-      font-weight: var(--font-weight-regular);
-      line-height: var(--line-height-m);
-      color: var(--color-dark-100);
-
-      background-color: transparent;
-      border: none;
-      outline: none;
-
-      &.isLeftIcon {
-        padding-left: 4rem;
-      }
-
-      &.isRightIcon {
-        padding-right: 4rem;
-      }
-    }
-
-    &.active:focus-within .input {
+    /* &.active:focus-within .input {
       color: var(--color-light-100);
-    }
+    } */
 
-    &.error:not(:focus-visible) .input {
+    /* &.error:not(:focus-visible) .input {
       color: var(--color-danger-300);
-    }
-
-    &.error:not(:focus-visible) .input::placeholder {
-      color: var(--color-danger-300);
-    }
+    } */
   }
+
+  /*  &.disabled:focus-within:not(.active) .input {
+    border: 1px solid var(--color-dark-300);
+    outline: none;
+  } */
 
   .errorMessage {
     color: var(--color-danger-300);

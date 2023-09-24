@@ -15,6 +15,23 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+export const DefaultInput: Story = {
+  args: {
+    type: 'text',
+    placeholder: 'Error Input',
+    label: 'Error input',
+  },
+}
+
+export const DefaultInputWithValue: Story = {
+  args: {
+    type: 'text',
+    value: 'Test value',
+    placeholder: 'Error Input',
+    label: 'Error input',
+  },
+}
+
 export const DefaultWithError: Story = {
   args: {
     type: 'text',
@@ -70,14 +87,14 @@ const PasswordInput = () => {
       onChangeValue={onChangeValue}
       placeholder="Password input"
       label="Password input"
-      onKeyPress={onKeyPress}
+      onEnter={onKeyPress}
     />
   )
 }
 
 export const PasswordInputWithAction = () => <PasswordInput />
 
-const DefaultInput = () => {
+const DefaultInputExample = () => {
   const [value, setValue] = useState('')
   const onChangeValue = (value: string) => {
     setValue(value)
@@ -93,7 +110,7 @@ const DefaultInput = () => {
   )
 }
 
-export const DefaultInputWithAction = () => <DefaultInput />
+export const DefaultInputWithAction = () => <DefaultInputExample />
 
 const SearchInput = () => {
   const [value, setValue] = useState('')
