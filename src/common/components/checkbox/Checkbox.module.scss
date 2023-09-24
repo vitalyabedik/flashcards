@@ -1,5 +1,10 @@
 @import '@styles/mixins';
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .root {
   @include flex($align: center, $justify: center);
 
@@ -65,7 +70,7 @@
 
   cursor: pointer;
 
-  &.disabled {
+  .disabled {
     cursor: initial;
     color: var(--color-dark-100);
   }
