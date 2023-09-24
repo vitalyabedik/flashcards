@@ -11,4 +11,5 @@ export enum TypographyVariant {
   Overline = 'overline',
   Link1 = 'link1',
   Link2 = 'link2',
+  ERROR = 'error',
 }
