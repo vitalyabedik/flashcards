@@ -8,40 +8,39 @@ const meta = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
   tags: ['autodocs'],
-  argTypes: { onValueChange: { action: 'clicked' } },
 } satisfies Meta<typeof RadioGroup>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const initialRadioGroupState = [
-  { value: 'first', labelTitle: 'First Radio', disabled: true },
-  { value: 'second', labelTitle: 'Second Radio', disabled: false },
-  { value: 'third', labelTitle: 'Third Radio', disabled: true },
-  { value: 'fourth', labelTitle: 'Fourth Radio', disabled: false },
+  { value: 'first', title: 'First Radio', id: 'r1', disabled: false },
+  { value: 'second', title: 'Second Radio', id: 'r2', disabled: false },
+  { value: 'third', title: 'Third Radio', id: 'r3', disabled: true },
+  { value: 'fourth', title: 'Fourth Radio', id: 'r4', disabled: false },
 ]
 
-export const Default: Story = {
+export const RadioGroupExample: Story = {
   args: {
     value: initialRadioGroupState[0].value,
-    radioGroupItems: initialRadioGroupState,
+    options: initialRadioGroupState,
   },
 }
 
-export const RadioGroupWithActions: Story = {
-  args: Default.args,
-  render: args => {
-    const [radioGroupValue, setRadioGroupValue] = useState(args.value)
-    const onChangeRadioGroup = (value: string) => {
-      setRadioGroupValue(value)
-    }
+const RadioGroupWithHooks = () => {
+  const [activeRadio, setActiveRadio] = useState(initialRadioGroupState[0].value)
 
-    return (
-      <RadioGroup
-        value={radioGroupValue}
-        radioGroupItems={args.radioGroupItems}
-        onValueChange={onChangeRadioGroup}
-      />
-    )
-  },
+  const changeActiveRadioItem = (radioValue: string) => {
+    setActiveRadio(radioValue)
+  }
+
+  return (
+    <RadioGroup
+      value={activeRadio}
+      onValueChange={changeActiveRadioItem}
+      options={initialRadioGroupState}
+    />
+  )
 }
+
+export const RadioGroupWithActions = () => <RadioGroupWithHooks />

@@ -1,30 +1,36 @@
-import { JSX } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, JSX } from 'react'
 
 import * as Radio from '@radix-ui/react-radio-group'
 import cn from 'classnames'
 
-import { Typography } from '@common/components'
-import s from '@common/components/radioGroup/radioItem/RadioItem.module.scss'
+import { Typography } from '../../typography'
+
+import s from './RadioItem.module.scss'
+
 import { TypographyVariant } from '@common/enums'
 
-export type RadioItem = {
-  value: string
-  labelTitle: string
-  disabled: boolean
-}
-export const RadioElement = ({ value, labelTitle, disabled }: RadioItem): JSX.Element => {
-  return (
-    <div className={s.itemContainer}>
-      <Typography
-        className={cn(s.label, disabled && s.disabled)}
-        as="label"
-        variant={TypographyVariant.Body2}
-      >
-        <Radio.Item className={s.item} value={value} disabled={disabled}>
-          <Radio.Indicator className={s.indicator} />
+export type RadioItemProps = {
+  title: string
+} & ComponentPropsWithoutRef<typeof Radio.Item>
+
+export const RadioItem = forwardRef<ElementRef<typeof Radio.Item>, RadioItemProps>(
+  ({ value, title, disabled }, ref): JSX.Element => {
+    const classNames = {
+      label: cn(s.label, disabled && s.disabled),
+      item: s.item,
+      indicator: s.indicator,
+      title: cn(s.title, disabled && s.disabledTitle),
+    }
+
+    return (
+      <Typography className={classNames.label} as={'label'} variant={TypographyVariant.Body2}>
+        <Radio.Item ref={ref} className={classNames.item} value={value} disabled={disabled}>
+          <Radio.Indicator className={classNames.indicator} />
         </Radio.Item>
-        <span>{labelTitle}</span>
+        <Typography className={classNames.title} as="span" variant={TypographyVariant.Body2}>
+          {title}
+        </Typography>
       </Typography>
-    </div>
-  )
-}
+    )
+  }
+)
