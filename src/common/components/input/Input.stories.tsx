@@ -15,24 +15,16 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const DefaultInput: Story = {
-  args: {
-    type: 'text',
-    placeholder: 'Error Input',
-    label: 'Error input',
-  },
-}
-
-export const DefaultInputWithValue: Story = {
+export const InputWithValue: Story = {
   args: {
     type: 'text',
     value: 'Test value',
-    placeholder: 'Error Input',
-    label: 'Error input',
+    placeholder: 'Input with value',
+    label: 'Input with value',
   },
 }
 
-export const DefaultWithError: Story = {
+export const ErrorInput: Story = {
   args: {
     type: 'text',
     placeholder: 'Error Input',
@@ -41,7 +33,7 @@ export const DefaultWithError: Story = {
   },
 }
 
-export const DefaultWithDisableState: Story = {
+export const DisabledInput: Story = {
   args: {
     type: 'text',
     placeholder: 'Disabled Input',
@@ -50,7 +42,7 @@ export const DefaultWithDisableState: Story = {
   },
 }
 
-export const DefaultWithSearch: Story = {
+export const SearchInput: Story = {
   args: {
     type: 'search',
     placeholder: 'Search Input',
@@ -60,17 +52,25 @@ export const DefaultWithSearch: Story = {
   },
 }
 
-export const DefaultWithDisabledSearch: Story = {
-  args: {
-    type: 'text',
-    placeholder: 'Search Input',
-    label: 'Search input',
-    leftIcon: <Search size={1.9} />,
-    disabled: true,
-  },
+const DefaultInputExample = () => {
+  const [value, setValue] = useState('')
+  const onChangeValue = (value: string) => {
+    setValue(value)
+  }
+
+  return (
+    <Input
+      value={value}
+      onChangeValue={onChangeValue}
+      placeholder="Default input"
+      label="Default input"
+    />
+  )
 }
 
-const PasswordInput = () => {
+export const DefaultInputWithAction = () => <DefaultInputExample />
+
+const PasswordInputExample = () => {
   const [value, setValue] = useState('')
   const onChangeValue = (value: string) => {
     setValue(value)
@@ -92,27 +92,9 @@ const PasswordInput = () => {
   )
 }
 
-export const PasswordInputWithAction = () => <PasswordInput />
+export const PasswordInputWithAction = () => <PasswordInputExample />
 
-const DefaultInputExample = () => {
-  const [value, setValue] = useState('')
-  const onChangeValue = (value: string) => {
-    setValue(value)
-  }
-
-  return (
-    <Input
-      value={value}
-      onChangeValue={onChangeValue}
-      placeholder="Default input"
-      label="Default input"
-    />
-  )
-}
-
-export const DefaultInputWithAction = () => <DefaultInputExample />
-
-const SearchInput = () => {
+const SearchInputExample = () => {
   const [value, setValue] = useState('')
   const onChangeValue = (value: string) => {
     setValue(value)
@@ -134,9 +116,9 @@ const SearchInput = () => {
   )
 }
 
-export const SearchInputWithAction = () => <SearchInput />
+export const SearchInputWithAction = () => <SearchInputExample />
 
-const ClearInput = () => {
+const ClearInputExample = () => {
   const [value, setValue] = useState('')
   const onChangeValue = (value: string) => {
     setValue(value)
@@ -158,4 +140,4 @@ const ClearInput = () => {
   )
 }
 
-export const ClearInputWithAction = () => <ClearInput />
+export const ClearInputWithAction = () => <ClearInputExample />
