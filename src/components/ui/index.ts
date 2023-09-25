@@ -1,6 +1,7 @@
 export * from './typography'
 export * from './button'
 export * from './tabs'
+export * from './input'
 export * from './card'
 export * from './checkbox'
 export * from './slider'
