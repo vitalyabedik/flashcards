@@ -102,3 +102,10 @@ export const Link2: Story = {
     children: 'Link2 text',
   },
 }
+
+export const Error: Story = {
+  args: {
+    variant: TypographyVariant.ERROR,
+    children: 'Error!',
+  },
+}
