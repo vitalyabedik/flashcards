@@ -1,58 +1,42 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, JSX } from 'react'
 
-import * as RaddixTabs from '@radix-ui/react-tabs'
+import * as RadixTabs from '@radix-ui/react-tabs'
 import cn from 'classnames'
 
 import s from './Tabs.module.scss'
 
-type TabType = {
-  value: string
-  title: string
-  disabled: boolean
-}
+type TabType = { title: string } & ComponentPropsWithoutRef<typeof RadixTabs.Trigger>
 
-type TabsOwnProps = {
+type TabsProps = {
   tabs: TabType[]
-  classNames?: Record<'root' | 'list' | 'trigger', string>
-}
+  classNames?: { root?: string; list?: string; trigger?: string }
+} & ComponentPropsWithoutRef<typeof RadixTabs.Root>
 
-type TabsProps = TabsOwnProps & ComponentPropsWithoutRef<typeof RaddixTabs.Root>
-
-export const Tabs = forwardRef<ElementRef<typeof RaddixTabs.Root>, TabsProps>(
-  ({ value, onValueChange, tabs, classNames, ...props }, ref): JSX.Element => {
-    const onClickHandler = (value: string) => {
-      onValueChange?.(value)
-    }
-
+export const Tabs = forwardRef<ElementRef<typeof RadixTabs.Root>, TabsProps>(
+  ({ tabs, classNames, ...restProps }, ref): JSX.Element => {
     const tabClassnames = {
       root: cn(s.root, classNames?.root),
       list: cn(s.list, classNames?.list),
       trigger(triggerValue: string) {
-        return cn(s.trigger, classNames?.trigger, triggerValue === value && s.active)
+        return cn(s.trigger, classNames?.trigger, triggerValue === restProps.value && s.active)
       },
     }
 
     return (
-      <RaddixTabs.Root
-        ref={ref}
-        className={tabClassnames.root}
-        value={value}
-        onValueChange={onClickHandler}
-        {...props}
-      >
-        <RaddixTabs.List className={tabClassnames.list} loop={true}>
+      <RadixTabs.Root ref={ref} className={tabClassnames.root} {...restProps}>
+        <RadixTabs.List className={tabClassnames.list} loop={true}>
           {tabs.map(tab => (
-            <RaddixTabs.Trigger
-              className={tabClassnames.trigger(tab.value)}
+            <RadixTabs.Trigger
               key={tab.value}
+              className={tabClassnames.trigger(tab.value)}
               value={tab.value}
               disabled={tab.disabled}
             >
               {tab.title}
-            </RaddixTabs.Trigger>
+            </RadixTabs.Trigger>
           ))}
-        </RaddixTabs.List>
-      </RaddixTabs.Root>
+        </RadixTabs.List>
+      </RadixTabs.Root>
     )
   }
 )
