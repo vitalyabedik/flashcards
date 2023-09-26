@@ -62,7 +62,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
   }
 
   const classNames = {
-    input: cn(s.input, !!leftIcon && s.isLeftIcon, !!rightIcon && s.isRightIcon, className),
+    root: cn(s.root, className),
+    input: cn(s.input, !!leftIcon && s.isLeftIcon, !!rightIcon && s.isRightIcon),
     label: cn(s.label, restProps.disabled && s.disabledText),
     inputWrapper: cn(
       s.inputWrapper,
@@ -77,7 +78,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.
   const dynamicRightIcon = getRightInputIcon(type || 'text', isVisiblePassword, rightIcon)
 
   return (
-    <div className={s.root}>
+    <div className={classNames.root}>
       {label && (
         <Typography className={classNames.label} as="label" variant={TypographyVariant.Body2}>
           {label}
