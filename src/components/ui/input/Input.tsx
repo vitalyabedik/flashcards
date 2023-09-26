@@ -15,7 +15,7 @@ import { ClosedEye, OpenEye } from '@/assets'
 import { TypographyVariant } from '@/common'
 import { Typography } from '@/components'
 
-type InputProps = {
+export type InputProps = {
   label?: string
   error?: string
   leftIcon?: ReactNode
