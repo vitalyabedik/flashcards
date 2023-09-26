@@ -1,25 +1,13 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
 import { ControlledInput } from '../../controlled'
 
 import s from './ForgotPassword.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, Typography } from '@/components'
-
-const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: 'Incorrect email' }),
-})
-
-type FormValue = z.infer<typeof forgotPasswordSchema>
+import { UseForgotPassword } from '@components/auth/forgotPassword/UseForgotPassword.ts'
 
 export const ForgotPassword = () => {
-  const { control, handleSubmit } = useForm<FormValue>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: { email: '' },
-  })
+  const { control, handleSubmit } = UseForgotPassword()
 
   const onSubmit = handleSubmit(data => {
     console.log(data)
@@ -47,7 +35,13 @@ export const ForgotPassword = () => {
         <Typography className={s.questionText} as="p" variant={TypographyVariant.Body2}>
           Did you remember your password?
         </Typography>
-        <Button className={s.loginLink} as="a" variant="link" type="submit">
+        <Button
+          className={s.loginLink}
+          as="a"
+          href="https://google.com"
+          variant="link"
+          type="submit"
+        >
           Try logging in
         </Button>
       </form>
