@@ -1,7 +1,8 @@
 import s from './ForgotPassword.module.scss'
+import { UseForgotPassword } from './UseForgotPassword'
 
 import { TypographyVariant } from '@/common'
-import { Button, Card, ControlledInput, Typography, UseForgotPassword } from '@/components'
+import { Button, Card, ControlledInput, Typography } from '@/components'
 
 export const ForgotPassword = () => {
   const { control, handleSubmit } = UseForgotPassword()
