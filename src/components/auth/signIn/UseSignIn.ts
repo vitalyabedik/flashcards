@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 const signInSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
-  password: z.string().min(5, 'Use 5 characters or more for your password'),
+  password: z.string().min(3, 'Use 3 characters or more for your password'),
   rememberMe: z.boolean().default(false),
 })
 
