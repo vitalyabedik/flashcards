@@ -1,18 +1,13 @@
-import { useController, useForm } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 
 import s from './SignIn.module.scss'
+import { FormValues, UseSignIn } from './UseSignIn'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, Checkbox, Input, Typography } from '@/components'
 
-type FormValues = {
-  email: string
-  password: string
-  rememberMe: boolean
-}
-
 export const SignIn = () => {
-  const { register, control, handleSubmit } = useForm<FormValues>()
+  const { register, control, handleSubmit } = UseSignIn()
 
   const onSubmit = (data: FormValues) => {
     console.log(data)
