@@ -1,0 +1,24 @@
+@import '@styles/mixins';
+
+.formWrapper {
+  @include flex($direction: column, $align: center);
+
+  width: 42rem;
+  margin: 0 auto;
+  padding: 3.6rem 3.6rem 4.4rem;
+
+  .formHeader {
+    margin-bottom: 2.7rem;
+  }
+
+  .emailImage {
+    margin-bottom: 2rem;
+  }
+
+  .instructionText {
+    margin-bottom: 6.5rem;
+    color: var(--color-light-900);
+    text-align: center;
+    opacity: 0.5;
+  }
+}
