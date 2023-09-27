@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import * as ModalPrimitive from '@radix-ui/react-dialog'
 import cn from 'classnames'
@@ -15,10 +15,9 @@ export type ModalProps = {
   open: boolean
   setOpen: (open: boolean) => void
   title: string
-  className?: string
 } & ComponentPropsWithoutRef<'div'>
 
-export const Modal = forwardRef<HTMLDivElement, ModalProps>(
+export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
   ({ open, setOpen, title, className, children, ...props }, ref): JSX.Element => {
     const classNames = {
       root: cn(s.root, className),
@@ -39,14 +38,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
                 <ModalPrimitive.Content asChild forceMount>
                   <motion.div {...modalAnimations.window}>
                     <Card>
-                      <div className={classNames.header}>
-                        <Typography variant={TypographyVariant.H2}>{title}</Typography>
+                      <header className={classNames.header}>
+                        <Typography variant={TypographyVariant.H2} as="h2">
+                          {title}
+                        </Typography>
                         <ModalPrimitive.Close asChild>
                           <button className={classNames.closeBtn} aria-label="Close">
                             <Close />
                           </button>
                         </ModalPrimitive.Close>
-                      </div>
+                      </header>
                       <div>{children}</div>
                     </Card>
                   </motion.div>
