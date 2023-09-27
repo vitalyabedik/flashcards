@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import * as AvatarPrimitive from '@radix-ui/react-avatar'
 import cn from 'classnames'
@@ -12,10 +12,9 @@ export type AvatarProps = {
   userName: string
   image?: string
   size?: 'small' | 'large'
-  className?: string
-} & ComponentPropsWithoutRef<'div'>
+} & ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
 
-export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
+export const Avatar = forwardRef<ElementRef<typeof AvatarPrimitive.Root>, AvatarProps>(
   ({ userName, image, size = 'small', className, ...props }, ref): JSX.Element => {
     const classNames = {
       root: cn(s.root, s[size], className),
@@ -23,7 +22,11 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
       fallback: s.fallback,
     }
 
-    const fallbackTitle = (userName.match(/\b\w/g) || []).join('').toUpperCase()
+    const fallbackTitle = userName
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
 
     return (
       <AvatarPrimitive.Root ref={ref} className={classNames.root} {...props}>
