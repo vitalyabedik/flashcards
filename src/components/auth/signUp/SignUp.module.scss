@@ -1,0 +1,42 @@
+@import '@styles/mixins';
+
+.formWrapper {
+  @include flex($direction: column, $align: center);
+
+  width: 42rem;
+  margin: 0 auto;
+  padding: 3.3rem 3.6rem 2.9rem;
+
+  .formHeader {
+    margin-bottom: 2.7rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .inputPasswordWrapper {
+      margin: 2.4rem 0;
+    }
+
+    .inputConfirmPasswordWrapper {
+      margin-bottom: 6rem;
+    }
+  }
+
+  .infoText {
+    margin: 2rem 0 1.1rem;
+    color: var(--color-light-900);
+  }
+
+  .signUpLink {
+    font-size: var(--font-size-m);
+    font-weight: 700;
+    color: var(--color-accent-500);
+
+    &:hover {
+      color: var(--color-accent-300);
+    }
+  }
+}
