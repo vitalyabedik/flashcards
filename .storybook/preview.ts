@@ -7,7 +7,7 @@ import type { Preview } from '@storybook/react'
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: '#000',
+      default: 'Dark',
       values: [
         {
           name: 'Dark',
