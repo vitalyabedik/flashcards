@@ -1,10 +1,7 @@
-import { ControlledInput } from '../../controlled'
-
 import s from './ForgotPassword.module.scss'
 
 import { TypographyVariant } from '@/common'
-import { Button, Card, Typography } from '@/components'
-import { UseForgotPassword } from '@components/auth/forgotPassword/UseForgotPassword.ts'
+import { Button, Card, ControlledInput, Typography, UseForgotPassword } from '@/components'
 
 export const ForgotPassword = () => {
   const { control, handleSubmit } = UseForgotPassword()
@@ -21,8 +18,8 @@ export const ForgotPassword = () => {
         </Typography>
         <ControlledInput
           className={s.input}
-          name={'email'}
-          placeholder={'Email'}
+          name="email"
+          placeholder="Email"
           control={control}
           label="Email"
         />
