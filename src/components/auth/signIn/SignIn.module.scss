@@ -7,27 +7,28 @@
   margin: 0 auto;
   padding: 3.3rem 3.6rem 2.9rem;
 
+  .formHeader {
+    margin-bottom: 2.7rem;
+  }
+
   .form {
     display: flex;
     flex-direction: column;
     width: 100%;
 
-    .inputEmailWrapper {
-      margin: 2.7rem 0 2.4rem;
-    }
-
     .inputPasswordWrapper {
-      margin-bottom: 1.8rem;
+      margin: 2.4rem 0 1.2rem;
     }
 
     .forgotPasswordLink {
-      margin: 1.2rem 0.9rem 6.6rem 0;
+      margin: 0.6rem 0.9rem 6.6rem 0;
       text-align: right;
     }
   }
 
   .infoText {
     margin: 2rem 0 1.1rem;
+    color: var(--color-light-900);
   }
 
   .signUpLink {
