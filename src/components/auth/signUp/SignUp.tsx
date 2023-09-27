@@ -1,13 +1,15 @@
+import { DevTool } from '@hookform/devtools'
+
 import s from './SignUp.module.scss'
-import { FormValues, UseSignUp } from './UseSignUp'
+import { SignUpFormValues, UseSignUp } from './UseSignUp'
 
 import { TypographyVariant } from '@/common'
-import { Button, Card, Input, Typography } from '@/components'
+import { Button, Card, ControlledInput, Typography } from '@/components'
 
 export const SignUp = () => {
-  const { register, handleSubmit } = UseSignUp()
+  const { control, handleSubmit } = UseSignUp()
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: SignUpFormValues) => {
     console.log(data)
   }
 
@@ -17,17 +19,22 @@ export const SignUp = () => {
         Sign Up
       </Typography>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('email')} label="Email" />
-        <Input
-          {...register('password')}
+        <DevTool control={control} />
+        <ControlledInput name="email" placeholder="Email" control={control} label="Email" />
+        <ControlledInput
           className={s.inputPasswordWrapper}
           type="password"
+          placeholder="Password"
+          control={control}
+          name="password"
           label="Password"
         />
-        <Input
-          {...register('confirmPassword')}
+        <ControlledInput
           className={s.inputConfirmPasswordWrapper}
           type="password"
+          placeholder="Confirm Password"
+          control={control}
+          name="confirmPassword"
           label="Confirm Password"
         />
         <Button type="submit" fullWidth>
