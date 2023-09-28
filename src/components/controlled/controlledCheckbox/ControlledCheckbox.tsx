@@ -8,7 +8,7 @@ type ControlledInputProps<T extends FieldValues> = UseControllerProps<T> &
 export const ControlledCheckbox = <T extends FieldValues>({
   name,
   control,
-  ...restCheckboxProps
+  ...restProps
 }: ControlledInputProps<T>): JSX.Element => {
   const {
     field: { value, onChange },
@@ -17,5 +17,5 @@ export const ControlledCheckbox = <T extends FieldValues>({
     control,
   })
 
-  return <Checkbox {...restCheckboxProps} checked={value} onCheckedChange={onChange} />
+  return <Checkbox {...restProps} checked={value} onCheckedChange={onChange} />
 }

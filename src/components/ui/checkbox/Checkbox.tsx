@@ -21,7 +21,17 @@ export type CheckboxProps = {
 
 export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, CheckboxProps>(
   (
-    { checked, onCheckedChange, disabled, label, id, position = 'default', className, ...rest },
+    {
+      checked,
+      onCheckedChange,
+      disabled,
+      name,
+      label,
+      id,
+      position = 'default',
+      className,
+      ...restProps
+    },
     ref
   ): JSX.Element => {
     const classNames = {
@@ -38,10 +48,11 @@ export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, Checkb
             ref={ref}
             className={classNames.root}
             id={id}
+            name={name}
             checked={checked}
             onCheckedChange={onCheckedChange}
             disabled={disabled}
-            required={rest.required}
+            required={restProps.required}
           >
             {checked && (
               <RadixCheckbox.Indicator className={classNames.indicator} forceMount>

@@ -38,9 +38,9 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
       onValueChange,
       fullWidth,
       disabled,
-      required,
       defaultClassNames,
       className,
+      ...restProps
     },
     ref
   ): JSX.Element => {
@@ -57,7 +57,7 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
         value={value}
         onValueChange={onValueChange}
         disabled={disabled}
-        required={required}
+        required={restProps.required}
       >
         {label && (
           <Typography className={classNames.label} variant={TypographyVariant.Body2} as="label">
