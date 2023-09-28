@@ -10,7 +10,7 @@ type ControlledInputProps<T extends FieldValues> = UseControllerProps<T> &
 export const ControlledInput = <T extends FieldValues>({
   name,
   control,
-  ...restInputProps
+  ...restProps
 }: ControlledInputProps<T>): JSX.Element => {
   const {
     field,
@@ -20,5 +20,5 @@ export const ControlledInput = <T extends FieldValues>({
     control,
   })
 
-  return <Input {...field} {...restInputProps} error={error?.message} />
+  return <Input {...field} {...restProps} error={error?.message} />
 }
