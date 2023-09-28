@@ -1,10 +1,10 @@
 import s from './CreateNewPassword.module.scss'
+import { UseCreatePassword } from './UseCreatePassword.ts'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
-import { UseCreatePassword } from '@components/auth/createNewPassword/UseCreatePassword.ts'
 
-export const CreateNewPassword = () => {
+export const CreateNewPassword = (): JSX.Element => {
   const { control, handleSubmit } = UseCreatePassword()
 
   const onSubmit = handleSubmit(data => {
