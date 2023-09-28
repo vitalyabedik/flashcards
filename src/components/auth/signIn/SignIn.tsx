@@ -6,7 +6,7 @@ import { SignInFormValues, UseSignIn } from './UseSignIn'
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
 
-export const SignIn = () => {
+export const SignIn = (): JSX.Element => {
   const { control, handleSubmit } = UseSignIn()
 
   const onSubmit = (data: SignInFormValues) => {
