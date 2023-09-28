@@ -14,8 +14,8 @@ export type TypographyProps<T extends ElementType = 'p'> = {
 export const Typography = <T extends ElementType = 'p'>(
   props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
 ): JSX.Element => {
-  const { variant = TypographyVariant.Body1, className, as: Component = 'p', ...rest } = props
+  const { variant = TypographyVariant.Body1, className, as: Component = 'p', ...restProps } = props
   const typographyClasses = cn(s[variant], className)
 
-  return <Component className={typographyClasses} {...rest} />
+  return <Component className={typographyClasses} {...restProps} />
 }

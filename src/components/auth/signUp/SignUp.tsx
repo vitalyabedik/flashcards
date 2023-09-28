@@ -1,22 +1,22 @@
 import { DevTool } from '@hookform/devtools'
 
-import s from './SignIn.module.scss'
-import { SignInFormValues, UseSignIn } from './UseSignIn'
+import s from './SignUp.module.scss'
+import { SignUpFormValues, UseSignUp } from './UseSignUp'
 
 import { TypographyVariant } from '@/common'
-import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
+import { Button, Card, ControlledInput, Typography } from '@/components'
 
-export const SignIn = (): JSX.Element => {
-  const { control, handleSubmit } = UseSignIn()
+export const SignUp = (): JSX.Element => {
+  const { control, handleSubmit } = UseSignUp()
 
-  const onSubmit = (data: SignInFormValues) => {
+  const onSubmit = (data: SignUpFormValues) => {
     console.log(data)
   }
 
   return (
     <Card className={s.formWrapper}>
       <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h2">
-        Sign In
+        Sign Up
       </Typography>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <DevTool control={control} />
@@ -29,24 +29,23 @@ export const SignIn = (): JSX.Element => {
           name="password"
           label="Password"
         />
-        <ControlledCheckbox
+        <ControlledInput
+          className={s.inputConfirmPasswordWrapper}
+          type="password"
+          placeholder="Confirm Password"
           control={control}
-          name="rememberMe"
-          label="Remember me"
-          position="left"
+          name="confirmPassword"
+          label="Confirm Password"
         />
-        <Typography className={s.forgotPasswordLink} variant={TypographyVariant.Body2} as="a">
-          Forgot Password?
-        </Typography>
         <Button type="submit" fullWidth>
-          Sign In
+          Sign Up
         </Button>
       </form>
       <Typography className={s.infoText} variant={TypographyVariant.Body2}>
-        {`Don't have an account?`}
+        Already have an account?
       </Typography>
       <Typography className={s.signUpLink} variant={TypographyVariant.Link1} as="a">
-        Sign Up
+        Sign In
       </Typography>
     </Card>
   )
