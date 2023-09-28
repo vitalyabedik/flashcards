@@ -1,44 +1,39 @@
-import { useController } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
 
 import s from './SignIn.module.scss'
-import { FormValues, UseSignIn } from './UseSignIn'
+import { SignInFormValues, UseSignIn } from './UseSignIn'
 
 import { TypographyVariant } from '@/common'
-import { Button, Card, Checkbox, Input, Typography } from '@/components'
+import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
 
 export const SignIn = () => {
-  const { register, control, handleSubmit } = UseSignIn()
+  const { control, handleSubmit } = UseSignIn()
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: SignInFormValues) => {
     console.log(data)
   }
 
-  const {
-    field: { value, onChange },
-  } = useController({
-    name: 'rememberMe',
-    control,
-    defaultValue: false,
-  })
-
   return (
     <Card className={s.formWrapper}>
-      <Typography variant={TypographyVariant.Large} as="h2">
+      <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h2">
         Sign In
       </Typography>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('email')} className={s.inputEmailWrapper} label="Email" />
-        <Input
-          {...register('password')}
+        <DevTool control={control} />
+        <ControlledInput name="email" placeholder="Email" control={control} label="Email" />
+        <ControlledInput
           className={s.inputPasswordWrapper}
           type="password"
+          placeholder="Password"
+          control={control}
+          name="password"
           label="Password"
         />
-        <Checkbox
-          checked={value}
-          onCheckedChange={onChange}
-          label="Remember me"
+        <ControlledCheckbox
+          control={control}
           name="rememberMe"
+          label="Remember me"
+          position="left"
         />
         <Typography className={s.forgotPasswordLink} variant={TypographyVariant.Body2} as="a">
           Forgot Password?
