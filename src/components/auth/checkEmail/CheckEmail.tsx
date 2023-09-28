@@ -17,7 +17,7 @@ export const CheckEmail = ({ email = 'example@mail.com' }: CheckEmailProps): JSX
         Check Email
       </Typography>
       <Email className={s.emailImage} />
-      <Typography className={s.instructionText} as="p" variant={TypographyVariant.Body2}>
+      <Typography className={s.instructionText} variant={TypographyVariant.Body2}>
         {`We’ve sent an Email with instructions to ${email}`}
       </Typography>
       <Button className={s.signInLink} as="a" href="https://google.com" fullWidth>
