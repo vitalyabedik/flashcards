@@ -2,20 +2,27 @@ import s from './CreateNewPassword.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
+import { UseCreatePassword } from '@components/auth/createNewPassword/UseCreatePassword.ts'
 
 export const CreateNewPassword = () => {
+  const { control, handleSubmit } = UseCreatePassword()
+
+  const onSubmit = handleSubmit(data => {
+    console.log(data)
+  })
+
   return (
     <Card className={s.formWrapper}>
-      <form className={s.form}>
+      <form className={s.form} onSubmit={onSubmit}>
         <Typography className={s.formHeader} as="h2" variant={TypographyVariant.Large}>
           Create new password
         </Typography>
         <ControlledInput
           className={s.input}
-          name="email"
+          name="password"
           type="password"
           placeholder="Email"
-          /*control={control}*/
+          control={control}
           label="Email"
         />
         <Typography className={s.instructionText} variant={TypographyVariant.Body2}>
