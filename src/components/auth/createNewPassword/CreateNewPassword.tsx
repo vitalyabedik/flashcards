@@ -21,7 +21,7 @@ export const CreateNewPassword = () => {
         <Typography className={s.instructionText} variant={TypographyVariant.Body2}>
           Create new password and we will send you further instructions to email
         </Typography>
-        <Button className={s.button} type="submit" variant="primary" fullWidth>
+        <Button type="submit" variant="primary" fullWidth>
           Create New Password
         </Button>
       </form>
