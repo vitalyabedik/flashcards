@@ -8,6 +8,12 @@ const meta = {
   title: 'Components/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
+  argTypes: {
+    align: {
+      options: ['start', 'center', 'end'],
+      control: { type: 'select' },
+    },
+  },
 } satisfies Meta<typeof Dropdown>
 
 export default meta

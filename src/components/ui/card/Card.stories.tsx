@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Card } from './Card'
@@ -11,9 +13,11 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const contentStyles: CSSProperties = { textAlign: 'center', fontSize: '24px' }
+
 export const Default: Story = {
   args: {
-    children: <div style={{ textAlign: 'center', fontSize: '24px' }}>Card</div>,
+    children: <div style={contentStyles}>Card</div>,
     style: {
       width: '300px',
       height: '300px',
