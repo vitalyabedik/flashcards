@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Dropdown, DropdownItemWithIcon } from './Dropdown'
+import { Dropdown } from './Dropdown'
 
 import { PlayCircleicon, EditIcon, DeleteIcon } from '@/assets'
+import { DropdownItemWithIcon } from '@components/ui'
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',
