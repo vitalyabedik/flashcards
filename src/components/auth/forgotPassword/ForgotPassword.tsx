@@ -24,22 +24,16 @@ export const ForgotPassword = () => {
           control={control}
           label="Email"
         />
-        <Typography className={s.instructionText} as="p" variant={TypographyVariant.Body2}>
+        <Typography className={s.instructionText} variant={TypographyVariant.Body2}>
           Enter your email address and we will send you further instructions
         </Typography>
-        <Button className={s.button} variant="primary" fullWidth>
+        <Button className={s.button} type="submit" variant="primary" fullWidth>
           Send Instructions
         </Button>
-        <Typography className={s.questionText} as="p" variant={TypographyVariant.Body2}>
+        <Typography className={s.questionText} variant={TypographyVariant.Body2}>
           Did you remember your password?
         </Typography>
-        <Button
-          className={s.loginLink}
-          as="a"
-          href="https://google.com"
-          variant="link"
-          type="submit"
-        >
+        <Button className={s.loginLink} as="a" href="https://google.com" variant="link">
           Try logging in
         </Button>
       </form>
