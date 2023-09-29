@@ -1,6 +1,6 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
 
-export const Search = (allProps: IconProps) => {
+export const SearchIcon = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
