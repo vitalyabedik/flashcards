@@ -18,6 +18,13 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const CheckboxWithHooks = (args: CheckboxProps) => {
+  const [checked, setChecked] = useState(false)
+  const onCheckedChange = () => setChecked(!checked)
+
+  return <Checkbox {...args} checked={checked} onCheckedChange={onCheckedChange} />
+}
+
 export const Default: Story = {
   args: {
     checked: false,
@@ -26,7 +33,15 @@ export const Default: Story = {
   },
 }
 
-export const CheckboxWithLabel: Story = {
+export const Disabled: Story = {
+  args: {
+    checked: false,
+    disabled: true,
+    position: 'default',
+  },
+}
+
+export const DefaultWithLabel: Story = {
   args: {
     checked: false,
     disabled: false,
@@ -35,31 +50,21 @@ export const CheckboxWithLabel: Story = {
   },
 }
 
-export const DefaultWithActions: Story = {
+export const Controlled: Story = {
   args: {
     checked: false,
     disabled: false,
     position: 'default',
   },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(false)
-    const onCheckedChange = () => setChecked(!checked)
-
-    return <Checkbox {...args} checked={checked} onCheckedChange={onCheckedChange} />
-  },
+  render: (args: CheckboxProps) => <CheckboxWithHooks {...args} />,
 }
 
-export const CheckboxWithActions: Story = {
+export const ControlledWithLabel: Story = {
   args: {
     checked: false,
     disabled: false,
     label: 'Click here',
     position: 'default',
   },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(false)
-    const onCheckedChange = () => setChecked(!checked)
-
-    return <Checkbox {...args} checked={checked} onCheckedChange={onCheckedChange} />
-  },
+  render: (args: CheckboxProps) => <CheckboxWithHooks {...args} />,
 }

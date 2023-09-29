@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
+import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Input } from './Input'
+import { Input, InputProps } from './Input'
 
-import { Clear, Search } from '@/assets'
+import { SearchIcon } from '@/assets'
 
 const meta = {
   title: 'Components/Input',
@@ -15,25 +16,63 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const InputWithValue: Story = {
+const InputWithHooks = (args: InputProps) => {
+  const {
+    type,
+    label,
+    error,
+    leftIcon,
+    rightIcon,
+    onChange,
+    onLeftIconClickHandler,
+    onRightIconClickHandler,
+    onKeyDown,
+    onEnter,
+  } = args
+
+  const [value, setValue] = useState(args.value)
+
+  const onChangeValueHandler = (value: string) => {
+    setValue(value)
+  }
+
+  return (
+    <Input
+      type={type}
+      value={value}
+      onChange={onChange}
+      onChangeValue={onChangeValueHandler}
+      placeholder={args.placeholder}
+      label={label}
+      error={error}
+      leftIcon={leftIcon}
+      rightIcon={rightIcon}
+      onLeftIconClickHandler={onLeftIconClickHandler}
+      onRightIconClickHandler={onRightIconClickHandler}
+      onKeyDown={onKeyDown}
+      onEnter={onEnter}
+    />
+  )
+}
+
+export const Default: Story = {
   args: {
     type: 'text',
-    value: 'Test value',
-    placeholder: 'Input with value',
-    label: 'Input with value',
+    placeholder: 'Default placeholder',
+    label: 'Default input',
   },
 }
 
-export const ErrorInput: Story = {
+export const Error: Story = {
   args: {
     type: 'text',
-    placeholder: 'Error Input',
+    placeholder: 'Error placeholder',
     label: 'Error input',
     error: 'Error message',
   },
 }
 
-export const DisabledInput: Story = {
+export const Disabled: Story = {
   args: {
     type: 'text',
     placeholder: 'Disabled Input',
@@ -42,102 +81,49 @@ export const DisabledInput: Story = {
   },
 }
 
-export const SearchInput: Story = {
+export const Search: Story = {
   args: {
     type: 'search',
     placeholder: 'Search Input',
     label: 'Search input',
-    value: '',
-    leftIcon: <Search size={1.9} />,
+    leftIcon: <SearchIcon size={1.9} />,
   },
 }
 
-const DefaultInputExample = () => {
-  const [value, setValue] = useState('')
-  const onChangeValue = (value: string) => {
-    setValue(value)
-  }
-
-  return (
-    <Input
-      value={value}
-      onChangeValue={onChangeValue}
-      placeholder="Default input"
-      label="Default input"
-    />
-  )
+export const Controlled: Story = {
+  args: {
+    type: 'text',
+    placeholder: 'Controlled Input',
+    label: 'Controlled Input',
+    onChange: event => {
+      action('Input Value')(event.target.value)
+    },
+  },
+  render: args => <InputWithHooks {...args} />,
 }
 
-export const DefaultInputWithAction = () => <DefaultInputExample />
-
-const PasswordInputExample = () => {
-  const [value, setValue] = useState('')
-  const onChangeValue = (value: string) => {
-    setValue(value)
-  }
-
-  const onKeyPress = () => {
-    alert(`Send data from input: ${value}`)
-  }
-
-  return (
-    <Input
-      type="password"
-      value={value}
-      onChangeValue={onChangeValue}
-      placeholder="Password input"
-      label="Password input"
-      onEnter={onKeyPress}
-    />
-  )
+export const ControlledWithPassword: Story = {
+  args: {
+    type: 'password',
+    placeholder: 'Password Input',
+    label: 'Password Input',
+    onChange: event => {
+      action('Password Value')(event.target.value)
+    },
+  },
+  render: args => <InputWithHooks {...args} />,
 }
 
-export const PasswordInputWithAction = () => <PasswordInputExample />
-
-const SearchInputExample = () => {
-  const [value, setValue] = useState('')
-  const onChangeValue = (value: string) => {
-    setValue(value)
-  }
-  const onLeftIconClickHandler = () => {
-    alert(value)
-  }
-
-  return (
-    <Input
-      type="search"
-      value={value}
-      onChangeValue={onChangeValue}
-      placeholder="Search input"
-      label="Search input"
-      leftIcon={<Search />}
-      onLeftIconClickHandler={onLeftIconClickHandler}
-    />
-  )
+export const ControlledWithSearch: Story = {
+  args: {
+    type: 'search',
+    placeholder: 'Search Input',
+    label: 'Search Input',
+    leftIcon: <SearchIcon />, // SearchIcon
+    onChange: event => {
+      action('Search Value')(event.target.value)
+    },
+    onLeftIconClickHandler: action('Left Icon was Clicked'),
+  },
+  render: args => <InputWithHooks {...args} />,
 }
-
-export const SearchInputWithAction = () => <SearchInputExample />
-
-const ClearInputExample = () => {
-  const [value, setValue] = useState('')
-  const onChangeValue = (value: string) => {
-    setValue(value)
-  }
-  const onRightIconClickHandler = () => {
-    setValue('')
-  }
-
-  return (
-    <Input
-      type="text"
-      value={value}
-      onChangeValue={onChangeValue}
-      placeholder="Input with clear icon"
-      label="Input with clear icon"
-      rightIcon={<Clear />}
-      onRightIconClickHandler={onRightIconClickHandler}
-    />
-  )
-}
-
-export const ClearInputWithAction = () => <ClearInputExample />

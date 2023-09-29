@@ -1,5 +1,6 @@
 import { CSSProperties, useEffect, useState } from 'react'
 
+import { action } from '@storybook/addon-actions'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { TypographyVariant } from '@/common'
@@ -35,26 +36,32 @@ const ModalWithText = (args: ModalProps) => {
     <>
       <Button onClick={() => setIsOpen(true)}>Open</Button>
       <Modal open={isOpen} setOpen={setIsOpen} title={args.title}>
-        <div>
-          <div style={textWrapper}>
-            <Typography variant={TypographyVariant.Body1}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamdsa
-            </Typography>
-          </div>
-          <div style={actionBlock}>
-            <Button variant="secondary" onClick={() => setIsOpen(false)}>
-              Close
-            </Button>
-            <Button onClick={() => setIsOpen(false)}>Action</Button>
-          </div>
+        <div style={textWrapper}>
+          <Typography variant={TypographyVariant.Body1}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamdsa
+          </Typography>
+        </div>
+        <div style={actionBlock}>
+          <Button variant="secondary" onClick={() => setIsOpen(false)}>
+            Close
+          </Button>
+          <Button onClick={() => setIsOpen(false)}>Action</Button>
         </div>
       </Modal>
     </>
   )
 }
 
-export const ModalWithTextExample: Story = {
+export const Default: Story = {
+  args: {
+    title: 'Modal title',
+    open: true,
+    setOpen: action('Close key pressed'),
+  },
+}
+
+export const ControlledWithText: Story = {
   args: {
     title: 'Modal title',
     open: false,
