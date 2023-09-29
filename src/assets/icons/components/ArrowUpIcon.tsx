@@ -1,6 +1,6 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
 
-export const ArrowUp = (allProps: IconProps) => {
+export const ArrowUpIcon = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (

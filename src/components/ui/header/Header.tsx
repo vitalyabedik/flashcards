@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import s from './Header.module.scss'
 
-import { Logo, LogoutIcon, Person } from '@/assets'
+import { Logo, LogoutIcon, PersonIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
 import {
   Avatar,
@@ -65,7 +65,7 @@ export const Header = forwardRef<HTMLDivElement, Props>(
                       </div>
                     </div>
                   </DropdownItem>
-                  <DropdownItemWithIcon icon={<Person size={1.6} />} text="My Profile" />
+                  <DropdownItemWithIcon icon={<PersonIcon size={1.6} />} text="My Profile" />
                   <DropdownItemWithIcon icon={<LogoutIcon size={1.6} />} text="Sign Out" />
                 </div>
               </Dropdown>

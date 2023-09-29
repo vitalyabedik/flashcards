@@ -1,6 +1,6 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
 
-export const Close = (allProps: IconProps) => {
+export const CloseIcon = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (

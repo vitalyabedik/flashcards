@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 import s from './Checkbox.module.scss'
 
-import { Check } from '@/assets'
+import { CheckIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
 import { Typography } from '@/components'
 
@@ -56,7 +56,7 @@ export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, Checkb
           >
             {checked && (
               <RadixCheckbox.Indicator className={classNames.indicator} forceMount>
-                <Check size={1.8} />
+                <CheckIcon size={1.8} />
               </RadixCheckbox.Indicator>
             )}
           </RadixCheckbox.Root>

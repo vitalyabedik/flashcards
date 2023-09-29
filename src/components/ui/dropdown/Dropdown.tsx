@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import s from './Dropdown.module.scss'
 import { dropdownAnimations } from './dropdownMenuAnimations'
 
-import { More } from '@/assets'
+import { MoreIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
 import { Typography } from '@/components'
 
@@ -34,7 +34,7 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
         <DropdownPrimitive.Trigger asChild>
           {trigger ?? (
             <button className={classNames.button}>
-              <More />
+              <MoreIcon />
             </button>
           )}
         </DropdownPrimitive.Trigger>

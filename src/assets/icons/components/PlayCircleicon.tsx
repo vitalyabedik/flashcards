@@ -1,6 +1,6 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
 
-export const PlayCircle = (allProps: IconProps) => {
+export const PlayCircleicon = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (

@@ -1,6 +1,6 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
 
-export const Delete = (allProps: IconProps) => {
+export const DeleteIcon = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (

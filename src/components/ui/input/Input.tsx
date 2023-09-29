@@ -11,7 +11,7 @@ import cn from 'classnames'
 
 import s from './Input.module.scss'
 
-import { ClosedEye, OpenEye } from '@/assets'
+import { ClosedEyeIcon, OpenEyeIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
 import { Typography } from '@/components'
 
@@ -133,9 +133,9 @@ const InputIcon = ({ icon, className, onClick }: IconProps) => {
 
 const getRightInputIcon = (type: string, isVisible: boolean, rightIcon: ReactNode) => {
   if (type === 'password' && isVisible) {
-    return <OpenEye />
+    return <OpenEyeIcon />
   } else if (type === 'password' && !isVisible) {
-    return <ClosedEye />
+    return <ClosedEyeIcon />
   } else {
     return rightIcon
   }

@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import s from './Modal.module.scss'
 import { modalAnimations } from './modalWindowAnimations'
 
-import { Close } from '@/assets'
+import { CloseIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
 import { Card, Typography } from '@/components'
 
@@ -44,7 +44,7 @@ export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
                         </Typography>
                         <ModalPrimitive.Close asChild>
                           <button className={classNames.closeBtn} aria-label="Close">
-                            <Close />
+                            <CloseIcon />
                           </button>
                         </ModalPrimitive.Close>
                       </header>
