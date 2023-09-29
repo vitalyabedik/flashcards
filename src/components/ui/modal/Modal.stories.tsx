@@ -6,11 +6,11 @@ import { Meta, StoryObj } from '@storybook/react'
 import { TypographyVariant } from '@/common'
 import { Button, Modal, ModalProps, Typography } from '@/components'
 
-const meta = {
+const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
   component: Modal,
   tags: ['autodocs'],
-} satisfies Meta<typeof Modal>
+}
 
 export default meta
 type Story = StoryObj<typeof meta>

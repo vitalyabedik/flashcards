@@ -3,11 +3,11 @@ import type { Meta, StoryObj } from '@storybook/react'
 import s from './Default.module.scss'
 import { DefaultClassNameType, OptionType, Select } from './Select'
 
-const meta = {
+const meta: Meta<typeof Select> = {
   title: 'Components/Select',
   component: Select,
   tags: ['autodocs'],
-} satisfies Meta<typeof Select>
+}
 
 export default meta
 type Story = StoryObj<typeof meta>

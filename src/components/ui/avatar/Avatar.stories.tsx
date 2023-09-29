@@ -2,14 +2,14 @@ import { Meta, StoryObj } from '@storybook/react'
 
 import { Avatar } from './Avatar'
 
-const meta = {
+const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   argTypes: {
     userName: String,
   },
-} satisfies Meta<typeof Avatar>
+}
 
 export default meta
 type Story = StoryObj<typeof meta>

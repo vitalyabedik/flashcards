@@ -4,7 +4,7 @@ import { Typography } from './Typography'
 
 import { TypographyVariant } from '@/common'
 
-const meta = {
+const meta: Meta<typeof Typography> = {
   title: 'Components/Typography',
   component: Typography,
   tags: ['autodocs'],
@@ -14,7 +14,7 @@ const meta = {
       control: { type: 'select' },
     },
   },
-} satisfies Meta<typeof Typography>
+}
 
 export default meta
 type Story = StoryObj<typeof meta>

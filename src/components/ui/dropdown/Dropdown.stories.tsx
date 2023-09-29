@@ -4,7 +4,7 @@ import { Dropdown, DropdownItemWithIcon } from './Dropdown'
 
 import { PlayCircle, Edit, Delete } from '@/assets'
 
-const meta = {
+const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
@@ -14,7 +14,7 @@ const meta = {
       control: { type: 'select' },
     },
   },
-} satisfies Meta<typeof Dropdown>
+}
 
 export default meta
 type Story = StoryObj<typeof meta>

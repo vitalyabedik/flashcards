@@ -7,11 +7,11 @@ import { Input, InputProps } from './Input'
 
 import { SearchIcon } from '@/assets'
 
-const meta = {
+const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
   tags: ['autodocs'],
-} satisfies Meta<typeof Input>
+}
 
 export default meta
 type Story = StoryObj<typeof meta>
