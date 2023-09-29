@@ -39,12 +39,12 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
           {open && (
             <DropdownPrimitive.Portal forceMount>
               <DropdownPrimitive.Content
-                asChild
-                forceMount
                 ref={ref}
                 className={classNames.content}
                 align={align}
                 onClick={event => event.stopPropagation()}
+                asChild
+                forceMount
               >
                 <motion.div animate={open ? 'open' : 'closed'} {...dropdownAnimations.menu}>
                   <div>{children}</div>
