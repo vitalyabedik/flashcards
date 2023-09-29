@@ -33,6 +33,14 @@ export const Default: Story = {
   },
 }
 
+export const Disabled: Story = {
+  args: {
+    checked: false,
+    disabled: true,
+    position: 'default',
+  },
+}
+
 export const DefaultWithLabel: Story = {
   args: {
     checked: false,
@@ -42,7 +50,7 @@ export const DefaultWithLabel: Story = {
   },
 }
 
-export const ControlledCheckbox: Story = {
+export const Controlled: Story = {
   args: {
     checked: false,
     disabled: false,
@@ -51,7 +59,7 @@ export const ControlledCheckbox: Story = {
   render: (args: CheckboxProps) => <CheckboxWithHooks {...args} />,
 }
 
-export const ControlledCheckboxWithLabel: Story = {
+export const ControlledWithLabel: Story = {
   args: {
     checked: false,
     disabled: false,

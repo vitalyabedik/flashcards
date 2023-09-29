@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Input, InputProps } from './Input'
 
-import { Search } from '@/assets'
+import { SearchIcon } from '@/assets'
 
 const meta = {
   title: 'Components/Input',
@@ -81,16 +81,16 @@ export const Disabled: Story = {
   },
 }
 
-export const SearchInput: Story = {
+export const Search: Story = {
   args: {
     type: 'search',
     placeholder: 'Search Input',
     label: 'Search input',
-    leftIcon: <Search size={1.9} />,
+    leftIcon: <SearchIcon size={1.9} />,
   },
 }
 
-export const ControlledInput: Story = {
+export const Controlled: Story = {
   args: {
     type: 'text',
     placeholder: 'Controlled Input',
@@ -102,7 +102,7 @@ export const ControlledInput: Story = {
   render: args => <InputWithHooks {...args} />,
 }
 
-export const ControlledInputWithPassword: Story = {
+export const ControlledWithPassword: Story = {
   args: {
     type: 'password',
     placeholder: 'Password Input',
@@ -114,12 +114,12 @@ export const ControlledInputWithPassword: Story = {
   render: args => <InputWithHooks {...args} />,
 }
 
-export const ControlledInputWithSearch: Story = {
+export const ControlledWithSearch: Story = {
   args: {
     type: 'search',
     placeholder: 'Search Input',
     label: 'Search Input',
-    leftIcon: <Search />, // SearchIcon
+    leftIcon: <SearchIcon />, // SearchIcon
     onChange: event => {
       action('Search Value')(event.target.value)
     },

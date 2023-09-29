@@ -1,4 +1,4 @@
-export { Search } from './components/Search'
+export { SearchIcon } from './components/SearchIcon'
 export { OpenEye } from './components/OpenEye'
 export { ClosedEye } from './components/ClosedEye'
 export { Clear } from './components/Clear'

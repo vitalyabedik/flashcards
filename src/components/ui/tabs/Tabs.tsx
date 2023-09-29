@@ -7,7 +7,7 @@ import s from './Tabs.module.scss'
 
 type TabType = { title: string } & ComponentPropsWithoutRef<typeof RadixTabs.Trigger>
 
-type TabsProps = {
+export type TabsProps = {
   tabs: TabType[]
   classNames?: { root?: string; list?: string; trigger?: string }
 } & ComponentPropsWithoutRef<typeof RadixTabs.Root>

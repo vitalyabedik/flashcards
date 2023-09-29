@@ -12,7 +12,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const initialSelectState: OptionType[] = [
+const initialState: OptionType[] = [
   { value: 'first', title: 'First Select' },
   { value: 'second', title: 'Second Select' },
   { value: 'third', title: 'Third Select' },
@@ -26,16 +26,25 @@ const defaultClassNames: DefaultClassNameType = {
 
 export const Default: Story = {
   args: {
-    options: initialSelectState,
+    options: initialState,
     disabled: false,
     fullWidth: false,
     defaultClassNames,
   },
 }
 
-export const SelectWithLabel: Story = {
+export const FullWidth: Story = {
   args: {
-    options: initialSelectState,
+    options: initialState,
+    disabled: false,
+    fullWidth: true,
+    defaultClassNames,
+  },
+}
+
+export const WithLabel: Story = {
+  args: {
+    options: initialState,
     label: 'Select label',
     disabled: false,
     fullWidth: false,
