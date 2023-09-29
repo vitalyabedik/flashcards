@@ -1,5 +1,14 @@
 @import '@styles/mixins';
 
+.trigger {
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .content {
   position: relative;
   z-index: 999;

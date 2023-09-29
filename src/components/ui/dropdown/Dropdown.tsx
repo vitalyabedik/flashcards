@@ -21,6 +21,7 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
     const [open, setOpen] = useState(false)
 
     const classNames = {
+      trigger: s.trigger,
       button: s.button,
       content: cn(s.content, className),
       arrow: s.arrow,
@@ -28,7 +29,7 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
 
     return (
       <DropdownPrimitive.Root open={open} onOpenChange={setOpen}>
-        <DropdownPrimitive.Trigger asChild>
+        <DropdownPrimitive.Trigger className={classNames.trigger} asChild>
           {trigger ?? (
             <button className={classNames.button}>
               <MoreIcon />
