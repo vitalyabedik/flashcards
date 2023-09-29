@@ -20,42 +20,6 @@
   }
 }
 
-.item {
-  @include flex($align: center, $gap: 0.6rem);
-
-  cursor: pointer;
-  user-select: none;
-
-  width: 100%;
-
-  outline: none;
-
-  fill: var(--color-light-100);
-
-  transition: opacity 0.2s ease-in-out;
-
-  &:not(:last-child) {
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid var(--color-dark-500);
-  }
-
-  &:not(:first-child) {
-    padding-top: 1.2rem;
-  }
-
-  &:hover,
-  &:focus {
-    opacity: 0.7 !important;
-  }
-}
-
-.itemIcon {
-  @include flex($justify: center, $align: center);
-
-  width: 1.6rem;
-  height: 1.6rem;
-}
-
 .arrow {
   position: absolute;
   top: -0.4rem;
