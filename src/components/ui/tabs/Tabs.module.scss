@@ -1,8 +1,11 @@
+@import '@styles/mixins';
+
 .root {
   width: 100%;
 
   .list {
-    display: flex;
+    @include flex;
+
     height: 3.6rem;
   }
 }

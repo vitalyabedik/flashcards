@@ -1,8 +1,7 @@
+@import '@styles/mixins';
+
 .root {
-  display: flex;
-  gap: 2.4rem;
-  align-items: end;
-  justify-content: center;
+  @include flex($align: end, $justify: center, $gap: 2.4rem);
 
   .input {
     min-width: 30rem;

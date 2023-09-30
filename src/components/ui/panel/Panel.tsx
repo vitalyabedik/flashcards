@@ -18,27 +18,25 @@ export type PanelProps = {
   onClearFilter: () => void
 }
 
-export const Panel = (props: PanelProps): JSX.Element => {
-  const {
-    inputValue,
-    tabValue,
-    tabLabel,
-    sliderValue,
-    sliderLabel,
-    minSliderValue,
-    maxSliderValue,
-    onChangeInputValue,
-    onChangeTabValue,
-    onChangeSliderValue,
-    onClearFilter,
-  } = props
-
+export const Panel = ({
+  inputValue,
+  tabValue,
+  tabLabel,
+  sliderValue,
+  sliderLabel,
+  minSliderValue,
+  maxSliderValue,
+  onChangeInputValue,
+  onChangeTabValue,
+  onChangeSliderValue,
+  onClearFilter,
+}: PanelProps): JSX.Element => {
   return (
     <div className={s.root}>
       <Input className={s.input} value={inputValue} onChangeValue={onChangeInputValue} />
       <Tabs className={s.tabs} label={tabLabel} value={tabValue} onValueChange={onChangeTabValue}>
-        <TabItem value={'myCards'}>My Cards</TabItem>
-        <TabItem value={'allCards'}>All Cards</TabItem>
+        <TabItem value="myCards">My Cards</TabItem>
+        <TabItem value="allCards">All Cards</TabItem>
       </Tabs>
       <Slider
         value={sliderValue}
