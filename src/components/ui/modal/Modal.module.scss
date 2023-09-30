@@ -26,6 +26,8 @@
 .closeBtn {
   @include iconButton;
 
+  border-radius: 50%;
+
   &:hover {
     background-color: var(--color-dark-300);
   }
