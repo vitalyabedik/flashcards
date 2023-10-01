@@ -24,22 +24,10 @@
   border-bottom: 2px dashed var(--color-light-100);
 }
 
-.blockWrapper {
+.profileInfoWrapper {
   @include flex($justify: space-between, $align: center, $gap: 1.4rem);
 }
 
 .dropdownItemsWrapper {
   padding-right: 2.8rem;
-}
-
-.profileBlockInfoWrapper {
-  @include flex($justify: space-between, $align: center, $gap: 0.8rem);
-}
-
-.profileBlockInfoTextWrapper {
-  @include flex($direction: column, $justify: center, $align: start);
-}
-
-.profileBlockInfoText {
-  color: var(--color-dark-100);
 }
