@@ -20,7 +20,9 @@ type Story = StoryObj<typeof meta>
 
 const CheckboxWithHooks = (args: CheckboxProps) => {
   const [checked, setChecked] = useState(false)
-  const onCheckedChange = () => setChecked(!checked)
+  const onCheckedChange = () => {
+    setChecked(!checked)
+  }
 
   return <Checkbox {...args} checked={checked} onCheckedChange={onCheckedChange} />
 }
