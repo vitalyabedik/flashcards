@@ -1,9 +1,21 @@
 @import '@styles/mixins';
 
+.activeHeadCell {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
+}
+
 .sortCell {
-  @include flex($align: center, $gap: 0.4rem);
+  position: relative;
 }
 
 .sortIcon {
-  @include flex($align: center);
+  position: absolute;
+  top: 50%;
+  right: -1.6rem;
+  transform: translateY(-50%);
 }
