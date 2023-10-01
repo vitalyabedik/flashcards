@@ -14,7 +14,7 @@ export type OptionType = {
   title: string
 }
 
-export type SelectVariant = 'default' | 'pagination'
+type SelectVariant = 'default' | 'pagination'
 
 export type SelectProps = {
   options: OptionType[]
@@ -48,7 +48,6 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
       label: cn('label', s.text, disabled && s.disabled),
       trigger: cn(s.trigger, s[variant], s[`${variant}Paddings`], fullWidth && s.fullWidth),
       content: cn(s.content, className),
-      selectItem: cn(s.content, s[variant]),
       icon: s.icon,
     }
 
