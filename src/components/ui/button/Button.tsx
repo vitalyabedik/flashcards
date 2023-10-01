@@ -11,10 +11,12 @@ import cn from 'classnames'
 
 import s from './Button.module.scss'
 
+import { ButtonVariant } from '@/common'
+
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link'
+  variant?: ButtonVariant
   fullWidth?: boolean
   className?: string
 } & ComponentPropsWithoutRef<T>
@@ -24,7 +26,7 @@ export const ButtonPolymorph = <T extends ElementType = 'button'>(
   ref: ElementRef<T>
 ): JSX.Element => {
   const {
-    variant = 'primary',
+    variant = ButtonVariant.Primary,
     fullWidth,
     className,
     as: Component = 'button',
