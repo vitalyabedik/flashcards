@@ -1,0 +1,18 @@
+@import '@styles/mixins';
+
+.root {
+  @include flex($align: end, $justify: center, $gap: 2.4rem);
+
+  .input {
+    min-width: 30rem;
+  }
+
+  .tabs {
+    min-width: 24rem;
+  }
+
+  .button {
+    min-width: 12rem;
+    margin-left: 1.2rem;
+  }
+}
