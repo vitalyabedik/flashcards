@@ -23,7 +23,7 @@ export const ProfileInfo = ({ email, name, onEditProfile }: Props): JSX.Element 
           <EditIcon size={1.6} />
         </button>
       </div>
-      <Typography className={s.email} variant={TypographyVariant.Body2} as="p">
+      <Typography className={s.email} variant={TypographyVariant.Body2}>
         {email}
       </Typography>
       <Button className={s.button} variant="secondary" as="a" onClick={onLogout}>
