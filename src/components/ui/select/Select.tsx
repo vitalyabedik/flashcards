@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 import s from './Select.module.scss'
 
-import { ArrowUpIcon } from '@/assets'
+import { ArrowDownIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
 import { Typography } from '@/components'
 
@@ -69,7 +69,7 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
             <RadixSelect.Value className={s.value} placeholder={placeholder} />
           </Typography>
           <RadixSelect.Icon className={s.icon}>
-            <ArrowUpIcon size={1.6} />
+            <ArrowDownIcon size={1.6} />
           </RadixSelect.Icon>
         </RadixSelect.Trigger>
         <RadixSelect.Portal>
