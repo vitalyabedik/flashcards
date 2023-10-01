@@ -8,11 +8,8 @@ const editProfileSchema = z.object({
 
 export type EditProfileValues = z.infer<typeof editProfileSchema>
 
-export const useEditProfile = (initialValues: EditProfileValues = { name: '' }) => {
-  const { control, handleSubmit } = useForm<EditProfileValues>({
+export const useEditProfile = (initialValues: EditProfileValues = { name: '' }) =>
+  useForm<EditProfileValues>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: initialValues,
   })
-
-  return { control, handleSubmit }
-}
