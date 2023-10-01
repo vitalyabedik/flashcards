@@ -26,7 +26,7 @@ export const PersonalInformation = ({ avatar, email, name }: Props): JSX.Element
 
   return (
     <Card className={s.card}>
-      <Typography className={s.title} variant={TypographyVariant.Large} as="h2">
+      <Typography className={s.title} variant={TypographyVariant.Large} as="h1">
         Personal Information
       </Typography>
       <AvatarUploader
