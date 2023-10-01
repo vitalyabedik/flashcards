@@ -2,6 +2,12 @@ import { JSX, ReactNode } from 'react'
 
 import cn from 'classnames'
 
+import s from './Pagination.module.scss'
+import { usePagination } from './usePagination'
+
+import { TypographyVariant } from '@/common'
+import { Typography } from '@/components'
+
 type PaginationProps = {
   totalCount: number
   pageSize: number
@@ -21,12 +27,18 @@ export const Pagination = ({
   rightArrow,
   onPageChange,
 }: PaginationProps): JSX.Element => {
+  const totalPageCount = Math.ceil(totalCount / pageSize)
+  const paginationItems = usePagination({ totalPageCount, currentPage, siblingCount })
+
   const classNames = {
     root: s.root,
     paginationContainer: s.paginationContainer,
     dots: s.dots,
-    controller(disableed: boolean) {
-      return cn(s.controller, disableed && s.disabledController)
+    controller(disabled: boolean) {
+      return cn(s.controller, disabled && s.disabledController)
+    },
+    item(itemNumber: number) {
+      return cn(s.item, itemNumber === currentPage && s.activeItem)
     },
   }
 
@@ -36,7 +48,7 @@ export const Pagination = ({
     }
   }
   const setNextPage = () => {
-    if (currentPage !== totalCount) {
+    if (currentPage !== totalPageCount) {
       onPageChange(currentPage + 1)
     }
   }
@@ -52,28 +64,30 @@ export const Pagination = ({
         >
           {leftArrow}
         </button>
-        {paginationArray.map((num, index) => {
-          if (typeof num === 'string') {
+        {paginationItems.map((num, index) => {
+          if (num === '...') {
             return (
-              <button key={index} className={style.dots}>
+              <button key={index} className={classNames.dots}>
                 {num}
               </button>
             )
           } else
             return (
               <button
-                tabIndex={0}
                 key={index}
-                /*className={style.paginationItem(num)}*/
+                className={classNames.item(num)}
+                tabIndex={0}
                 /* onKeyUp={(e: KeyboardEvent<HTMLLIElement>) => setPageNumberFromKeyboard(e, num)}*/
                 onClick={() => onPageChange(num)}
               >
-                {num}
+                <Typography variant={TypographyVariant.Body2} as="span">
+                  {num}
+                </Typography>
               </button>
             )
         })}
         <button
-          className={classNames.controller(currentPage === totalCount)}
+          className={classNames.controller(currentPage === totalPageCount)}
           tabIndex={0}
           /*   onKeyUp={setNextPageFromKeyboard}*/
           onClick={setNextPage}

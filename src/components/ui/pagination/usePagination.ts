@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { createRangeArray } from '@/components/ui/pagination/createRangeArray.ts'
+import { createRangeArray } from './createRangeArray'
 
 const DOTS = '...'
 
