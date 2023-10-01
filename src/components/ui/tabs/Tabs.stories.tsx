@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { TabItem } from './tabItem/TabItem'
 import { Tabs, TabsProps } from './Tabs'
 
 const meta: Meta<typeof Tabs> = {
@@ -13,14 +14,6 @@ const meta: Meta<typeof Tabs> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const initialTabsState = [
-  { title: 'Switcher_1', value: '1', disabled: false },
-  { title: 'Switcher_2', value: '2', disabled: false },
-  { title: 'Switcher_3', value: '3', disabled: false },
-  { title: 'Switcher_4', value: '4', disabled: false },
-  { title: 'Switcher_5', value: '5', disabled: true },
-]
-
 const TabsWithHooks = (args: TabsProps) => {
   const [activeTab, setActiveTab] = useState(args.value)
 
@@ -28,20 +21,44 @@ const TabsWithHooks = (args: TabsProps) => {
     setActiveTab(tabValue)
   }
 
-  return <Tabs value={activeTab} onValueChange={changeActiveTab} tabs={args.tabs} />
+  return (
+    <Tabs value={activeTab} onValueChange={changeActiveTab}>
+      {args.children}
+    </Tabs>
+  )
 }
 
 export const Default: Story = {
   args: {
     value: '1',
-    tabs: initialTabsState,
+    children: (
+      <>
+        <TabItem value="1">Switcher_1</TabItem>
+        <TabItem value="2">Switcher_2</TabItem>
+        <TabItem value="3" disabled>
+          Switcher_3
+        </TabItem>
+        <TabItem value="4">Switcher_4</TabItem>
+        <TabItem value="5">Switcher_5</TabItem>
+      </>
+    ),
   },
 }
 
 export const Controlled: Story = {
   args: {
     value: '1',
-    tabs: initialTabsState,
+    children: (
+      <>
+        <TabItem value="1">Switcher_1</TabItem>
+        <TabItem value="2">Switcher_2</TabItem>
+        <TabItem value="3" disabled>
+          Switcher_3
+        </TabItem>
+        <TabItem value="4">Switcher_4</TabItem>
+        <TabItem value="5">Switcher_5</TabItem>
+      </>
+    ),
   },
-  render: args => <TabsWithHooks {...args} />,
+  render: ({ children, ...restArgs }) => <TabsWithHooks {...restArgs}>{children}</TabsWithHooks>,
 }
