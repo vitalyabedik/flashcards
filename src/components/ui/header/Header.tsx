@@ -71,9 +71,7 @@ export const Header = forwardRef<HTMLDivElement, Props>(
               </Dropdown>
             </div>
           ) : (
-            <Button variant="primary" as="a">
-              Sign In
-            </Button>
+            <Button as="a">Sign In</Button>
           )}
         </div>
       </header>
