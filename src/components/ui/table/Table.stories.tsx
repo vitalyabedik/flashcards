@@ -8,7 +8,7 @@ import { Column, Sort, TableHeader } from './tableHeader'
 
 import { ArrowDownIcon, CheckIcon, DeleteIcon, EditIcon, Logo, PlayCircleIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
-import { Button, Typography } from '@/components'
+import { Button, Rating, Typography } from '@/components'
 
 const meta: Meta<typeof Table.Root> = {
   title: 'Components/Table',
@@ -24,33 +24,32 @@ const columnsPrimitives: Column[] = [
   {
     key: 'name',
     title: 'Name',
-    sortable: true,
   },
   {
     key: 'cardsCount',
     title: 'Cards',
-    sortable: true,
   },
   {
     key: 'updated',
     title: 'Last Updated',
-    sortable: true,
   },
   {
     key: 'created',
     title: 'Created by',
-    sortable: true,
   },
 ]
 
-const columns = [
+const columns: Column[] = [
   ...columnsPrimitives,
   {
     key: 'icons',
     title: '',
-    sortable: false,
   },
 ]
+
+const columnsSortable: Column[] = columns.map(column =>
+  column.key !== 'icons' ? { ...column, sortable: true } : column
+)
 
 // general styles
 const iconsPrimitivesWrapper: CSSProperties = {
@@ -67,10 +66,26 @@ const cellPrimitivesWrapper: CSSProperties = {
   gap: '1rem',
 }
 
+const logoPrimitives: CSSProperties = {
+  maxWidth: '11.8rem',
+  width: '100%',
+}
+
+const textHeadCellPrimitives: CSSProperties = {
+  position: 'relative',
+}
+
+const iconHeadCellPrimitives: CSSProperties = {
+  position: 'absolute',
+  top: '60%',
+  right: '-1.6rem',
+  transform: 'translateY(-50%)',
+}
+
 // primitives
 export const Primitives = () => {
   return (
-    <Table.Root>
+    <Table.Root style={{ width: '210px' }}>
       <Table.Head>
         <Table.Row>
           <Table.HeadCell>
@@ -105,8 +120,13 @@ export const Primitives = () => {
           </Table.Cell>
         </Table.Row>
         <Table.Row>
+          <Table.Cell style={iconsPrimitivesWrapper}>
+            <Rating rating={4} />
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
           <Table.Cell style={cellPrimitivesWrapper}>
-            <Logo />
+            <Logo style={logoPrimitives} />
             <Typography variant={TypographyVariant.Body2}>Name</Typography>
           </Table.Cell>
         </Table.Row>
@@ -118,9 +138,18 @@ export const Primitives = () => {
       </Table.Body>
       <Table.Head>
         <Table.Row>
-          <Table.HeadCell style={iconsPrimitivesWrapper}>
-            <Typography variant={TypographyVariant.Subtitle2}>Name</Typography>
-            <ArrowDownIcon size={1.2} />
+          <Table.HeadCell>
+            <Typography
+              style={textHeadCellPrimitives}
+              variant={TypographyVariant.Subtitle2}
+              as="span"
+            >
+              Name
+              {/*this span only for story, don't use*/}
+              <span style={iconHeadCellPrimitives}>
+                <ArrowDownIcon size={1.2} />
+              </span>
+            </Typography>
           </Table.HeadCell>
         </Table.Row>
       </Table.Head>
@@ -129,24 +158,7 @@ export const Primitives = () => {
 }
 
 //tableHeader
-const columnsTableNoSortable: Column[] = [
-  {
-    key: 'name',
-    title: 'Name',
-  },
-  {
-    key: 'cardsCount',
-    title: 'Cards',
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-  },
-  {
-    key: 'created',
-    title: 'Created by',
-  },
-]
+const columnsTableNoSortable: Column[] = columnsPrimitives
 
 const columnsTableHeaderSortable: Column[] = columnsTableNoSortable.map(column => ({
   ...column,
@@ -216,15 +228,15 @@ const columnsDefault: Column[] = [
 
 export const Default = () => {
   return (
-    <Table.Root style={{ width: '100%' }}>
+    <Table.Root>
       <TableHeader columns={columnsDefault} />
       <Table.Body>
         <Table.Row>
           <Table.Cell>
-            <Typography variant={TypographyVariant.Body2}> JavaScript</Typography>
+            <Typography variant={TypographyVariant.Body2}>JavaScript</Typography>
           </Table.Cell>
           <Table.Cell>
-            <Typography variant={TypographyVariant.Body2}> Programming language</Typography>
+            <Typography variant={TypographyVariant.Body2}>Programming language</Typography>
           </Table.Cell>
           <Table.Cell>
             <Typography
@@ -247,10 +259,10 @@ export const Default = () => {
         </Table.Row>
         <Table.Row>
           <Table.Cell>
-            <Typography variant={TypographyVariant.Body2}> React</Typography>
+            <Typography variant={TypographyVariant.Body2}>React</Typography>
           </Table.Cell>
           <Table.Cell>
-            <Typography variant={TypographyVariant.Body2}> UI library</Typography>
+            <Typography variant={TypographyVariant.Body2}>UI library</Typography>
           </Table.Cell>
           <Table.Cell>
             <Typography
@@ -273,10 +285,10 @@ export const Default = () => {
         </Table.Row>
         <Table.Row>
           <Table.Cell>
-            <Typography variant={TypographyVariant.Body2}> Redux Toolkit</Typography>
+            <Typography variant={TypographyVariant.Body2}>Redux Toolkit</Typography>
           </Table.Cell>
           <Table.Cell>
-            <Typography variant={TypographyVariant.Body2}> State manager</Typography>
+            <Typography variant={TypographyVariant.Body2}>State manager</Typography>
           </Table.Cell>
           <Table.Cell>
             <Typography
@@ -338,7 +350,7 @@ const data = [
 
 export const Mapped = () => {
   return (
-    <Table.Root style={{ width: '100%' }}>
+    <Table.Root>
       <TableHeader columns={columns} />
       <Table.Body>
         {data.map(item => (
@@ -346,7 +358,7 @@ export const Mapped = () => {
             {Object.values(item).map((value, index) => {
               return (
                 <Table.Cell key={`${value}${index}`}>
-                  <Typography variant={TypographyVariant.Body2}> {value}</Typography>
+                  <Typography variant={TypographyVariant.Body2}>{value}</Typography>
                 </Table.Cell>
               )
             })}
@@ -375,15 +387,15 @@ export const Sortable = () => {
   console.log(sortedString)
 
   return (
-    <Table.Root style={{ width: '100%' }}>
-      <TableHeader columns={columns} sort={sort} onSort={setSort} />
+    <Table.Root>
+      <TableHeader columns={columnsSortable} sort={sort} onSort={setSort} />
       <Table.Body>
         {data.map(item => (
           <Table.Row key={item.title}>
             {Object.values(item).map((value, index) => {
               return (
                 <Table.Cell key={`${value}${index}`}>
-                  <Typography variant={TypographyVariant.Body2}> {value}</Typography>
+                  <Typography variant={TypographyVariant.Body2}>{value}</Typography>
                 </Table.Cell>
               )
             })}

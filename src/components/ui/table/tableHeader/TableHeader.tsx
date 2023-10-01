@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
+import cn from 'classnames'
+
 import { Table } from '../Table'
 
 import s from './TableHeader.module.scss'
@@ -29,7 +31,7 @@ type Props = Omit<
 >
 
 export const TableHeader = forwardRef<ElementRef<typeof Table.Head>, Props>(
-  ({ columns, sort, onSort, ...restProps }: Props): JSX.Element => {
+  ({ columns, sort, onSort, ...restProps }, ref): JSX.Element => {
     const handleSort = (key: string, sortable?: boolean) => () => {
       if (!onSort || !sortable) {
         return
@@ -50,24 +52,32 @@ export const TableHeader = forwardRef<ElementRef<typeof Table.Head>, Props>(
     }
 
     return (
-      <Table.Head {...restProps}>
+      <Table.Head ref={ref} {...restProps}>
         <Table.Row>
-          {columns.map(({ title, key, sortable }) => (
-            <Table.HeadCell key={key} onClick={handleSort(key, sortable)}>
-              <div className={s.sortCell}>
-                <Typography variant={TypographyVariant.Subtitle2}> {title}</Typography>
-                {sort && sort.key === key && (
-                  <span className={s.sortIcon}>
-                    {sort.direction === 'asc' ? (
-                      <ArrowUpIcon size={1.2} />
-                    ) : (
-                      <ArrowDownIcon size={1.2} />
-                    )}
-                  </span>
-                )}
-              </div>
-            </Table.HeadCell>
-          ))}
+          {columns.map(({ title, key, sortable }) => {
+            const headCellClasses = cn(sortable && s.activeHeadCell)
+
+            return (
+              <Table.HeadCell
+                key={key}
+                className={headCellClasses}
+                onClick={handleSort(key, sortable)}
+              >
+                <Typography className={s.sortCell} variant={TypographyVariant.Subtitle2} as="span">
+                  {title}
+                  {sort && sort.key === key && (
+                    <>
+                      {sort.direction === 'asc' ? (
+                        <ArrowUpIcon className={s.sortIcon} size={1.2} />
+                      ) : (
+                        <ArrowDownIcon className={s.sortIcon} size={1.2} />
+                      )}
+                    </>
+                  )}
+                </Typography>
+              </Table.HeadCell>
+            )
+          })}
         </Table.Row>
       </Table.Head>
     )
