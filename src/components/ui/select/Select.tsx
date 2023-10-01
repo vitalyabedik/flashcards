@@ -45,7 +45,7 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
       variant === 'default' ? TypographyVariant.Body1 : TypographyVariant.Body2
 
     const classNames = {
-      label: cn('label', s.text, disabled && s.disabled),
+      label: cn(s.text, disabled && s.disabled),
       trigger: cn(s.trigger, s[variant], s[`${variant}Paddings`], fullWidth && s.fullWidth),
       content: cn(s.content, className),
       icon: s.icon,
