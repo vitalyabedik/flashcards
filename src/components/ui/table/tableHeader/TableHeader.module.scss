@@ -1,0 +1,9 @@
+@import '@styles/mixins';
+
+.sortCell {
+  @include flex($align: center, $gap: 0.4rem);
+}
+
+.sortIcon {
+  @include flex($align: center);
+}
