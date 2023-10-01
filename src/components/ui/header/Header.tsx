@@ -35,7 +35,7 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
       logo: s.logo,
       userName: s.userName,
       profileInfoWrapper: s.profileInfoWrapper,
-      dropdownItemsWrapper: s.profileBlockWrapper,
+      dropdownItemWrapper: s.dropdownItemWrapper,
     }
 
     return (
@@ -48,7 +48,7 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
                 {name}
               </Typography>
               <Dropdown trigger={<Avatar image={avatar} userName={name} size="small" />}>
-                <DropdownItem className={s.dropdownItemsWrapper}>
+                <DropdownItem className={classNames.dropdownItemWrapper}>
                   <HeaderProfileInfo name={name} avatar={avatar} email={email} />
                 </DropdownItem>
                 <DropdownItemWithIcon icon={<PersonIcon size={1.6} />} text="My Profile" />
