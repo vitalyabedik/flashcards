@@ -14,17 +14,14 @@ export type OptionType = {
   title: string
 }
 
-export type DefaultClassNameType = {
-  container?: string
-  selectItemPaddings?: string
-}
+type SelectVariant = 'default' | 'pagination'
 
 export type SelectProps = {
   options: OptionType[]
+  variant: SelectVariant
   placeholder?: ReactNode
   label?: string
   fullWidth?: boolean
-  defaultClassNames?: DefaultClassNameType
   className?: string
 } & ComponentPropsWithoutRef<typeof RadixSelect.Root>
 
@@ -33,22 +30,24 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
     {
       options,
       placeholder = 'Select value...',
+      variant = 'default',
       label,
       value,
       onValueChange,
       fullWidth,
       disabled,
-      defaultClassNames,
       className,
       ...restProps
     },
     ref
   ): JSX.Element => {
+    const typographyVariant =
+      variant === 'default' ? TypographyVariant.Body1 : TypographyVariant.Body2
+
     const classNames = {
-      label: cn(s.label, disabled && s.labelDisabled),
-      trigger: cn(s.trigger, defaultClassNames?.container, fullWidth && s.fullWidth),
-      content: cn(s.content, defaultClassNames?.container, className),
-      selectItem: cn(s.content, defaultClassNames?.container),
+      label: cn(s.text, disabled && s.disabled),
+      trigger: cn(s.trigger, s[variant], s[`${variant}Paddings`], fullWidth && s.fullWidth),
+      content: cn(s.content, className),
       icon: s.icon,
     }
 
@@ -60,12 +59,12 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
         required={restProps.required}
       >
         {label && (
-          <Typography className={classNames.label} variant={TypographyVariant.Body2} as="label">
+          <Typography className={classNames.label} variant={typographyVariant} as="label">
             {label}
           </Typography>
         )}
         <RadixSelect.Trigger ref={ref} className={classNames.trigger} aria-label="select">
-          <Typography className={s.text} variant={TypographyVariant.Body1}>
+          <Typography className={s.text} variant={typographyVariant}>
             <RadixSelect.Value className={s.value} placeholder={placeholder} />
           </Typography>
           <RadixSelect.Icon className={s.icon}>
@@ -76,11 +75,7 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
           <RadixSelect.Content ref={ref} className={classNames.content} position="popper">
             <RadixSelect.Viewport>
               {options.map(option => (
-                <SelectItem
-                  key={option.value}
-                  value={option.value}
-                  defaultClassNames={defaultClassNames}
-                >
+                <SelectItem key={option.value} value={option.value} variant={variant}>
                   {option.title}
                 </SelectItem>
               ))}
@@ -93,23 +88,24 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
 )
 
 type SelectItemProps = {
+  variant?: SelectVariant
   className?: string
-  defaultClassNames?: DefaultClassNameType
 } & ComponentPropsWithoutRef<typeof RadixSelect.Item>
 
 const SelectItem = forwardRef<ElementRef<typeof RadixSelect.Item>, SelectItemProps>(
-  ({ children, className, defaultClassNames, ...props }, ref): JSX.Element => {
-    const selectItemClasses = cn(
-      defaultClassNames?.container,
-      defaultClassNames?.selectItemPaddings,
-      s.selectItem,
-      className
-    )
+  ({ variant = 'default', children, className, ...props }, ref): JSX.Element => {
+    const typographyVariant =
+      variant === 'default' ? TypographyVariant.Body1 : TypographyVariant.Body2
+
+    const classNames = {
+      selectItem: cn(s[`${variant}Paddings`], s.selectItem, className),
+      text: s.text,
+    }
 
     return (
-      <RadixSelect.Item ref={ref} className={selectItemClasses} {...props}>
+      <RadixSelect.Item ref={ref} className={classNames.selectItem} {...props}>
         <RadixSelect.ItemText>
-          <Typography className={s.text} variant={TypographyVariant.Body1}>
+          <Typography className={classNames.text} variant={typographyVariant}>
             {children}
           </Typography>
         </RadixSelect.ItemText>

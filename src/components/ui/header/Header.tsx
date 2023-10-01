@@ -1,8 +1,9 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import cn from 'classnames'
 
 import s from './Header.module.scss'
+import { HeaderProfileInfo } from './headerProfileInfo'
 
 import { Logo, LogoutIcon, PersonIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
@@ -23,7 +24,7 @@ type Props = {
   className?: string
 } & ComponentPropsWithoutRef<'div'>
 
-export const Header = forwardRef<HTMLDivElement, Props>(
+export const Header = forwardRef<ElementRef<'div'>, Props>(
   (
     { name = 'name', avatar = 'avatar', email = 'email', isLoggedIn, className },
     ref
@@ -33,11 +34,8 @@ export const Header = forwardRef<HTMLDivElement, Props>(
       headerContainer: s.headerContainer,
       logo: s.logo,
       userName: s.userName,
-      blockWrapper: s.blockWrapper,
-      dropdownItemsWrapper: s.profileBlockWrapper,
-      profileBlockInfoWrapper: s.profileBlockInfoWrapper,
-      profileBlockInfoTextWrapper: s.profileBlockInfoTextWrapper,
-      profileBlockInfoText: s.profileBlockInfoText,
+      profileInfoWrapper: s.profileInfoWrapper,
+      dropdownItemWrapper: s.dropdownItemWrapper,
     }
 
     return (
@@ -45,29 +43,16 @@ export const Header = forwardRef<HTMLDivElement, Props>(
         <div className={classNames.headerContainer}>
           <Logo className={classNames.logo} />
           {isLoggedIn ? (
-            <div className={classNames.blockWrapper}>
+            <div className={classNames.profileInfoWrapper}>
               <Typography className={classNames.userName} variant={TypographyVariant.Subtitle1}>
                 {name}
               </Typography>
               <Dropdown trigger={<Avatar image={avatar} userName={name} size="small" />}>
-                <div className={s.dropdownItemsWrapper}>
-                  <DropdownItem>
-                    <div className={classNames.profileBlockInfoWrapper}>
-                      <Avatar image={avatar} userName={name} size="small" />
-                      <div className={classNames.profileBlockInfoTextWrapper}>
-                        <Typography variant={TypographyVariant.Subtitle1}>{name}</Typography>
-                        <Typography
-                          className={classNames.profileBlockInfoText}
-                          variant={TypographyVariant.Caption}
-                        >
-                          {email}
-                        </Typography>
-                      </div>
-                    </div>
-                  </DropdownItem>
-                  <DropdownItemWithIcon icon={<PersonIcon size={1.6} />} text="My Profile" />
-                  <DropdownItemWithIcon icon={<LogoutIcon size={1.6} />} text="Sign Out" />
-                </div>
+                <DropdownItem className={classNames.dropdownItemWrapper}>
+                  <HeaderProfileInfo name={name} avatar={avatar} email={email} />
+                </DropdownItem>
+                <DropdownItemWithIcon icon={<PersonIcon size={1.6} />} text="My Profile" />
+                <DropdownItemWithIcon icon={<LogoutIcon size={1.6} />} text="Sign Out" />
               </Dropdown>
             </div>
           ) : (
