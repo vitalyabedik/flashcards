@@ -17,7 +17,7 @@ export type CheckboxProps = {
   id?: string
   label?: string
   position?: PositionType
-} & ComponentPropsWithoutRef<typeof RadixCheckbox.Root>
+} & Omit<ComponentPropsWithoutRef<typeof RadixCheckbox.Root>, 'asChild'>
 
 export const Checkbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, CheckboxProps>(
   (
