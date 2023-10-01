@@ -1,31 +1,29 @@
-import { JSX, ReactNode } from 'react'
+import { JSX } from 'react'
 
 import cn from 'classnames'
 
 import s from './Pagination.module.scss'
 import { usePagination } from './usePagination'
 
+import { LeftArrowIcon, RightArrowIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
-import { Typography } from '@/components'
+import { Select, SelectProps, Typography } from '@/components'
 
-type PaginationProps = {
+export type PaginationProps = {
   totalCount: number
   pageSize: number
   currentPage: number
   siblingCount?: number
-  leftArrow: ReactNode
-  rightArrow: ReactNode
   onPageChange: (pageNumber: number) => void
-}
+} & SelectProps
 
 export const Pagination = ({
   totalCount,
   currentPage,
   pageSize,
   siblingCount = 1,
-  leftArrow,
-  rightArrow,
   onPageChange,
+  ...restProps
 }: PaginationProps): JSX.Element => {
   const totalPageCount = Math.ceil(totalCount / pageSize)
   const paginationItems = usePagination({ totalPageCount, currentPage, siblingCount })
@@ -40,6 +38,8 @@ export const Pagination = ({
     item(itemNumber: number) {
       return cn(s.item, itemNumber === currentPage && s.activeItem)
     },
+    selectContainer: s.selectContainer,
+    select: s.select,
   }
 
   const setPrevPage = () => {
@@ -59,15 +59,14 @@ export const Pagination = ({
         <button
           className={classNames.controller(currentPage === 1)}
           tabIndex={0}
-          /* onKeyUp={setPrevPageFromKeyboard}*/
           onClick={setPrevPage}
         >
-          {leftArrow}
+          <LeftArrowIcon />
         </button>
         {paginationItems.map((num, index) => {
           if (num === '...') {
             return (
-              <button key={index} className={classNames.dots}>
+              <button key={index} className={classNames.dots} tabIndex={-1}>
                 {num}
               </button>
             )
@@ -77,7 +76,6 @@ export const Pagination = ({
                 key={index}
                 className={classNames.item(num)}
                 tabIndex={0}
-                /* onKeyUp={(e: KeyboardEvent<HTMLLIElement>) => setPageNumberFromKeyboard(e, num)}*/
                 onClick={() => onPageChange(num)}
               >
                 <Typography variant={TypographyVariant.Body2} as="span">
@@ -89,11 +87,19 @@ export const Pagination = ({
         <button
           className={classNames.controller(currentPage === totalPageCount)}
           tabIndex={0}
-          /*   onKeyUp={setNextPageFromKeyboard}*/
           onClick={setNextPage}
         >
-          {rightArrow}
+          <RightArrowIcon />
         </button>
+      </div>
+      <div className={classNames.selectContainer}>
+        <Typography variant={TypographyVariant.Body2} as="span">
+          Показать
+        </Typography>
+        <Select className={classNames.select} {...restProps} variant="pagination" />
+        <Typography variant={TypographyVariant.Body2} as="span">
+          на странице
+        </Typography>
       </div>
     </div>
   )

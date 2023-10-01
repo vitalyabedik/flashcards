@@ -4,28 +4,24 @@
   @include flex($align: center);
 
   .paginationContainer {
-    @include flex($justify: space-between, $align: center);
-
+    @include flex($justify: space-between, $align: center, $gap: 1.2rem);
+    margin-right: 2.4rem;
     .item {
       @include paginationItem;
       cursor: pointer;
+      border-radius: 2px;
       transition:
         background-color ease 0.2s,
         color ease 0.2s;
 
       &:hover {
         background-color: var(--color-dark-500);
-        border-radius: 2px;
       }
 
-      &.active {
-        padding: 0 0.8rem;
-        color: var(--color-dark-900);
+      &.activeItem {
         background-color: var(--color-light-100);
-        border-radius: 2px;
-
-        &:hover {
-          background-color: var(--color-light-100);
+        span {
+          color: var(--color-dark-900);
         }
       }
     }
@@ -41,6 +37,7 @@
 
       &.disabledController {
         cursor: default;
+        color: var(--color-dark-100);
       }
 
       &:first-child {
@@ -50,6 +47,15 @@
       &:last-child {
         margin-left: 12px;
       }
+    }
+  }
+
+  .selectContainer {
+    @include flex();
+
+    .select {
+      margin-left: 0.6rem;
+      margin-right: 1rem;
     }
   }
 }

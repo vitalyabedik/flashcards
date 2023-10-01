@@ -9,7 +9,7 @@ type Props = {
   currentPage: number
   siblingCount: number
 }
-
+//www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 /**
  Generates an array of pagination elements.
  @param {Object} props - The props object.

@@ -46,8 +46,14 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
 
     const classNames = {
       label: cn(s.text, disabled && s.disabled),
-      trigger: cn(s.trigger, s[variant], s[`${variant}Paddings`], fullWidth && s.fullWidth),
-      content: cn(s.content, className),
+      trigger: cn(
+        s.trigger,
+        s[variant],
+        s[`${variant}Paddings`],
+        fullWidth && s.fullWidth,
+        className
+      ),
+      content: cn(s.content),
       icon: s.icon,
     }
 
