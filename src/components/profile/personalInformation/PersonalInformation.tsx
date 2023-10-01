@@ -1,13 +1,10 @@
 import { useState } from 'react'
 
+import { EditProfileValues } from './editProfile/useEditProfile.ts'
 import s from './PersonalInformation.module.scss'
 
 import { TypographyVariant } from '@/common'
-import { Card, Typography } from '@/components'
-import { AvatarUploader } from '@components/profile'
-import { EditProfile } from '@components/profile/personalInformation/editProfile/EditProfile.tsx'
-import { EditProfileValues } from '@components/profile/personalInformation/editProfile/useEditProfile.ts'
-import { ProfileInfo } from '@components/profile/personalInformation/profileInfo'
+import { Card, Typography, AvatarUploader, EditProfile, ProfileInfo } from '@/components'
 
 type Props = {
   avatar?: string
