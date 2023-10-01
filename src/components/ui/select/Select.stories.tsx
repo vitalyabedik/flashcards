@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import s from './Default.module.scss'
-import { DefaultClassNameType, OptionType, Select } from './Select'
+import { OptionType, Select } from './Select'
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
@@ -19,17 +18,11 @@ const initialState: OptionType[] = [
   { value: 'fourth', title: 'Fourth Select' },
 ]
 
-const defaultClassNames: DefaultClassNameType = {
-  container: s.default,
-  selectItemPaddings: s.selectItemPaddings,
-}
-
 export const Default: Story = {
   args: {
     options: initialState,
     disabled: false,
     fullWidth: false,
-    defaultClassNames,
   },
 }
 
@@ -38,7 +31,6 @@ export const FullWidth: Story = {
     options: initialState,
     disabled: false,
     fullWidth: true,
-    defaultClassNames,
   },
 }
 
@@ -48,6 +40,22 @@ export const WithLabel: Story = {
     label: 'Select label',
     disabled: false,
     fullWidth: false,
-    defaultClassNames,
+  },
+}
+
+const initialStatePagination: OptionType[] = [
+  { value: 'ten', title: '10' },
+  { value: 'twenty', title: '20' },
+  { value: 'thirty', title: '30' },
+  { value: 'forty', title: '50' },
+  { value: 'one hundred', title: '100' },
+]
+
+export const Pagination: Story = {
+  args: {
+    options: initialStatePagination,
+    placeholder: initialStatePagination[4].title,
+    disabled: false,
+    variant: 'pagination',
   },
 }
