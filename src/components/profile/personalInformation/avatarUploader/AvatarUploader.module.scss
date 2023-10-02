@@ -4,7 +4,7 @@
   position: relative;
 
   .editAvatar {
-    @include iconButton($width: 2.8rem, $height: 2.8rem);
+    @include icon-button($width: 2.8rem, $height: 2.8rem);
 
     position: absolute;
     right: 0;
