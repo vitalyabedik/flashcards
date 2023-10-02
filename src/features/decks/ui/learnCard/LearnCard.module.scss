@@ -1,0 +1,28 @@
+.root {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 3.3rem 3.6rem;
+
+  .title {
+    margin-bottom: 4.5rem;
+    text-align: center;
+  }
+
+  .question {
+    margin-bottom: 1px;
+  }
+
+  .shots {
+    margin-bottom: 4.1rem;
+    color: var(--color-dark-100);
+  }
+
+  .answer {
+    margin-bottom: 1.2rem;
+  }
+
+  .rate {
+    margin-bottom: 1.3rem;
+  }
+}
