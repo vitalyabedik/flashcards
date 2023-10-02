@@ -3,7 +3,8 @@
 .formWrapper {
   @include flex($direction: column, $align: center);
 
-  width: 42rem;
+  width: 100%;
+  max-width: 42rem;
   margin: 0 auto;
   padding: 3.3rem 3.6rem 2.9rem;
 
@@ -35,6 +36,7 @@
     font-size: var(--font-size-m);
     font-weight: 700;
     color: var(--color-accent-500);
+    transition: color 0.2s ease-in-out;
 
     &:hover {
       color: var(--color-accent-300);
