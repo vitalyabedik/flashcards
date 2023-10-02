@@ -74,7 +74,7 @@
   border-radius: 50%;
 }
 
-@mixin iconButton {
+@mixin icon-button {
   all: unset;
 
   cursor: pointer;
@@ -89,12 +89,9 @@
   outline: none;
 }
 
-@mixin paginationItem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@mixin pagination-item {
+  @include flex($justify: center, $align: center);
 
-  box-sizing: border-box;
   min-width: 2.4rem;
   height: 2.4rem;
 

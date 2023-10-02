@@ -24,7 +24,7 @@
 }
 
 .closeBtn {
-  @include iconButton;
+  @include icon-button;
 
   &:hover {
     background-color: var(--color-dark-300);

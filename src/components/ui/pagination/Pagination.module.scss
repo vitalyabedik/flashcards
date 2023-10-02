@@ -5,9 +5,12 @@
 
   .paginationContainer {
     @include flex($justify: space-between, $align: center, $gap: 1.2rem);
+
     margin-right: 2.4rem;
+
     .item {
-      @include paginationItem;
+      @include pagination-item;
+
       cursor: pointer;
       border-radius: 2px;
       transition:
@@ -20,6 +23,7 @@
 
       &.activeItem {
         background-color: var(--color-light-100);
+
         span {
           color: var(--color-dark-900);
         }
@@ -27,11 +31,11 @@
     }
 
     .dots {
-      @include paginationItem;
+      @include pagination-item;
     }
 
     .controller {
-      @include paginationItem;
+      @include pagination-item;
 
       cursor: pointer;
 
@@ -51,11 +55,11 @@
   }
 
   .selectContainer {
-    @include flex();
+    @include flex;
 
     .select {
-      margin-left: 0.6rem;
       margin-right: 1rem;
+      margin-left: 0.6rem;
     }
   }
 }
