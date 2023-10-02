@@ -6,13 +6,10 @@ const createPasswordSchema = z.object({
   password: z.string().min(3, 'Use 3 characters or more for your password'),
 })
 
-type FormValue = z.infer<typeof createPasswordSchema>
+export type CreatePasswordFormValue = z.infer<typeof createPasswordSchema>
 
-export const UseCreatePassword = () => {
-  const { control, handleSubmit } = useForm<FormValue>({
+export const useCreatePassword = () =>
+  useForm<CreatePasswordFormValue>({
     resolver: zodResolver(createPasswordSchema),
     defaultValues: { password: '' },
   })
-
-  return { control, handleSubmit }
-}
