@@ -1,7 +1,7 @@
 import s from './ProfileInfo.module.scss'
 
 import { EditIcon, LogoutIcon } from '@/assets'
-import { TypographyVariant } from '@/common'
+import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
 
 type Props = {
@@ -26,7 +26,7 @@ export const ProfileInfo = ({ email, name, onEditProfile }: Props): JSX.Element 
       <Typography className={s.email} variant={TypographyVariant.Body2}>
         {email}
       </Typography>
-      <Button className={s.button} variant="secondary" as="a" onClick={onLogout}>
+      <Button className={s.button} variant={ButtonVariant.Secondary} as="a" onClick={onLogout}>
         <LogoutIcon size={1.6} />
         Logout
       </Button>
