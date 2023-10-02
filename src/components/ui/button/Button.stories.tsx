@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Button } from './Button'
 
 import { LogoutIcon } from '@/assets'
+import { ButtonVariant } from '@/common'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -21,7 +22,6 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    variant: 'primary',
     children: 'Primary Button',
     disabled: false,
   },
@@ -29,7 +29,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
+    variant: ButtonVariant.Secondary,
     children: 'Secondary Button',
     disabled: false,
   },
@@ -37,7 +37,7 @@ export const Secondary: Story = {
 
 export const Tertiary: Story = {
   args: {
-    variant: 'tertiary',
+    variant: ButtonVariant.Tertiary,
     children: 'Tertiary Button',
     disabled: false,
   },
@@ -45,7 +45,7 @@ export const Tertiary: Story = {
 
 export const Link: Story = {
   args: {
-    variant: 'link',
+    variant: ButtonVariant.Link,
     children: 'Tertiary Button',
     disabled: false,
   },
@@ -53,7 +53,6 @@ export const Link: Story = {
 
 export const FullWidth: Story = {
   args: {
-    variant: 'primary',
     children: 'Full Width Button',
     disabled: false,
     fullWidth: true,
@@ -62,7 +61,6 @@ export const FullWidth: Story = {
 
 export const AsLink: Story = {
   args: {
-    variant: 'primary',
     children: 'Link that looks like a button',
     as: 'a',
   },
@@ -70,7 +68,6 @@ export const AsLink: Story = {
 
 export const PrimaryWithIcon: Story = {
   args: {
-    variant: 'primary',
     children: (
       <>
         <LogoutIcon size={1.6} />
@@ -83,7 +80,7 @@ export const PrimaryWithIcon: Story = {
 
 export const SecondaryWithIcon: Story = {
   args: {
-    variant: 'secondary',
+    variant: ButtonVariant.Secondary,
     children: (
       <>
         <LogoutIcon size={1.6} />

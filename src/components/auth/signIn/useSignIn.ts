@@ -10,8 +10,8 @@ const signInSchema = z.object({
 
 export type SignInFormValues = z.infer<typeof signInSchema>
 
-export const UseSignIn = () => {
-  const { control, handleSubmit } = useForm<SignInFormValues>({
+export const useSignIn = () =>
+  useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: '',
@@ -19,6 +19,3 @@ export const UseSignIn = () => {
       rememberMe: false,
     },
   })
-
-  return { control, handleSubmit }
-}

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 
 import { Dropdown } from './Dropdown'
 
-import { PlayCircleicon, EditIcon, DeleteIcon } from '@/assets'
+import { PlayCircleIcon, EditIcon, DeleteIcon } from '@/assets'
 import { DropdownItemWithIcon } from '@components/ui'
 
 const meta: Meta<typeof Dropdown> = {
@@ -25,7 +25,7 @@ export const Default: Story = {
     children: (
       <>
         <DropdownItemWithIcon
-          icon={<PlayCircleicon size={1.6} />}
+          icon={<PlayCircleIcon size={1.6} />}
           text="Learn"
           onSelect={() => {}}
         />

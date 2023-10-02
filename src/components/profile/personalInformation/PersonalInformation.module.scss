@@ -1,0 +1,41 @@
+@import '@styles/mixins';
+
+.card {
+  @include flex($direction: column, $align: center, $justify: center);
+
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 3.3rem 3.6rem 4.1rem;
+
+  .title {
+    margin-bottom: 2.7rem;
+  }
+
+  .avatarUploader {
+    margin-bottom: 0.6rem;
+  }
+
+  .profileInfoBlock {
+    text-align: center;
+
+    .userNameWrapper {
+      @include flex($align: center, $justify: center, $gap: 0.9rem);
+
+      .editUserName {
+        @include iconButton($width: 1.6rem, $height: 1.6rem);
+
+        transition: opacity 0.2s ease-in-out;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .email {
+      margin-bottom: 1.3rem;
+      color: var(--color-dark-100);
+    }
+  }
+}

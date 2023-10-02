@@ -1,0 +1,23 @@
+@import '@styles/mixins';
+
+.root {
+  position: relative;
+
+  .editAvatar {
+    @include iconButton($width: 2.8rem, $height: 2.8rem);
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    background-color: var(--color-dark-300);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px 0 rgb(109 109 109 / 25%);
+
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--color-dark-100);
+    }
+  }
+}

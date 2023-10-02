@@ -3,7 +3,7 @@ import { CSSProperties, useEffect, useState } from 'react'
 import { action } from '@storybook/addon-actions'
 import { Meta, StoryObj } from '@storybook/react'
 
-import { TypographyVariant } from '@/common'
+import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Modal, ModalProps, Typography } from '@/components'
 
 const meta: Meta<typeof Modal> = {
@@ -43,7 +43,7 @@ const ModalWithText = (args: ModalProps) => {
           </Typography>
         </div>
         <div style={actionBlock}>
-          <Button variant="secondary" onClick={() => setIsOpen(false)}>
+          <Button variant={ButtonVariant.Secondary} onClick={() => setIsOpen(false)}>
             Close
           </Button>
           <Button onClick={() => setIsOpen(false)}>Action</Button>

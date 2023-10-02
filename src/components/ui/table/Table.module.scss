@@ -1,0 +1,29 @@
+@import '@styles/mixins';
+
+.root {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid var(--color-dark-500);
+
+  .headCell {
+    padding: 0.6rem 2.4rem;
+    text-align: left;
+    background-color: var(--color-dark-500);
+  }
+
+  .row {
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-dark-500);
+    }
+  }
+
+  .cell {
+    padding: 0.6rem 2.4rem;
+  }
+}
+
+.empty {
+  .emptyDescription {
+    color: var(--color-dark-100);
+  }
+}

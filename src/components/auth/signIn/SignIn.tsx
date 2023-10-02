@@ -1,21 +1,21 @@
 import { DevTool } from '@hookform/devtools'
 
 import s from './SignIn.module.scss'
-import { SignInFormValues, UseSignIn } from './UseSignIn'
+import { SignInFormValues, useSignIn } from './useSignIn'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
 
-export const SignIn = (): JSX.Element => {
-  const { control, handleSubmit } = UseSignIn()
+type Props = {
+  onSubmit: (data: SignInFormValues) => void
+}
 
-  const onSubmit = (data: SignInFormValues) => {
-    console.log(data)
-  }
+export const SignIn = ({ onSubmit }: Props): JSX.Element => {
+  const { control, handleSubmit } = useSignIn()
 
   return (
     <Card className={s.formWrapper}>
-      <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h2">
+      <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
         Sign In
       </Typography>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>

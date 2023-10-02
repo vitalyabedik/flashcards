@@ -1,6 +1,7 @@
 import s from './Panel.module.scss'
 
 import { DeleteIcon } from '@/assets'
+import { ButtonVariant } from '@/common'
 import { Button, Input, Slider, Tabs } from '@/components'
 import { TabItem } from '@components/ui/tabs/tabItem'
 
@@ -45,7 +46,7 @@ export const Panel = ({
         max={maxSliderValue}
         label={sliderLabel}
       />
-      <Button className={s.button} variant="secondary" onClick={onClearFilter}>
+      <Button className={s.button} variant={ButtonVariant.Secondary} onClick={onClearFilter}>
         <>
           <DeleteIcon size={1.6} />
           Clear Filter
