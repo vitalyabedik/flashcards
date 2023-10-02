@@ -74,17 +74,25 @@
   border-radius: 50%;
 }
 
-@mixin iconButton {
+@mixin iconButton($width: 2.4rem, $height: 2.4rem, $bgColor: transparent) {
   all: unset;
 
   cursor: pointer;
 
-  width: 2.4rem;
-  height: 2.4rem;
+  position: relative;
+
+  width: $width;
+  height: $height;
   padding: 0;
 
-  background-color: transparent;
+  background-color: $bgColor;
   border: none;
-  border-radius: 50%;
   outline: none;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
