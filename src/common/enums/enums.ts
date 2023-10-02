@@ -13,3 +13,10 @@ export enum TypographyVariant {
   Link2 = 'link2',
   ERROR = 'error',
 }
+
+export enum ButtonVariant {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Tertiary = 'tertiary',
+  Link = 'link',
+}
