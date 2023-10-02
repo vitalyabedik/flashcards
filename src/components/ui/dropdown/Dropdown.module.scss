@@ -22,7 +22,7 @@
 }
 
 .button {
-  @include iconButton;
+  @include icon-button;
 
   &:hover {
     opacity: 0.8;

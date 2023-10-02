@@ -74,7 +74,7 @@
   border-radius: 50%;
 }
 
-@mixin iconButton($width: 2.4rem, $height: 2.4rem, $bgColor: transparent) {
+@mixin icon-button($width: 2.4rem, $height: 2.4rem, $bgColor: transparent) {
   all: unset;
 
   cursor: pointer;
@@ -94,5 +94,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+}
+
+@mixin pagination-item {
+  @include flex($justify: center, $align: center);
+
+  min-width: 2.4rem;
+  height: 2.4rem;
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--color-info-900);
   }
 }

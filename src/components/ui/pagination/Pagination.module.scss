@@ -1,0 +1,65 @@
+@import '@styles/mixins';
+
+.root {
+  @include flex($align: center);
+
+  .paginationContainer {
+    @include flex($justify: space-between, $align: center, $gap: 1.2rem);
+
+    margin-right: 2.4rem;
+
+    .item {
+      @include pagination-item;
+
+      cursor: pointer;
+      border-radius: 2px;
+      transition:
+        background-color ease 0.2s,
+        color ease 0.2s;
+
+      &:hover {
+        background-color: var(--color-dark-500);
+      }
+
+      &.activeItem {
+        background-color: var(--color-light-100);
+
+        span {
+          color: var(--color-dark-900);
+        }
+      }
+    }
+
+    .dots {
+      @include pagination-item;
+    }
+
+    .controller {
+      @include pagination-item;
+
+      cursor: pointer;
+
+      &.disabledController {
+        cursor: default;
+        color: var(--color-dark-100);
+      }
+
+      &:first-child {
+        margin-right: 1.2rem;
+      }
+
+      &:last-child {
+        margin-left: 1.2rem;
+      }
+    }
+  }
+
+  .selectContainer {
+    @include flex;
+
+    .select {
+      margin-right: 1rem;
+      margin-left: 0.6rem;
+    }
+  }
+}
