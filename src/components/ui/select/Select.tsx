@@ -18,7 +18,7 @@ type SelectVariant = 'default' | 'pagination'
 
 export type SelectProps = {
   options: OptionType[]
-  variant: SelectVariant
+  variant?: SelectVariant
   placeholder?: ReactNode
   label?: string
   fullWidth?: boolean
