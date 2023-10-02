@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { createRangeArray } from './createRangeArray'
+import { createRangeArray } from '@/common'
 
 const DOTS = '...'
 
