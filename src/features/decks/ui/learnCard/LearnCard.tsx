@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-import { RateLearnCard } from 'rateLearnCard'
-
 import s from './LearnCard.module.scss'
+import { RateLearnCard } from './rateLearnCard'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, Typography } from '@/components'
