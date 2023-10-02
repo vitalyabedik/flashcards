@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
+import { RateLearnCard } from 'rateLearnCard'
+
 import s from './LearnCard.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, Typography } from '@/components'
-import { RateLearnCard } from '@/features/decks/ui/learnCard/reteLearnCard'
 
 type Props = {
   deck: {
