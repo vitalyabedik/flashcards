@@ -1,0 +1,19 @@
+@import '@styles/mixins';
+
+.form {
+  padding: 2.4rem 3.4rem 3.6rem 2.4rem;
+
+  .input {
+    margin-bottom: 2.4rem;
+  }
+
+  .checkbox {
+    margin-bottom: 2.4rem;
+  }
+
+  .buttonsContainer {
+    @include flex($align: center, $justify: space-between);
+
+    padding-top: 1.2rem;
+  }
+}
