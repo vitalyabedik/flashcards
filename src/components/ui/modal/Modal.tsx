@@ -18,7 +18,7 @@ export type ModalProps = {
 } & ComponentPropsWithoutRef<'div'>
 
 export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
-  ({ open, setOpen, title, className, children, ...props }, ref): JSX.Element => {
+  ({ open, setOpen, title, className, children, ...restProps }, ref): JSX.Element => {
     const classNames = {
       root: cn(s.root, className),
       overlay: s.overlay,
@@ -34,7 +34,7 @@ export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
               <motion.div {...modalAnimations.overlay}>
                 <ModalPrimitive.Overlay className={classNames.overlay} forceMount />
               </motion.div>
-              <div ref={ref} className={classNames.root} {...props}>
+              <div ref={ref} className={classNames.root} {...restProps}>
                 <ModalPrimitive.Content asChild forceMount>
                   <motion.div {...modalAnimations.window}>
                     <Card>

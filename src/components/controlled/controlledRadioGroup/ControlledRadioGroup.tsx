@@ -12,7 +12,12 @@ export const ControlledRadioGroup = <T extends FieldValues>({
   control,
   ...restProps
 }: ControlledRadioGroupProps<T>): JSX.Element => {
-  const { field } = useController({ name, control })
+  const {
+    field: { value, onChange },
+  } = useController({
+    name,
+    control,
+  })
 
-  return <RadioGroup {...field} {...restProps} />
+  return <RadioGroup {...restProps} onValueChange={onChange} value={value} name={name} />
 }

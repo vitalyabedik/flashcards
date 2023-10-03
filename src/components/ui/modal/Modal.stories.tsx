@@ -1,6 +1,5 @@
 import { CSSProperties, useEffect, useState } from 'react'
 
-import { action } from '@storybook/addon-actions'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
@@ -51,14 +50,6 @@ const ModalWithText = (args: ModalProps) => {
       </Modal>
     </>
   )
-}
-
-export const Default: Story = {
-  args: {
-    title: 'Modal title',
-    open: true,
-    setOpen: action('Close key pressed'),
-  },
 }
 
 export const ControlledWithText: Story = {
