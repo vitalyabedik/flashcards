@@ -5,11 +5,10 @@ import { Button, Modal, Typography } from '@/components'
 import { AddDeckForm, AddDeckFormValues } from '@/features'
 
 export type AddDeckProps = {
-  imageUrl?: string
   onSubmit: (data: AddDeckFormValues) => void
 }
 
-export const AddDeck = ({ imageUrl, onSubmit }: AddDeckProps) => {
+export const AddDeck = ({ onSubmit }: AddDeckProps) => {
   const [open, setOpen] = useState(false)
 
   const openModal = () => {
@@ -27,7 +26,7 @@ export const AddDeck = ({ imageUrl, onSubmit }: AddDeckProps) => {
         </Typography>
       </Button>
       <Modal open={open} setOpen={setOpen} title="Add New Pack">
-        <AddDeckForm imageUrl={imageUrl} onSubmit={onSubmit} onClose={closeModal} />
+        <AddDeckForm onSubmit={onSubmit} onClose={closeModal} />
       </Modal>
     </>
   )

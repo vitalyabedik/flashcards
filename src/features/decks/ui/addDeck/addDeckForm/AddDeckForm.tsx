@@ -9,17 +9,29 @@ import { Button, ControlledCheckbox, ControlledInput, Typography } from '@/compo
 import { AddDeckFormValues, useAddDeck } from '@/features'
 
 type AddDeckFormProps = {
-  imageUrl?: string
   onSubmit: (data: AddDeckFormValues) => void
   onClose: () => void
 }
 
-export const AddDeckForm = ({ imageUrl, onSubmit, onClose }: AddDeckFormProps) => {
-  const { control, handleSubmit } = useAddDeck()
+export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
+  const { control, handleSubmit, watch } = useAddDeck()
+
+  const file = watch('packImage')
+  const imageUrl = file && URL.createObjectURL(file)
+
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
+  const onSubmitHandler = (data: AddDeckFormValues) => {
+    onSubmit(data)
+    onClose()
+  }
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.form} onSubmit={handleSubmit(onSubmitHandler)}>
+      {imageUrl && (
+        <div className={s.imageBlock}>
+          <img src={imageUrl} alt="Pack cover" />
+        </div>
+      )}
       <Uploader className={s.uploader} name={'packImage'} control={control}>
         <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
           <Typography variant={TypographyVariant.Subtitle2} as="span">
