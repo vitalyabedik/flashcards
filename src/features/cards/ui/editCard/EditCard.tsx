@@ -5,7 +5,7 @@ import { EditCardForm, CardType } from './editCardForm'
 import { EditCardFormValues } from './editCardForm/useEditCard'
 
 import { EditIcon } from '@/assets'
-import { Button, Modal, OptionType } from '@/components'
+import { Modal, OptionType } from '@/components'
 
 type Props = {
   card: CardType
@@ -27,9 +27,9 @@ export const EditCard = ({ card, placeholder, options, onSubmit }: Props): JSX.E
 
   return (
     <>
-      <Button className={s.editCard} onClick={openModal}>
+      <button className={s.editCardIcon} onClick={openModal}>
         <EditIcon size={1.6} />
-      </Button>
+      </button>
       <Modal open={isOpen} setOpen={setIsOpen} title="Edit Card">
         <EditCardForm
           card={card}

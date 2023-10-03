@@ -3,9 +3,9 @@ import { ReactNode } from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import s from './EditCardForm.module.scss'
-import { AddCardFormValues, useEditCard } from './useEditCard'
+import { EditCardFormValues, useEditCard } from './useEditCard'
 
-// import { ImageIcon } from '@/assets'
+import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledInput, ControlledSelect, OptionType, Typography } from '@/components'
 
@@ -22,7 +22,7 @@ type Props = {
   card: CardType
   placeholder: ReactNode
   options: OptionType[]
-  onSubmit: (data: AddCardFormValues) => void
+  onSubmit: (data: EditCardFormValues) => void
   closeModal: () => void
 }
 
@@ -38,7 +38,7 @@ export const EditCardForm = ({
   const isPictureQuestion = card?.questionImg && watch().questionFormat === 'picture'
   const isPictureAnswer = card?.answerImg && watch().questionFormat === 'picture'
 
-  const onSubmitHandler = (data: AddCardFormValues) => {
+  const onSubmitHandler = (data: EditCardFormValues) => {
     onSubmit(data)
     closeModal()
   }
@@ -74,7 +74,7 @@ export const EditCardForm = ({
             </div>
           )}
           <Button variant={ButtonVariant.Secondary}>
-            {/*<ImageIcon size={1.6} />*/}
+            <ImageIcon size={1.6} />
             <Typography variant={TypographyVariant.Subtitle2}>Change Cover</Typography>
           </Button>
         </div>
@@ -98,7 +98,7 @@ export const EditCardForm = ({
             </div>
           )}
           <Button variant={ButtonVariant.Secondary}>
-            {/*<ImageIcon size={1.6} />*/}
+            <ImageIcon size={1.6} />
             <Typography variant={TypographyVariant.Subtitle2}>Change Cover</Typography>
           </Button>
         </div>
