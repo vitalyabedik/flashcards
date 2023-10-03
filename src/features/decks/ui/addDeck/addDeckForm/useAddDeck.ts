@@ -11,7 +11,7 @@ const addDeckSchema = z.object({
       'Only .jpg, .jpeg, .png and .webp formats are supported.'
     )
     .optional(),
-  newPackName: z.string(),
+  packName: z.string(),
   packPrivateState: z.boolean().default(false),
 })
 
@@ -19,6 +19,6 @@ export type AddDeckFormValues = z.infer<typeof addDeckSchema>
 export const useAddDeck = () => {
   return useForm<AddDeckFormValues>({
     resolver: zodResolver(addDeckSchema),
-    defaultValues: { newPackName: '', packPrivateState: false },
+    defaultValues: { packName: '', packPrivateState: false },
   })
 }

@@ -1,24 +1,33 @@
 import { DevTool } from '@hookform/devtools'
-import { UseFormRegister } from 'react-hook-form'
+
+import { Uploader } from '../uploader/Uploader'
 
 import s from './AddDeckForm.module.scss'
-import { AddDeckFormValues, useAddDeck } from './useAddDeck'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledCheckbox, ControlledInput, Typography } from '@/components'
+import { AddDeckFormValues, useAddDeck } from '@/features'
 
 type AddDeckFormProps = {
+  imageUrl?: string
   onSubmit: (data: AddDeckFormValues) => void
   onClose: () => void
 }
 
-export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
-  const { control, handleSubmit, register } = useAddDeck()
+export const AddDeckForm = ({ imageUrl, onSubmit, onClose }: AddDeckFormProps) => {
+  const { control, handleSubmit } = useAddDeck()
+  const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <ImageUploader register={register} />
-      <ControlledInput className={s.input} control={control} name="newPackName" label="Name Pack" />
+      <Uploader className={s.uploader} name={'packImage'} control={control}>
+        <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
+          <Typography variant={TypographyVariant.Subtitle2} as="span">
+            {buttonUploadText}
+          </Typography>
+        </Button>
+      </Uploader>
+      <ControlledInput className={s.input} control={control} name="packName" label="Name Pack" />
       <ControlledCheckbox
         className={s.checkbox}
         control={control}
@@ -30,37 +39,11 @@ export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
         <Button type="button" variant={ButtonVariant.Secondary} onClick={onClose}>
           <Typography variant={TypographyVariant.Subtitle2}>Cancel</Typography>
         </Button>
-
         <Button>
           <Typography variant={TypographyVariant.Subtitle2}>Add New Pack</Typography>
         </Button>
       </div>
       <DevTool control={control} />
     </form>
-  )
-}
-
-type ImageUploaderProps = {
-  image?: string
-  register: UseFormRegister<AddDeckFormValues>
-}
-
-export const ImageUploader = ({ image, register }: ImageUploaderProps) => {
-  return (
-    <Typography className={s.uploader} variant={TypographyVariant.Subtitle2} as="label">
-      <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
-        {image && (
-          <Typography variant={TypographyVariant.Subtitle2} as="span">
-            Change Cover
-          </Typography>
-        )}
-        {!image && (
-          <Typography variant={TypographyVariant.Subtitle2} as="span">
-            Add Cover
-          </Typography>
-        )}
-      </Button>
-      <input className={s.fileInput} type="file" {...register('packImage')} />
-    </Typography>
   )
 }
