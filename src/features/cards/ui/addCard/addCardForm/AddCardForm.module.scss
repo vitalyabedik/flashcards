@@ -8,6 +8,15 @@
     margin: 2.4rem 0;
   }
 
+  .imgWrapper {
+    width: 100%;
+    max-width: 49rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
   .actionBlock {
     @include flex($justify: space-between, $align: center);
 

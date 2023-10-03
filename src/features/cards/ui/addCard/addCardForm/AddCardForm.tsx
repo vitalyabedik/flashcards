@@ -5,13 +5,13 @@ import { DevTool } from '@hookform/devtools'
 import s from './AddCardForm.module.scss'
 import { AddCardFormValues, useAddCard } from './useAddCard'
 
-import { ImageIcon, Mask } from '@/assets'
+import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledInput, ControlledSelect, OptionType, Typography } from '@/components'
 
 export type CardType = {
-  question: string
-  answer: string
+  question?: string
+  answer?: string
   answerImg?: string
   questionImg?: string
   questionVideo?: string
@@ -35,7 +35,8 @@ export const AddCardForm = ({
 }: Props): JSX.Element => {
   const { control, handleSubmit, watch } = useAddCard()
 
-  const isPicture = watch().questionFormat === 'picture'
+  const isPictureQuestion = card?.questionImg && watch().questionFormat === 'picture'
+  const isPictureAnswer = card?.answerImg && watch().questionFormat === 'picture'
 
   const onSubmitHandler = (data: AddCardFormValues) => {
     onSubmit(data)
@@ -53,7 +54,7 @@ export const AddCardForm = ({
         label="Choose a question format"
         fullWidth
       />
-      {!isPicture && (
+      {!isPictureQuestion && (
         <ControlledInput
           className={s.questionInput}
           name="question"
@@ -62,19 +63,23 @@ export const AddCardForm = ({
           label="Question"
         />
       )}
-      {isPicture && (
+      {isPictureQuestion && (
         <div className={s.imageBlock}>
           <Typography className={s.typographyWrapper} variant={TypographyVariant.Subtitle2}>
             Question:
           </Typography>
-          <Mask />
+          {card?.questionImg && (
+            <div className={s.imgWrapper}>
+              <img src={card.questionImg} alt="question" />
+            </div>
+          )}
           <Button variant={ButtonVariant.Secondary}>
             <ImageIcon size={1.6} />
             <Typography variant={TypographyVariant.Subtitle2}>Change Cover</Typography>
           </Button>
         </div>
       )}
-      {!isPicture && (
+      {!isPictureAnswer && (
         <ControlledInput
           placeholder={card?.answer}
           control={control}
@@ -82,12 +87,16 @@ export const AddCardForm = ({
           label="Answer"
         />
       )}
-      {isPicture && (
+      {isPictureAnswer && (
         <div className={s.imageBlock}>
           <Typography className={s.typographyWrapper} variant={TypographyVariant.Subtitle2}>
             Answer:
           </Typography>
-          <Mask />
+          {card?.answerImg && (
+            <div className={s.imgWrapper}>
+              <img src={card.answerImg} alt="answer" />
+            </div>
+          )}
           <Button variant={ButtonVariant.Secondary}>
             <ImageIcon size={1.6} />
             <Typography variant={TypographyVariant.Subtitle2}>Change Cover</Typography>
