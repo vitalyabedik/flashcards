@@ -20,6 +20,8 @@ export const Default: Story = {
     card: {
       id: '1',
       question: 'How "This" works in JavaScript?',
+      questionImg: 'https://placehold.co/350x120',
+      answerImg: 'https://placehold.co/350x120',
       answer: 'This is how "This" works in JavaScript',
       shots: 10,
     },

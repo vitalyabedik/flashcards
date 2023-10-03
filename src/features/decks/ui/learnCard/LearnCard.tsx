@@ -43,6 +43,11 @@ export const LearnCard = ({ deck, card }: Props): JSX.Element => {
       <Typography className={s.question}>
         <b>Question:</b> {card?.question}
       </Typography>
+      {card?.questionImg && (
+        <div className={s.imgWrapper}>
+          <img src={card.questionImg} alt="question" />
+        </div>
+      )}
       <Typography className={s.shots} variant={TypographyVariant.Body2}>
         Number of attempts: <b>{card?.shots}</b>
       </Typography>
@@ -52,6 +57,11 @@ export const LearnCard = ({ deck, card }: Props): JSX.Element => {
           <Typography className={s.answer}>
             <b>Answer:</b> {card?.answer}
           </Typography>
+          {card?.answerImg && (
+            <div className={s.imgWrapper}>
+              <img src={card.answerImg} alt="answer" />
+            </div>
+          )}
           <Typography className={s.rate} variant={TypographyVariant.Subtitle1}>
             Rate yourself:
           </Typography>
