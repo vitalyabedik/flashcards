@@ -4,6 +4,7 @@ import { Uploader } from '../uploader/Uploader'
 
 import s from './AddDeckForm.module.scss'
 
+import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledCheckbox, ControlledInput, Typography } from '@/components'
 import { AddDeckFormValues, useAddDeck } from '@/features'
@@ -34,6 +35,7 @@ export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
       )}
       <Uploader className={s.uploader} name="cover" control={control}>
         <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
+          <ImageIcon />
           <Typography variant={TypographyVariant.Subtitle2} as="span">
             {buttonUploadText}
           </Typography>
