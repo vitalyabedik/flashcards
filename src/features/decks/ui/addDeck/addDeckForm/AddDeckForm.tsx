@@ -32,7 +32,7 @@ export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
           <img src={imageUrl} alt="Pack cover" />
         </div>
       )}
-      <Uploader className={s.uploader} name={'packImage'} control={control}>
+      <Uploader className={s.uploader} name="packImage" control={control}>
         <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
           <Typography variant={TypographyVariant.Subtitle2} as="span">
             {buttonUploadText}
