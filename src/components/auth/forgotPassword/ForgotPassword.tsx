@@ -1,19 +1,19 @@
 import s from './ForgotPassword.module.scss'
-import { UseForgotPassword } from './UseForgotPassword'
+import { useForgotPassword, ForgotPasswordFormValue } from './useForgotPassword'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
 
-export const ForgotPassword = () => {
-  const { control, handleSubmit } = UseForgotPassword()
+type Props = {
+  onSubmit: (data: ForgotPasswordFormValue) => void
+}
 
-  const onSubmit = handleSubmit(data => {
-    console.log(data)
-  })
+export const ForgotPassword = ({ onSubmit }: Props) => {
+  const { control, handleSubmit } = useForgotPassword()
 
   return (
     <Card className={s.formWrapper}>
-      <form className={s.form} onSubmit={onSubmit}>
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <Typography className={s.formHeader} as="h2" variant={TypographyVariant.Large}>
           Forgot your password?
         </Typography>
