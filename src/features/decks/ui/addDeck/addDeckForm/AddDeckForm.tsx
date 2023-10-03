@@ -10,15 +10,24 @@ import { Button, ControlledCheckbox, ControlledInput, Typography } from '@/compo
 import { AddDeckFormValues, useAddDeck } from '@/features'
 
 type AddDeckFormProps = {
+  variant: 'Add' | 'Edit'
+  values?: {
+    name: string
+    isPrivate?: boolean
+    cover?: string
+  }
   onSubmit: (data: AddDeckFormValues) => void
   onClose: () => void
 }
 
-export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
-  const { control, handleSubmit, watch } = useAddDeck()
+export const AddDeckForm = ({ variant, values, onSubmit, onClose }: AddDeckFormProps) => {
+  const { control, handleSubmit, watch } = useAddDeck({
+    name: values?.name || '',
+    isPrivate: values?.isPrivate || false,
+  })
 
   const file = watch('cover')
-  const imageUrl = file && URL.createObjectURL(file)
+  const imageUrl = file ? URL.createObjectURL(file) : values?.cover
 
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
   const onSubmitHandler = (data: AddDeckFormValues) => {
@@ -54,7 +63,10 @@ export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
           <Typography variant={TypographyVariant.Subtitle2}>Cancel</Typography>
         </Button>
         <Button>
-          <Typography variant={TypographyVariant.Subtitle2}>Add New Pack</Typography>
+          <Typography variant={TypographyVariant.Subtitle2}>
+            {variant === 'Add' && 'Add New Pack'}
+            {variant === 'Edit' && 'Save Changes'}
+          </Typography>
         </Button>
       </div>
       <DevTool control={control} />
