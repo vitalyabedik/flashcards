@@ -16,7 +16,7 @@ type AddDeckFormProps = {
 export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
   const { control, handleSubmit, watch } = useAddDeck()
 
-  const file = watch('packImage')
+  const file = watch('cover')
   const imageUrl = file && URL.createObjectURL(file)
 
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
@@ -32,18 +32,18 @@ export const AddDeckForm = ({ onSubmit, onClose }: AddDeckFormProps) => {
           <img src={imageUrl} alt="Pack cover" />
         </div>
       )}
-      <Uploader className={s.uploader} name="packImage" control={control}>
+      <Uploader className={s.uploader} name="cover" control={control}>
         <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
           <Typography variant={TypographyVariant.Subtitle2} as="span">
             {buttonUploadText}
           </Typography>
         </Button>
       </Uploader>
-      <ControlledInput className={s.input} control={control} name="packName" label="Name Pack" />
+      <ControlledInput className={s.input} control={control} name="name" label="Name Pack" />
       <ControlledCheckbox
         className={s.checkbox}
         control={control}
-        name="packPrivateState"
+        name="isPrivate"
         label="Private pack"
         position="left"
       />
