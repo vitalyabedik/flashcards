@@ -11,7 +11,7 @@ import { Typography } from '@/components'
 export type SliderProps = { label: string } & ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
 
 export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
-  ({ label, className, ...props }, ref): JSX.Element => {
+  ({ label, className, ...restProps }, ref): JSX.Element => {
     const sliderClasses = cn(s.root, className)
 
     return (
@@ -23,9 +23,9 @@ export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, Slider
         )}
         <div className={s.container}>
           <Typography variant={TypographyVariant.Body1} className={s.valueWrapper} as="div">
-            {props?.value?.[0]}
+            {restProps?.value?.[0]}
           </Typography>
-          <SliderPrimitive.Root ref={ref} className={sliderClasses} {...props}>
+          <SliderPrimitive.Root ref={ref} className={sliderClasses} {...restProps}>
             <SliderPrimitive.Track className={s.track}>
               <SliderPrimitive.Range className={s.range} />
             </SliderPrimitive.Track>
@@ -33,7 +33,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderPrimitive.Root>, Slider
             <SliderPrimitive.Thumb className={s.thumb} aria-label="Value max" />
           </SliderPrimitive.Root>
           <Typography variant={TypographyVariant.Body1} className={s.valueWrapper} as="div">
-            {props?.value?.[1]}
+            {restProps?.value?.[1]}
           </Typography>
         </div>
       </div>

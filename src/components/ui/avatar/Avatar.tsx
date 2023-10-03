@@ -15,7 +15,7 @@ export type AvatarProps = {
 } & ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
 
 export const Avatar = forwardRef<ElementRef<typeof AvatarPrimitive.Root>, AvatarProps>(
-  ({ userName, image, size = 'small', className, ...props }, ref): JSX.Element => {
+  ({ userName, image, size = 'small', className, ...restProps }, ref): JSX.Element => {
     const classNames = {
       root: cn(s.root, s[size], className),
       image: s.image,
@@ -29,7 +29,7 @@ export const Avatar = forwardRef<ElementRef<typeof AvatarPrimitive.Root>, Avatar
       .toUpperCase()
 
     return (
-      <AvatarPrimitive.Root ref={ref} className={classNames.root} {...props}>
+      <AvatarPrimitive.Root ref={ref} className={classNames.root} {...restProps}>
         <AvatarPrimitive.Image className={classNames.image} src={image} alt="avatar" />
         <AvatarPrimitive.Fallback className={classNames.fallback}>
           <Typography variant={TypographyVariant.Body1}>{fallbackTitle}</Typography>
