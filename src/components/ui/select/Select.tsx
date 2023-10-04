@@ -4,6 +4,7 @@ import * as RadixSelect from '@radix-ui/react-select'
 import cn from 'classnames'
 
 import s from './Select.module.scss'
+import { SelectItem } from './selectItem'
 
 import { ArrowDownIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
@@ -14,7 +15,7 @@ export type OptionType = {
   title: string
 }
 
-type SelectVariant = 'default' | 'pagination'
+export type SelectVariant = 'default' | 'pagination'
 
 export type SelectProps = {
   options: OptionType[]
@@ -89,33 +90,6 @@ export const Select = forwardRef<ElementRef<typeof RadixSelect.Root>, SelectProp
           </RadixSelect.Content>
         </RadixSelect.Portal>
       </RadixSelect.Root>
-    )
-  }
-)
-
-type SelectItemProps = {
-  variant?: SelectVariant
-  className?: string
-} & ComponentPropsWithoutRef<typeof RadixSelect.Item>
-
-const SelectItem = forwardRef<ElementRef<typeof RadixSelect.Item>, SelectItemProps>(
-  ({ variant = 'default', children, className, ...props }, ref): JSX.Element => {
-    const typographyVariant =
-      variant === 'default' ? TypographyVariant.Body1 : TypographyVariant.Body2
-
-    const classNames = {
-      selectItem: cn(s[`${variant}Paddings`], s.selectItem, className),
-      text: s.text,
-    }
-
-    return (
-      <RadixSelect.Item ref={ref} className={classNames.selectItem} {...props}>
-        <RadixSelect.ItemText>
-          <Typography className={classNames.text} variant={typographyVariant}>
-            {children}
-          </Typography>
-        </RadixSelect.ItemText>
-      </RadixSelect.Item>
     )
   }
 )
