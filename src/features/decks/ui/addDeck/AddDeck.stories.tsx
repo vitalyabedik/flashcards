@@ -13,11 +13,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const CreateDeckWithHooks = (args: AddDeckProps) => {
-  return (
-    <>
-      <AddDeck variant={args.variant} values={args.values} onSubmit={args.onSubmit} />
-    </>
-  )
+  return <AddDeck variant={args.variant} values={args.values} onSubmit={args.onSubmit} />
 }
 
 export const DefaultAddPack: Story = { args: { variant: 'Add' } }
