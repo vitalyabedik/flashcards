@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AddDeck, AddDeckFormValues, AddDeckProps } from './'
+import { AddDeck, AddDeckFormValues, AddDeckProps } from '@/features'
 
 const meta: Meta<typeof AddDeck> = {
   title: 'Decks/AddDeck',

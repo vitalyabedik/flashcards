@@ -1,12 +1,10 @@
 import { DevTool } from '@hookform/devtools'
 
-import { Uploader } from '../uploader/Uploader'
-
 import s from './AddDeckForm.module.scss'
 
 import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
-import { Button, ControlledCheckbox, ControlledInput, Typography } from '@/components'
+import { Button, ControlledCheckbox, ControlledInput, Typography, Uploader } from '@/components'
 import { AddDeckFormValues, useAddDeck } from '@/features'
 
 type AddDeckFormProps = {
