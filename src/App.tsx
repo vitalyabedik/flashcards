@@ -1,3 +1,5 @@
+import { Router } from '@/routes'
+
 export const App = () => {
-  return <div>Hello</div>
+  return <Router />
 }
