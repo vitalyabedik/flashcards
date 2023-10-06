@@ -19,7 +19,7 @@ export const Uploader = <T extends FieldValues>({
   children,
   className,
   ...restProps
-}: ImageUploaderProps<T>) => {
+}: ImageUploaderProps<T>): JSX.Element => {
   const {
     field: { onChange },
   } = useController({

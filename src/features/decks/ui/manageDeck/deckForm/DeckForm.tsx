@@ -18,7 +18,12 @@ type AddDeckFormProps = {
   onClose: () => void
 }
 
-export const DeckForm = ({ buttonTitle, values, onSubmit, onClose }: AddDeckFormProps) => {
+export const DeckForm = ({
+  buttonTitle,
+  values,
+  onSubmit,
+  onClose,
+}: AddDeckFormProps): JSX.Element => {
   const { control, handleSubmit, watch } = useDeckForm({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,

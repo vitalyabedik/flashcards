@@ -15,7 +15,13 @@ export type AddDeckProps = {
   onSubmit: (data: DeckFormValues) => void
 }
 
-export const DeckModal = ({ trigger, modalTitle, buttonTitle, values, onSubmit }: AddDeckProps) => {
+export const DeckModal = ({
+  trigger,
+  modalTitle,
+  buttonTitle,
+  values,
+  onSubmit,
+}: AddDeckProps): JSX.Element => {
   const [open, setOpen] = useState(false)
 
   const closeModal = () => {
