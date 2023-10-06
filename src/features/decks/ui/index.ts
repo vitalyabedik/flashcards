@@ -1,2 +1,2 @@
 export * from './learnCard'
-export * from './deckModal'
+export * from './manageDeck'
