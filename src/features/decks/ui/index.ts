@@ -1,2 +1,3 @@
 export * from './learnCard'
-export * from './manageDeck'
+export * from './addDeck'
+export * from './editDeck'

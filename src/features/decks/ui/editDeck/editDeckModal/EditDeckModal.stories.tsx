@@ -3,37 +3,19 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { DeckModal, AddDeckProps, DeckFormValues } from '@/features'
+import { DeckProps, DeckFormValues, EditDeckModal } from '@/features'
 
-const meta: Meta<typeof DeckModal> = {
-  title: 'Decks/DeckModal',
-  component: DeckModal,
+const meta: Meta<typeof EditDeckModal> = {
+  title: 'Decks/EditDeckModal',
+  component: EditDeckModal,
   tags: ['autodocs'],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-const DeckWithHooks = (args: AddDeckProps) => {
-  return <DeckModal {...args} values={args.values} onSubmit={args.onSubmit} />
-}
-
-export const ControlledAddDeck: Story = {
-  args: {
-    trigger: (
-      <Button>
-        <Typography variant={TypographyVariant.Subtitle2} as="span">
-          Add new Deck
-        </Typography>
-      </Button>
-    ),
-    modalTitle: 'Add new Deck',
-    buttonTitle: 'Add Deck',
-    onSubmit: (data: DeckFormValues) => {
-      action('Add new Deck')(data)
-    },
-  },
-  render: args => <DeckWithHooks {...args} />,
+const DeckWithHooks = (args: DeckProps) => {
+  return <EditDeckModal {...args} values={args.values} onSubmit={args.onSubmit} />
 }
 
 export const ControlledEditDeck: Story = {
@@ -45,7 +27,6 @@ export const ControlledEditDeck: Story = {
         </Typography>
       </Button>
     ),
-    modalTitle: 'Edit Deck',
     buttonTitle: 'Edit Deck',
     values: {
       name: 'Example input text',

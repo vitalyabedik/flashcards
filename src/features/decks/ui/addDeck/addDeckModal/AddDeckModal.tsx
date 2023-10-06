@@ -3,9 +3,8 @@ import { ReactNode, useState } from 'react'
 import { Modal } from '@/components'
 import { DeckForm, DeckFormValues } from '@/features'
 
-export type AddDeckProps = {
+export type DeckProps = {
   trigger: ReactNode
-  modalTitle: string
   buttonTitle: string
   values?: {
     name: string
@@ -15,13 +14,12 @@ export type AddDeckProps = {
   onSubmit: (data: DeckFormValues) => void
 }
 
-export const DeckModal = ({
+export const AddDeckModal = ({
   trigger,
-  modalTitle,
   buttonTitle,
   values,
   onSubmit,
-}: AddDeckProps): JSX.Element => {
+}: DeckProps): JSX.Element => {
   const [open, setOpen] = useState(false)
 
   const closeModal = () => {
@@ -29,7 +27,7 @@ export const DeckModal = ({
   }
 
   return (
-    <Modal trigger={trigger} open={open} setOpen={setOpen} title={modalTitle}>
+    <Modal trigger={trigger} open={open} setOpen={setOpen} title="Add new Deck">
       <DeckForm
         buttonTitle={buttonTitle}
         values={values}
