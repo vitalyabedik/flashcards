@@ -1,11 +1,11 @@
 import { DevTool } from '@hookform/devtools'
 
-import s from './AddDeckForm.module.scss'
+import s from './DeckForm.module.scss'
 
 import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledCheckbox, ControlledInput, Typography, Uploader } from '@/components'
-import { AddDeckFormValues, useAddDeck } from '@/features'
+import { DeckFormValues, useDeckForm } from '@/features'
 
 type AddDeckFormProps = {
   buttonTitle: string
@@ -14,12 +14,12 @@ type AddDeckFormProps = {
     isPrivate?: boolean
     cover?: string
   }
-  onSubmit: (data: AddDeckFormValues) => void
+  onSubmit: (data: DeckFormValues) => void
   onClose: () => void
 }
 
-export const AddDeckForm = ({ buttonTitle, values, onSubmit, onClose }: AddDeckFormProps) => {
-  const { control, handleSubmit, watch } = useAddDeck({
+export const DeckForm = ({ buttonTitle, values, onSubmit, onClose }: AddDeckFormProps) => {
+  const { control, handleSubmit, watch } = useDeckForm({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,
   })
@@ -28,7 +28,7 @@ export const AddDeckForm = ({ buttonTitle, values, onSubmit, onClose }: AddDeckF
   const imageUrl = file ? URL.createObjectURL(file) : values?.cover
 
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
-  const onSubmitHandler = (data: AddDeckFormValues) => {
+  const onSubmitHandler = (data: DeckFormValues) => {
     onSubmit(data)
     onClose()
   }

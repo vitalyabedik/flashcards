@@ -15,10 +15,10 @@ const addDeckSchema = z.object({
   isPrivate: z.boolean().default(false),
 })
 
-export type AddDeckFormValues = z.infer<typeof addDeckSchema>
-export const useAddDeck = (defaultValues: AddDeckFormValues) => {
-  return useForm<AddDeckFormValues>({
+export type DeckFormValues = z.infer<typeof addDeckSchema>
+export const useDeckForm = (defaultValues: DeckFormValues) => {
+  return useForm<DeckFormValues>({
     resolver: zodResolver(addDeckSchema),
-    defaultValues /*: { name: '', isPrivate: false },*/,
+    defaultValues,
   })
 }

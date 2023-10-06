@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { TypographyVariant } from '@/common'
 import { Button, Modal, Typography } from '@/components'
-import { AddDeckForm, AddDeckFormValues } from '@/features'
+import { DeckForm, DeckFormValues } from '@/features'
 
 export type AddDeckProps = {
   modalTitle: string
@@ -12,10 +12,10 @@ export type AddDeckProps = {
     isPrivate?: boolean
     cover?: string
   }
-  onSubmit: (data: AddDeckFormValues) => void
+  onSubmit: (data: DeckFormValues) => void
 }
 
-export const AddDeck = ({ modalTitle, buttonTitle, values, onSubmit }: AddDeckProps) => {
+export const DeckModal = ({ modalTitle, buttonTitle, values, onSubmit }: AddDeckProps) => {
   const [open, setOpen] = useState(false)
 
   const openModal = () => {
@@ -34,7 +34,7 @@ export const AddDeck = ({ modalTitle, buttonTitle, values, onSubmit }: AddDeckPr
       </Button>
 
       <Modal open={open} setOpen={setOpen} title={modalTitle}>
-        <AddDeckForm
+        <DeckForm
           buttonTitle={buttonTitle}
           values={values}
           onSubmit={onSubmit}
