@@ -1,0 +1,13 @@
+@import '@styles/mixins';
+
+.root {
+  padding: 2.4rem 2.4rem 3.6rem;
+
+  .text {
+    margin-bottom: 3rem;
+  }
+
+  .buttonContainer {
+    @include flex($justify: space-between, $align: center);
+  }
+}

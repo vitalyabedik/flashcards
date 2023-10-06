@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react'
 
-import { AddCardForm, CardType } from './addCardForm'
-import { AddCardFormValues } from './addCardForm/useAddCard'
+import { CardType, EditCardForm } from './editCardForm'
+import { EditCardFormValues } from './editCardForm/useEditCard'
 
 import { Modal, OptionType } from '@/components'
 
@@ -10,10 +10,10 @@ type Props = {
   card: CardType
   placeholder: ReactNode
   options: OptionType[]
-  onSubmit: (data: AddCardFormValues) => void
+  onSubmit: (data: EditCardFormValues) => void
 }
 
-export const AddCard = ({ trigger, card, placeholder, options, onSubmit }: Props): JSX.Element => {
+export const EditCard = ({ trigger, card, placeholder, options, onSubmit }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(true)
 
   const closeModal = () => {
@@ -21,8 +21,8 @@ export const AddCard = ({ trigger, card, placeholder, options, onSubmit }: Props
   }
 
   return (
-    <Modal trigger={trigger} open={isOpen} setOpen={setIsOpen} title="Add New Card">
-      <AddCardForm
+    <Modal trigger={trigger} open={isOpen} setOpen={setIsOpen} title="Edit Card">
+      <EditCardForm
         card={card}
         placeholder={placeholder}
         options={options}

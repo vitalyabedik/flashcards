@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode } from 'react'
 
 import * as ModalPrimitive from '@radix-ui/react-dialog'
 import cn from 'classnames'
@@ -12,13 +12,14 @@ import { TypographyVariant } from '@/common'
 import { Card, Typography } from '@/components'
 
 export type ModalProps = {
+  trigger: ReactNode
   open: boolean
   setOpen: (open: boolean) => void
   title: string
 } & ComponentPropsWithoutRef<'div'>
 
 export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
-  ({ open, setOpen, title, className, children, ...restProps }, ref): JSX.Element => {
+  ({ trigger, open, setOpen, title, className, children, ...restProps }, ref): JSX.Element => {
     const classNames = {
       root: cn(s.root, className),
       overlay: s.overlay,
@@ -28,6 +29,7 @@ export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
 
     return (
       <ModalPrimitive.Root open={open} onOpenChange={setOpen}>
+        <ModalPrimitive.Trigger asChild>{trigger}</ModalPrimitive.Trigger>
         <AnimatePresence>
           {open && (
             <ModalPrimitive.Portal forceMount>

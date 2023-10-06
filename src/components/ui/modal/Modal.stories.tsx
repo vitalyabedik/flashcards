@@ -33,8 +33,7 @@ const ModalWithText = (args: ModalProps) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open</Button>
-      <Modal open={isOpen} setOpen={setIsOpen} title={args.title}>
+      <Modal trigger={<Button>Open</Button>} open={isOpen} setOpen={setIsOpen} title={args.title}>
         <div style={textWrapper}>
           <Typography variant={TypographyVariant.Body1}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
