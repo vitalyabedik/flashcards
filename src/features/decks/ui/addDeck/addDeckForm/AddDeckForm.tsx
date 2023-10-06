@@ -8,7 +8,7 @@ import { Button, ControlledCheckbox, ControlledInput, Typography, Uploader } fro
 import { AddDeckFormValues, useAddDeck } from '@/features'
 
 type AddDeckFormProps = {
-  variant: 'Add' | 'Edit'
+  buttonTitle: string
   values?: {
     name: string
     isPrivate?: boolean
@@ -18,7 +18,7 @@ type AddDeckFormProps = {
   onClose: () => void
 }
 
-export const AddDeckForm = ({ variant, values, onSubmit, onClose }: AddDeckFormProps) => {
+export const AddDeckForm = ({ buttonTitle, values, onSubmit, onClose }: AddDeckFormProps) => {
   const { control, handleSubmit, watch } = useAddDeck({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,
@@ -61,10 +61,7 @@ export const AddDeckForm = ({ variant, values, onSubmit, onClose }: AddDeckFormP
           <Typography variant={TypographyVariant.Subtitle2}>Cancel</Typography>
         </Button>
         <Button>
-          <Typography variant={TypographyVariant.Subtitle2}>
-            {variant === 'Add' && 'Add New Pack'}
-            {variant === 'Edit' && 'Save Changes'}
-          </Typography>
+          <Typography variant={TypographyVariant.Subtitle2}>{buttonTitle}</Typography>
         </Button>
       </div>
       <DevTool control={control} />

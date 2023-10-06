@@ -5,7 +5,8 @@ import { Button, Modal, Typography } from '@/components'
 import { AddDeckForm, AddDeckFormValues } from '@/features'
 
 export type AddDeckProps = {
-  variant: 'Add' | 'Edit'
+  modalTitle: string
+  buttonTitle: string
   values?: {
     name: string
     isPrivate?: boolean
@@ -14,7 +15,7 @@ export type AddDeckProps = {
   onSubmit: (data: AddDeckFormValues) => void
 }
 
-export const AddDeck = ({ variant, values, onSubmit }: AddDeckProps) => {
+export const AddDeck = ({ modalTitle, buttonTitle, values, onSubmit }: AddDeckProps) => {
   const [open, setOpen] = useState(false)
 
   const openModal = () => {
@@ -23,18 +24,22 @@ export const AddDeck = ({ variant, values, onSubmit }: AddDeckProps) => {
   const closeModal = () => {
     setOpen(false)
   }
-  const modalHeaderTitle = variant === 'Add' ? 'Add New Pack' : 'Edit Pack'
 
   return (
     <>
       <Button onClick={openModal}>
         <Typography variant={TypographyVariant.Subtitle2} as="span">
-          Add New Pack
+          {buttonTitle}
         </Typography>
       </Button>
 
-      <Modal open={open} setOpen={setOpen} title={modalHeaderTitle}>
-        <AddDeckForm variant={variant} values={values} onSubmit={onSubmit} onClose={closeModal} />
+      <Modal open={open} setOpen={setOpen} title={modalTitle}>
+        <AddDeckForm
+          buttonTitle={buttonTitle}
+          values={values}
+          onSubmit={onSubmit}
+          onClose={closeModal}
+        />
       </Modal>
     </>
   )

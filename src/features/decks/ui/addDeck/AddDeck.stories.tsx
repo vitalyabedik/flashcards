@@ -13,15 +13,20 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const CreateDeckWithHooks = (args: AddDeckProps) => {
-  return <AddDeck variant={args.variant} values={args.values} onSubmit={args.onSubmit} />
+  return <AddDeck {...args} values={args.values} onSubmit={args.onSubmit} />
 }
 
-export const DefaultAddPack: Story = { args: { variant: 'Add' } }
-export const DefaultEditPack: Story = { args: { variant: 'Edit' } }
+export const DefaultAddPack: Story = {
+  args: { modalTitle: 'Add new Pack', buttonTitle: 'Add Pack' },
+}
+export const DefaultEditPack: Story = {
+  args: { modalTitle: 'Edit Pack', buttonTitle: 'Edit Pack' },
+}
 
 export const ControlledAddPack: Story = {
   args: {
-    variant: 'Add',
+    modalTitle: 'Add new Pack',
+    buttonTitle: 'Add Pack',
     onSubmit: (data: AddDeckFormValues) => {
       action('Add new Pack')(data)
     },
@@ -31,7 +36,8 @@ export const ControlledAddPack: Story = {
 
 export const ControlledEditPack: Story = {
   args: {
-    variant: 'Edit',
+    modalTitle: 'Edit Pack',
+    buttonTitle: 'Edit Pack',
     values: {
       name: 'Example input text',
       isPrivate: true,
