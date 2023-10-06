@@ -22,7 +22,7 @@ export const Dialog = ({
   itemName,
   buttonTitle,
   onClick,
-}: DialogProps) => {
+}: DialogProps): JSX.Element => {
   const [open, setOpen] = useState(false)
 
   const onClose = () => {
