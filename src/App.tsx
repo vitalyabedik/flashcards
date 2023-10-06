@@ -1,4 +1,4 @@
-import { Router } from '@/routes'
+import { Router } from '@/common'
 
 export const App = () => {
   return <Router />
