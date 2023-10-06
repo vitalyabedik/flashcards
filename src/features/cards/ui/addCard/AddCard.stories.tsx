@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 
 import { AddCard } from './AddCard'
 
-import { OptionType } from '@/components'
+import { Button, OptionType } from '@/components'
 
 const meta: Meta<typeof AddCard> = {
   title: 'Cards/AddCard',
@@ -20,6 +20,7 @@ const initialState: OptionType[] = [
 
 export const Default: Story = {
   args: {
+    trigger: <Button>Add New Card</Button>,
     options: initialState,
     card: {
       question: `"How "This" works in JavaScript?`,
