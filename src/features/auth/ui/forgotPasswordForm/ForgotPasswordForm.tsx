@@ -1,5 +1,5 @@
-import s from './ForgotPassword.module.scss'
-import { useForgotPassword, ForgotPasswordFormValue } from './useForgotPassword'
+import s from './ForgotPasswordForm.module.scss'
+import { useForgotPasswordForm, ForgotPasswordFormValue } from './useForgotPasswordForm'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
@@ -8,8 +8,8 @@ type Props = {
   onSubmit: (data: ForgotPasswordFormValue) => void
 }
 
-export const ForgotPassword = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForgotPassword()
+export const ForgotPasswordForm = ({ onSubmit }: Props) => {
+  const { control, handleSubmit } = useForgotPasswordForm()
 
   return (
     <Card className={s.formWrapper}>
