@@ -1,3 +1,5 @@
+import { JSX } from 'react'
+
 import s from './CreateNewPasswordForm.module.scss'
 import { useCreatePasswordForm, CreatePasswordFormValue } from './useCreatePasswordForm'
 
