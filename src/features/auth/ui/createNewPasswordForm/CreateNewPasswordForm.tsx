@@ -1,5 +1,5 @@
-import s from './CreateNewPassword.module.scss'
-import { useCreatePassword, CreatePasswordFormValue } from './useCreatePassword'
+import s from './CreateNewPasswordForm.module.scss'
+import { useCreatePasswordForm, CreatePasswordFormValue } from './useCreatePasswordForm'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
@@ -8,8 +8,8 @@ type Props = {
   onSubmit: (data: CreatePasswordFormValue) => void
 }
 
-export const CreateNewPassword = ({ onSubmit }: Props): JSX.Element => {
-  const { control, handleSubmit } = useCreatePassword()
+export const CreateNewPasswordForm = ({ onSubmit }: Props): JSX.Element => {
+  const { control, handleSubmit } = useCreatePasswordForm()
 
   return (
     <Card className={s.formWrapper}>
