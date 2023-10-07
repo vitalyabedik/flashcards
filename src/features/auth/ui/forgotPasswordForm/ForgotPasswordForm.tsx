@@ -1,3 +1,5 @@
+import { JSX } from 'react'
+
 import { Link } from 'react-router-dom'
 
 import s from './ForgotPasswordForm.module.scss'
@@ -10,7 +12,7 @@ type Props = {
   onSubmit: (data: ForgotPasswordFormValue) => void
 }
 
-export const ForgotPasswordForm = ({ onSubmit }: Props) => {
+export const ForgotPasswordForm = ({ onSubmit }: Props): JSX.Element => {
   const { control, handleSubmit } = useForgotPasswordForm()
 
   return (
