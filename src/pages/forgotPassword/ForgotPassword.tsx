@@ -1,5 +1,12 @@
-import { ForgotPasswordForm } from '@/features'
+import { JSX } from 'react'
 
-export const ForgotPassword = () => {
-  return <ForgotPasswordForm onSubmit={() => console.log('Submit')} />
+import s from './ForgotPassword.module.scss'
+
+import { ForgotPasswordForm } from '@/features'
+export const ForgotPassword = (): JSX.Element => {
+  return (
+    <div className={s.container}>
+      <ForgotPasswordForm onSubmit={() => console.log('Submit')} />
+    </div>
+  )
 }

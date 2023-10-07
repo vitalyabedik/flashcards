@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import s from './ForgotPasswordForm.module.scss'
 import { useForgotPasswordForm, ForgotPasswordFormValue } from './useForgotPasswordForm'
 
@@ -33,12 +35,7 @@ export const ForgotPasswordForm = ({ onSubmit }: Props) => {
         <Typography className={s.questionText} variant={TypographyVariant.Body2}>
           Did you remember your password?
         </Typography>
-        <Button
-          className={s.loginLink}
-          as="a"
-          href="https://google.com"
-          variant={ButtonVariant.Link}
-        >
+        <Button className={s.loginLink} as={Link} to="/login" variant={ButtonVariant.Link}>
           Try logging in
         </Button>
       </form>
