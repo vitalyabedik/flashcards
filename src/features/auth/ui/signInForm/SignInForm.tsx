@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import s from './SignInForm.module.scss'
 import { SignInFormValues, useSignInForm } from './useSignInForm'
 
-import { TypographyVariant } from '@/common'
+import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
 
 type Props = {
@@ -51,14 +51,9 @@ export const SignInForm = ({ onSubmit }: Props): JSX.Element => {
       <Typography className={s.infoText} variant={TypographyVariant.Body2}>
         {`Don't have an account?`}
       </Typography>
-      <Typography
-        className={s.signUpLink}
-        variant={TypographyVariant.Link1}
-        as={Link}
-        to="/sign-up"
-      >
+      <Button className={s.signUpLink} as={Link} to="/sign-up" variant={ButtonVariant.Link}>
         Sign Up
-      </Typography>
+      </Button>
     </Card>
   )
 }
