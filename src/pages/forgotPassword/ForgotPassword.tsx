@@ -1,5 +1,3 @@
-import { JSX } from 'react'
-
 import s from './ForgotPassword.module.scss'
 
 import { ForgotPasswordForm } from '@/features'
