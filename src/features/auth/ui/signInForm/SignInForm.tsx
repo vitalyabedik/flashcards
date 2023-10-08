@@ -1,11 +1,11 @@
 import { DevTool } from '@hookform/devtools'
+import { Link } from 'react-router-dom'
 
 import s from './SignInForm.module.scss'
 import { SignInFormValues, useSignInForm } from './useSignInForm'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
-import { Link } from 'react-router-dom'
 
 type Props = {
   onSubmit: (data: SignInFormValues) => void
