@@ -4,7 +4,8 @@ import { EditProfileValues } from './editProfile/useEditProfile.ts'
 import s from './PersonalInformation.module.scss'
 
 import { TypographyVariant } from '@/common'
-import { Card, Typography, AvatarUploader, EditProfile, ProfileInfo } from '@/components'
+import { Card, Typography } from '@/components'
+import { AvatarUploader, EditProfile, ProfileInfo } from '@/features'
 
 type Props = {
   avatar?: string
