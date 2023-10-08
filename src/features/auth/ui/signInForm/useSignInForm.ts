@@ -10,7 +10,7 @@ const signInSchema = z.object({
 
 export type SignInFormValues = z.infer<typeof signInSchema>
 
-export const useSignIn = () =>
+export const useSignInForm = () =>
   useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
