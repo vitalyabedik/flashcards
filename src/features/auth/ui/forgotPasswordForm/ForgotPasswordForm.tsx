@@ -1,5 +1,9 @@
-import s from './ForgotPassword.module.scss'
-import { useForgotPassword, ForgotPasswordFormValue } from './useForgotPassword'
+import { JSX } from 'react'
+
+import { Link } from 'react-router-dom'
+
+import s from './ForgotPasswordForm.module.scss'
+import { useForgotPasswordForm, ForgotPasswordFormValue } from './useForgotPasswordForm'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
@@ -8,8 +12,8 @@ type Props = {
   onSubmit: (data: ForgotPasswordFormValue) => void
 }
 
-export const ForgotPassword = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForgotPassword()
+export const ForgotPasswordForm = ({ onSubmit }: Props): JSX.Element => {
+  const { control, handleSubmit } = useForgotPasswordForm()
 
   return (
     <Card className={s.formWrapper}>
@@ -33,12 +37,7 @@ export const ForgotPassword = ({ onSubmit }: Props) => {
         <Typography className={s.questionText} variant={TypographyVariant.Body2}>
           Did you remember your password?
         </Typography>
-        <Button
-          className={s.loginLink}
-          as="a"
-          href="https://google.com"
-          variant={ButtonVariant.Link}
-        >
+        <Button className={s.loginLink} as={Link} to="/login" variant={ButtonVariant.Link}>
           Try logging in
         </Button>
       </form>
