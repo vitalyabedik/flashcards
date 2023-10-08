@@ -1,4 +1,4 @@
-export * from './signIn'
+export * from './signInPage'
 export * from './forgotPassword'
 export * from './notFoundPage'
 export * from './createNewPassword'
