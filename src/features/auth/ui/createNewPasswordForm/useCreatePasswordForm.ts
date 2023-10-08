@@ -8,7 +8,7 @@ const createPasswordSchema = z.object({
 
 export type CreatePasswordFormValue = z.infer<typeof createPasswordSchema>
 
-export const useCreatePassword = () =>
+export const useCreatePasswordForm = () =>
   useForm<CreatePasswordFormValue>({
     resolver: zodResolver(createPasswordSchema),
     defaultValues: { password: '' },
