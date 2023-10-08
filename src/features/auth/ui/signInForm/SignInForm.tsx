@@ -5,6 +5,7 @@ import { SignInFormValues, useSignInForm } from './useSignInForm'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, ControlledCheckbox, ControlledInput, Typography } from '@/components'
+import { Link } from 'react-router-dom'
 
 type Props = {
   onSubmit: (data: SignInFormValues) => void
@@ -35,7 +36,12 @@ export const SignInForm = ({ onSubmit }: Props): JSX.Element => {
           label="Remember me"
           position="left"
         />
-        <Typography className={s.forgotPasswordLink} variant={TypographyVariant.Body2} as="a">
+        <Typography
+          className={s.forgotPasswordLink}
+          variant={TypographyVariant.Body2}
+          as={Link}
+          to="/forgot-password"
+        >
           Forgot Password?
         </Typography>
         <Button type="submit" fullWidth>
@@ -45,7 +51,12 @@ export const SignInForm = ({ onSubmit }: Props): JSX.Element => {
       <Typography className={s.infoText} variant={TypographyVariant.Body2}>
         {`Don't have an account?`}
       </Typography>
-      <Typography className={s.signUpLink} variant={TypographyVariant.Link1} as="a">
+      <Typography
+        className={s.signUpLink}
+        variant={TypographyVariant.Link1}
+        as={Link}
+        to="/sign-up"
+      >
         Sign Up
       </Typography>
     </Card>
