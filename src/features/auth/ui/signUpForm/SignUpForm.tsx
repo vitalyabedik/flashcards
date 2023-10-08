@@ -1,17 +1,18 @@
 import { DevTool } from '@hookform/devtools'
+import { Link } from 'react-router-dom'
 
-import s from './SignUp.module.scss'
-import { SignUpFormValues, useSignUp } from './useSignUp'
+import s from './SignUpForm.module.scss'
+import { SignUpFormValues, useSignUpForm } from './useSignUpForm'
 
-import { TypographyVariant } from '@/common'
+import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
 
 type Props = {
   onSubmit: (data: SignUpFormValues) => void
 }
 
-export const SignUp = ({ onSubmit }: Props): JSX.Element => {
-  const { control, handleSubmit } = useSignUp()
+export const SignUpForm = ({ onSubmit }: Props): JSX.Element => {
+  const { control, handleSubmit } = useSignUpForm()
 
   return (
     <Card className={s.formWrapper}>
@@ -44,9 +45,9 @@ export const SignUp = ({ onSubmit }: Props): JSX.Element => {
       <Typography className={s.infoText} variant={TypographyVariant.Body2}>
         Already have an account?
       </Typography>
-      <Typography className={s.signUpLink} variant={TypographyVariant.Link1} as="a">
+      <Button className={s.signInLink} as={Link} to="/sign-in" variant={ButtonVariant.Link}>
         Sign In
-      </Typography>
+      </Button>
     </Card>
   )
 }
