@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
-import { CreateNewPassword, ForgotPassword, NotFoundPage, ProfilePage } from '@/pages'
+import { SignUpPage, CreateNewPassword, ForgotPassword, NotFoundPage, ProfilePage } from '@/pages'
 
 export const privateRoutes: RouteObject[] = [
   { path: '/', element: <div>Main page</div> },
@@ -11,7 +11,7 @@ export const privateRoutes: RouteObject[] = [
 
 export const publicRoutes: RouteObject[] = [
   { path: '/login', element: <div>Sign-in (login) page</div> },
-  { path: '/sign-up', element: <div>Sign-up page</div> },
+  { path: '/sign-up', element: <SignUpPage /> },
   { path: '/forgot-password', element: <ForgotPassword /> },
   { path: '/create-new-password', element: <CreateNewPassword /> },
   { path: '/404', element: <NotFoundPage /> },
