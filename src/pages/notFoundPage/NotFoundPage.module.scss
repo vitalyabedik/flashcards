@@ -1,15 +1,15 @@
 @import '@styles/mixins';
 
 .container {
-  @include flex($direction: column, $justify: center, $align: center);
+  @include container;
 
-  width: 100%;
-  margin-top: 13rem;
+  padding-top: 13rem;
+  text-align: center;
 
   .image {
     width: 100%;
     max-width: 45rem;
-    margin-bottom: 4.2rem;
+    margin: 0 auto 4.2rem;
   }
 
   .text {
