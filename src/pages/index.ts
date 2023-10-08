@@ -1,2 +1,2 @@
 export * from './forgotPassword'
-export * from './createNewPassword'
+export * from './notFoundPage'
