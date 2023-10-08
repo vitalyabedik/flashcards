@@ -33,13 +33,6 @@
   }
 
   .signUpLink {
-    font-size: var(--font-size-m);
-    font-weight: 700;
-    color: var(--color-accent-500);
-    transition: color 0.2s ease-in-out;
-
-    &:hover {
-      color: var(--color-accent-300);
-    }
+    text-decoration: underline;
   }
 }
