@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-rou
 import { PrivateRoutes } from './PrivateRoutes.tsx'
 import { privateRoutes, publicRoutes } from './routerSettings.tsx'
 
+import { Route } from '@/common'
 import { Header } from '@/components'
 
 const AppLayout = () => {
@@ -17,7 +18,7 @@ const AppLayout = () => {
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
-    errorElement: <Navigate to="404" />,
+    errorElement: <Navigate to={Route.NotFound} />,
     children: [
       {
         element: <PrivateRoutes />,

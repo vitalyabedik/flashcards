@@ -1,11 +1,9 @@
-import { JSX } from 'react'
-
 import { Link } from 'react-router-dom'
 
 import s from './ForgotPasswordForm.module.scss'
 import { useForgotPasswordForm, ForgotPasswordFormValue } from './useForgotPasswordForm'
 
-import { ButtonVariant, TypographyVariant } from '@/common'
+import { ButtonVariant, Route, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
 
 type Props = {
@@ -37,7 +35,7 @@ export const ForgotPasswordForm = ({ onSubmit }: Props): JSX.Element => {
         <Typography className={s.questionText} variant={TypographyVariant.Body2}>
           Did you remember your password?
         </Typography>
-        <Button className={s.signInLink} as={Link} to="/sign-in" variant={ButtonVariant.Link}>
+        <Button className={s.signInLink} as={Link} to={Route.SignIn} variant={ButtonVariant.Link}>
           Try logging in
         </Button>
       </form>
