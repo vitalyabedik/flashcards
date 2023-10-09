@@ -420,14 +420,10 @@ export const Empty = () => {
     gap: '3rem',
   }
 
-  const buttonStyles: CSSProperties = {
-    boxShadow: '0 0.4rem 1.8rem 0 rgba(140, 97, 255, 0.35)',
-  }
-
   return (
     <div style={emptyContainer}>
       <Table.Empty />
-      <Button style={buttonStyles}>Add New Card</Button>
+      <Button>Add New Card</Button>
     </div>
   )
 }
