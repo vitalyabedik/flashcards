@@ -7,6 +7,8 @@ import { Button, Page, Pagination, Panel, Typography } from '@/components'
 import { AddDeckModal, DecksTable, useGetDecksQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
+  const [pageSize, setPageSize] = useState(10)
+  const [currentPage, setCurrentPage] = useState(1)
   const [inputValue, setValue] = useState('')
   const [tabValue, setTabValue] = useState('allCards')
   const [sliderValue, setSliderValue] = useState([1, 10])
@@ -17,6 +19,10 @@ export const DecksPage = (): JSX.Element => {
     setValue('')
     setTabValue('allCards')
     setSliderValue([1, 10])
+  }
+
+  const onChangePageSize = (value: string) => {
+    setPageSize(Number(value))
   }
 
   return (
@@ -58,9 +64,11 @@ export const DecksPage = (): JSX.Element => {
       <DecksTable />
       <Pagination
         totalCount={87}
-        pageSize={10}
-        currentPage={1}
-        onPageChange={() => {}}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        value={pageSize.toString()}
+        onPageChange={setCurrentPage}
+        onValueChange={onChangePageSize}
         options={[
           { value: '10', title: '10' },
           { value: '20', title: '20' },
