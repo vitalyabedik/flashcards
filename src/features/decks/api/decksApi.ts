@@ -1,8 +1,10 @@
+import { DecksResponseType } from './decksApi.types'
+
 import { baseApi } from '@/common'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getDecks: builder.query<any, any>({
+    getDecks: builder.query<DecksResponseType, void>({
       query: () => ({
         url: 'decks',
       }),
