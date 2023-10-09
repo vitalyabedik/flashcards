@@ -3,46 +3,15 @@ import { useState } from 'react'
 import s from './DecksPage.module.scss'
 
 import { TypographyVariant } from '@/common'
-import { Button, Page, Panel, Typography } from '@/components'
-import { AddDeckModal, DecksTable } from '@/features'
-
-const data = [
-  {
-    title: 'Project A',
-    cardsCount: 10,
-    updated: '2023-07-07',
-    createdBy: 'John Doe',
-  },
-  {
-    title: 'Project B',
-    cardsCount: 5,
-    updated: '2023-07-06',
-    createdBy: 'Jane Smith',
-  },
-  {
-    title: 'Project C',
-    cardsCount: 8,
-    updated: '2023-07-05',
-    createdBy: 'Alice Johnson',
-  },
-  {
-    title: 'Project D',
-    cardsCount: 3,
-    updated: '2023-07-07',
-    createdBy: 'Bob Anderson',
-  },
-  {
-    title: 'Project E',
-    cardsCount: 12,
-    updated: '2023-07-04',
-    createdBy: 'Emma Davis',
-  },
-]
+import { Button, Page, Pagination, Panel, Typography } from '@/components'
+import { AddDeckModal, DecksTable, useGetDecksQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const [inputValue, setValue] = useState('')
   const [tabValue, setTabValue] = useState('allCards')
   const [sliderValue, setSliderValue] = useState([1, 10])
+
+  const { data } = useGetDecksQuery()
 
   const onClearFilter = () => {
     setValue('')
@@ -52,7 +21,7 @@ export const DecksPage = (): JSX.Element => {
 
   return (
     <Page className={s.root}>
-      {!!data.length && (
+      {!!data?.items.length && (
         <>
           <div className={s.titleAndModalWrapper}>
             <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
@@ -86,7 +55,21 @@ export const DecksPage = (): JSX.Element => {
           />
         </>
       )}
-      <DecksTable data={data} />
+      <DecksTable />
+      <Pagination
+        totalCount={87}
+        pageSize={10}
+        currentPage={1}
+        onPageChange={() => {}}
+        options={[
+          { value: '10', title: '10' },
+          { value: '20', title: '20' },
+          { value: '30', title: '30' },
+          { value: '40', title: '40' },
+          { value: '50', title: '50' },
+        ]}
+        placeholder={100}
+      />
     </Page>
   )
 }

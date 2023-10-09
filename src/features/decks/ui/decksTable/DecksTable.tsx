@@ -1,56 +1,17 @@
 import { useMemo, useState } from 'react'
 
+import { columnsData } from './columnsData'
 import s from './DecksTable.module.scss'
 
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
-import { TypographyVariant } from '@/common'
-import { Button, Sort, TableHeader, Table, Typography } from '@/components'
+import { formatDate, TypographyVariant } from '@/common'
+import { Button, Sort, Table, TableHeader, Typography } from '@/components'
+import { useGetDecksQuery } from '@/features'
 
-type Column = {
-  key: string
-  title: string
-  sortable?: boolean
-}
-const columns: Column[] = [
-  {
-    key: 'name',
-    title: 'Name',
-  },
-  {
-    key: 'cardsCount',
-    title: 'Cards',
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-  },
-  {
-    key: 'created',
-    title: 'Created by',
-  },
-  {
-    key: 'icons',
-    title: '',
-  },
-]
-
-const columnsSortable: Column[] = columns.map(column =>
-  column.key !== 'icons' ? { ...column, sortable: true } : column
-)
-
-type DataType = {
-  title: string
-  cardsCount: number
-  updated: string
-  createdBy: string
-}
-
-type Props = {
-  data: DataType[]
-}
-
-export const DecksTable = ({ data }: Props): JSX.Element => {
+export const DecksTable = (): JSX.Element => {
   const [sort, setSort] = useState<Sort>(null)
+
+  const { data } = useGetDecksQuery()
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -62,30 +23,44 @@ export const DecksTable = ({ data }: Props): JSX.Element => {
 
   return (
     <>
-      {!!data.length && (
-        <Table.Root>
-          <TableHeader columns={columnsSortable} sort={sort} onSort={setSort} />
+      {!!data?.items.length && (
+        <Table.Root className={s.root}>
+          <TableHeader columns={columnsData} sort={sort} onSort={setSort} />
           <Table.Body>
-            {data.map(item => (
-              <Table.Row key={item.title}>
-                {Object.values(item).map((value, index) => {
-                  return (
-                    <Table.Cell key={`${value}${index}`}>
-                      <Typography variant={TypographyVariant.Body2}>{value}</Typography>
-                    </Table.Cell>
-                  )
-                })}
+            {data?.items.map(item => (
+              <Table.Row key={item.userId}>
+                <Table.Cell>
+                  {item.cover}
+                  <Typography variant={TypographyVariant.Body2}>{item.name}</Typography>
+                </Table.Cell>
+                <Table.Cell>
+                  <Typography variant={TypographyVariant.Body2}>{item.cardsCount}</Typography>
+                </Table.Cell>
+                <Table.Cell>
+                  <Typography variant={TypographyVariant.Body2}>
+                    {formatDate(item.updated)}
+                  </Typography>
+                </Table.Cell>
+                <Table.Cell>
+                  <Typography variant={TypographyVariant.Body2}>{item.author.name}</Typography>
+                </Table.Cell>
                 <Table.Cell className={s.iconsWrapper}>
-                  <PlayCircleIcon size={1.6} />
-                  <EditIcon size={1.6} />
-                  <DeleteIcon size={1.6} />
+                  <button className={s.tableIcon}>
+                    <PlayCircleIcon size={1.6} />
+                  </button>
+                  <button className={s.tableIcon}>
+                    <EditIcon size={1.6} />
+                  </button>
+                  <button className={s.tableIcon}>
+                    <DeleteIcon size={1.6} />
+                  </button>
                 </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
         </Table.Root>
       )}
-      {!data.length && (
+      {!data?.items.length && (
         <div className={s.emptyWrapper}>
           <Table.Empty />
           <Button>Add New Deck</Button>
