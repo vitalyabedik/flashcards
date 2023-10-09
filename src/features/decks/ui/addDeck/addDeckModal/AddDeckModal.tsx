@@ -27,7 +27,7 @@ export const AddDeckModal = ({
   }
 
   return (
-    <Modal trigger={trigger} open={open} setOpen={setOpen} title="Add new Deck">
+    <Modal trigger={trigger} open={open} setOpen={setOpen} title="Add New Deck">
       <DeckForm
         buttonTitle={buttonTitle}
         values={values}
