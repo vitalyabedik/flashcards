@@ -20,3 +20,14 @@ export enum ButtonVariant {
   Tertiary = 'tertiary',
   Link = 'link',
 }
+
+export enum Route {
+  Main = '/',
+  SignIn = '/sign-in',
+  SignUp = '/sign-up',
+  ForgotPassword = '/forgot-password',
+  CreateNewPassword = '/create-new-password',
+  Profile = '/profile',
+  Decks = '/decks',
+  NotFound = '/not-found',
+}
