@@ -1,5 +1,6 @@
-export * from './signUpPage'
 export * from './forgotPassword'
 export * from './notFoundPage'
 export * from './createNewPassword'
 export * from './profilePage'
+export * from './signInPage'
+export * from './signUpPage'

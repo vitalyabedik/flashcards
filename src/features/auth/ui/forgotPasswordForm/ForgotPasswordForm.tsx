@@ -37,7 +37,7 @@ export const ForgotPasswordForm = ({ onSubmit }: Props): JSX.Element => {
         <Typography className={s.questionText} variant={TypographyVariant.Body2}>
           Did you remember your password?
         </Typography>
-        <Button className={s.loginLink} as={Link} to="/login" variant={ButtonVariant.Link}>
+        <Button className={s.signInLink} as={Link} to="/sign-in" variant={ButtonVariant.Link}>
           Try logging in
         </Button>
       </form>
