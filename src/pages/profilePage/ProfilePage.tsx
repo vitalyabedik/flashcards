@@ -1,11 +1,10 @@
-import s from './ProfilePage.module.scss'
-
+import { Page } from '@/components'
 import { PersonalInformation } from '@/features'
 
 export const ProfilePage = (): JSX.Element => {
   return (
-    <div className={s.container}>
+    <Page>
       <PersonalInformation email="example@example.com" name="John Doe" />
-    </div>
+    </Page>
   )
 }
