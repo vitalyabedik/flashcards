@@ -110,10 +110,18 @@
 }
 
 @mixin input-icon($left, $right) {
+  @include flex($align: center);
+
   cursor: pointer;
 
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
+
+  width: 2rem;
+  height: 2rem;
+
+  color: var(--color-dark-100);
 
   @if $right != 0 {
     right: $right;
@@ -122,14 +130,4 @@
   @if $left != 0 {
     left: $left;
   }
-
-  transform: translateY(-50%);
-
-  display: flex;
-  align-items: center;
-
-  width: 2rem;
-  height: 2rem;
-
-  color: var(--color-dark-100);
 }

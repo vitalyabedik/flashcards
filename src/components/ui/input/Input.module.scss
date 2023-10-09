@@ -14,14 +14,11 @@
   }
 
   .inputWrapper {
+    @include flex($align: center);
+
     position: relative;
-
     overflow: hidden;
-    display: flex;
-    align-items: center;
-
     height: 3.6rem;
-
     border-radius: 2px;
 
     .input {
