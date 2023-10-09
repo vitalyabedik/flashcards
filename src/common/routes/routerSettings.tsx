@@ -9,6 +9,7 @@ import {
   NotFoundPage,
   ProfilePage,
   DecksPage,
+  LearnPage,
 } from '@/pages'
 
 export const privateRoutes: RouteObject[] = [
@@ -16,6 +17,7 @@ export const privateRoutes: RouteObject[] = [
   { path: Route.Profile, element: <ProfilePage /> },
   { path: Route.Decks, element: <DecksPage /> },
   { path: `${Route.Decks}/:id`, element: <div>Deck page</div> },
+  { path: `${Route.Decks}/:id/learn`, element: <LearnPage /> },
 ]
 
 export const publicRoutes: RouteObject[] = [
