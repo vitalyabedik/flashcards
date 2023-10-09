@@ -62,7 +62,7 @@ export const DecksTable = ({ data }: Props): JSX.Element => {
 
   return (
     <>
-      {data.length > 0 && (
+      {!!data.length && (
         <Table.Root>
           <TableHeader columns={columnsSortable} sort={sort} onSort={setSort} />
           <Table.Body>
@@ -85,7 +85,7 @@ export const DecksTable = ({ data }: Props): JSX.Element => {
           </Table.Body>
         </Table.Root>
       )}
-      {data.length === 0 && (
+      {!data.length && (
         <div className={s.emptyWrapper}>
           <Table.Empty />
           <Button>Add New Deck</Button>

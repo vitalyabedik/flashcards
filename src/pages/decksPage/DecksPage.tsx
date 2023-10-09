@@ -52,7 +52,7 @@ export const DecksPage = (): JSX.Element => {
 
   return (
     <Page className={s.root}>
-      {data.length > 0 && (
+      {!!data.length && (
         <>
           <div className={s.titleAndModalWrapper}>
             <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
