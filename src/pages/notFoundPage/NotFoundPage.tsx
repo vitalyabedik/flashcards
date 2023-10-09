@@ -4,11 +4,11 @@ import s from './NotFoundPage.module.scss'
 
 import { NotFound } from '@/assets'
 import { Route, TypographyVariant } from '@/common'
-import { Button, Typography } from '@/components'
+import { Button, Page, Typography } from '@/components'
 
 export const NotFoundPage = (): JSX.Element => {
   return (
-    <div className={s.container}>
+    <Page className={s.container}>
       <div className={s.image}>
         <NotFound />
       </div>
@@ -18,6 +18,6 @@ export const NotFoundPage = (): JSX.Element => {
           Back to home page
         </Typography>
       </Button>
-    </div>
+    </Page>
   )
 }
