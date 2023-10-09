@@ -88,7 +88,7 @@ export const DecksTable = ({ data }: Props): JSX.Element => {
       {data.length === 0 && (
         <div className={s.emptyWrapper}>
           <Table.Empty />
-          <Button>Add New Card</Button>
+          <Button>Add New Deck</Button>
         </div>
       )}
     </>

@@ -2,7 +2,7 @@ import cn from 'classnames'
 
 import s from './Panel.module.scss'
 
-import { DeleteIcon } from '@/assets'
+import { DeleteIcon, SearchIcon } from '@/assets'
 import { ButtonVariant } from '@/common'
 import { Button, Input, Slider, Tabs } from '@/components'
 import { TabItem } from '@components/ui/tabs/tabItem'
@@ -45,7 +45,13 @@ export const Panel = ({
 
   return (
     <div className={classNames.root}>
-      <Input className={classNames.input} value={inputValue} onChangeValue={onChangeInputValue} />
+      <Input
+        className={classNames.input}
+        value={inputValue}
+        onChangeValue={onChangeInputValue}
+        placeholder="Input search"
+        leftIcon={<SearchIcon />}
+      />
       <Tabs
         className={classNames.tabs}
         label={tabLabel}
