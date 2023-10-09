@@ -1,0 +1,11 @@
+@import '@styles/mixins';
+
+.iconsWrapper {
+  @include flex($align: center, $gap: 1rem);
+
+  height: 3.6rem;
+}
+
+.emptyWrapper {
+  @include flex($direction: column, $align: center, $gap: 3rem);
+}

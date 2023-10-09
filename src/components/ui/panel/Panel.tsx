@@ -1,6 +1,8 @@
+import cn from 'classnames'
+
 import s from './Panel.module.scss'
 
-import { DeleteIcon } from '@/assets'
+import { DeleteIcon, SearchIcon } from '@/assets'
 import { ButtonVariant } from '@/common'
 import { Button, Input, Slider, Tabs } from '@/components'
 import { TabItem } from '@components/ui/tabs/tabItem'
@@ -17,6 +19,7 @@ export type PanelProps = {
   sliderLabel: string
   onChangeSliderValue: (value: number[]) => void
   onClearFilter: () => void
+  className?: string
 }
 
 export const Panel = ({
@@ -31,11 +34,30 @@ export const Panel = ({
   onChangeTabValue,
   onChangeSliderValue,
   onClearFilter,
+  className,
 }: PanelProps): JSX.Element => {
+  const classNames = {
+    root: cn(s.root, className),
+    input: s.input,
+    tabs: s.tabs,
+    button: s.button,
+  }
+
   return (
-    <div className={s.root}>
-      <Input className={s.input} value={inputValue} onChangeValue={onChangeInputValue} />
-      <Tabs className={s.tabs} label={tabLabel} value={tabValue} onValueChange={onChangeTabValue}>
+    <div className={classNames.root}>
+      <Input
+        className={classNames.input}
+        value={inputValue}
+        onChangeValue={onChangeInputValue}
+        placeholder="Input search"
+        leftIcon={<SearchIcon />}
+      />
+      <Tabs
+        className={classNames.tabs}
+        label={tabLabel}
+        value={tabValue}
+        onValueChange={onChangeTabValue}
+      >
         <TabItem value="myCards">My Cards</TabItem>
         <TabItem value="allCards">All Cards</TabItem>
       </Tabs>
@@ -46,7 +68,11 @@ export const Panel = ({
         max={maxSliderValue}
         label={sliderLabel}
       />
-      <Button className={s.button} variant={ButtonVariant.Secondary} onClick={onClearFilter}>
+      <Button
+        className={classNames.button}
+        variant={ButtonVariant.Secondary}
+        onClick={onClearFilter}
+      >
         <>
           <DeleteIcon size={1.6} />
           Clear Filter

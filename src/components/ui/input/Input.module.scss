@@ -1,27 +1,4 @@
-@mixin input-icon($left, $right) {
-  cursor: pointer;
-
-  position: absolute;
-  top: 50%;
-
-  @if $right != 0 {
-    right: $right;
-  }
-
-  @if $left != 0 {
-    left: $left;
-  }
-
-  transform: translateY(-50%);
-
-  display: flex;
-  align-items: center;
-
-  width: 2rem;
-  height: 2rem;
-
-  color: var(--color-dark-100);
-}
+@import '@styles/mixins';
 
 .root {
   position: relative;
@@ -37,17 +14,17 @@
   }
 
   .inputWrapper {
+    @include flex($align: center);
+
     position: relative;
-
     overflow: hidden;
-    display: flex;
-    align-items: center;
-
+    height: 3.6rem;
     border-radius: 2px;
 
     .input {
       width: 100%;
-      padding: 0.6rem 1.2rem;
+      height: 100%;
+      padding: 0 1.2rem;
 
       font-size: var(--font-size-m);
       font-weight: var(--font-weight-regular);
