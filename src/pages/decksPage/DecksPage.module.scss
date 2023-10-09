@@ -1,0 +1,16 @@
+@import '@styles/mixins';
+
+.root {
+  padding-top: 3.3rem;
+
+  .titleAndModalWrapper {
+    @include flex($justify: space-between, $align: center);
+
+    width: 100%;
+    margin-bottom: 0.7rem;
+  }
+
+  .panelWrapper {
+    margin: 0.7rem 0 3.6rem;
+  }
+}
