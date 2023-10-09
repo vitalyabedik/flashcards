@@ -1,11 +1,10 @@
-import s from './SignInPage.module.scss'
-
+import { Page } from '@/components'
 import { SignInForm } from '@/features'
 
 export const SignInPage = (): JSX.Element => {
   return (
-    <div className={s.container}>
+    <Page>
       <SignInForm onSubmit={() => console.log('Submit')} />
-    </div>
+    </Page>
   )
 }
