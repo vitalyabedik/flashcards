@@ -1,11 +1,25 @@
 @import '@styles/mixins';
 
-.iconsWrapper {
-  @include flex($align: center, $gap: 1rem);
+.root {
+  margin-bottom: 3.6rem;
 
-  height: 3.6rem;
-}
+  .iconsWrapper {
+    @include flex($align: center, $gap: 1rem);
 
-.emptyWrapper {
-  @include flex($direction: column, $align: center, $gap: 3rem);
+    height: 3.6rem;
+  }
+
+  .emptyWrapper {
+    @include flex($direction: column, $align: center, $gap: 3rem);
+  }
+
+  .tableIcon {
+    @include icon-button($width: 1.6rem, $height: 1.6rem);
+
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }
