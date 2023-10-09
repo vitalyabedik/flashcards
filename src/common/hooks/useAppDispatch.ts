@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
 
-import { AppDispatch } from '@/services'
+import { AppDispatch } from '@/app'
 
 export const useAppDispatch: () => AppDispatch = useDispatch
