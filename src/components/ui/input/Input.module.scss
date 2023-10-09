@@ -43,11 +43,14 @@
     display: flex;
     align-items: center;
 
+    height: 3.6rem;
+
     border-radius: 2px;
 
     .input {
       width: 100%;
-      padding: 0.6rem 1.2rem;
+      height: 100%;
+      padding: 0 1.2rem;
 
       font-size: var(--font-size-m);
       font-weight: var(--font-weight-regular);
