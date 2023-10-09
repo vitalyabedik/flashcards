@@ -22,6 +22,7 @@
     "types": ["node"],
     "paths": {
       "@/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
       "@common/*": ["./src/common/*"],
