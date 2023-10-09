@@ -1,18 +1,25 @@
 import { RouteObject } from 'react-router-dom'
 
-import { SignInPage, SignUpPage, CreateNewPassword, ForgotPassword, NotFoundPage } from '@/pages'
+import { Route } from '@/common'
+import {
+  SignInPage,
+  SignUpPage,
+  ForgotPasswordPage,
+  CreateNewPasswordPage,
+  NotFoundPage,
+} from '@/pages'
 
 export const privateRoutes: RouteObject[] = [
-  { path: '/', element: <div>Main page</div> },
-  { path: '/profile', element: <div>Profile page</div> },
-  { path: '/decks', element: <div>Decks page</div> },
-  { path: '/decks/:id', element: <div>Deck page</div> },
+  { path: Route.Main, element: <div>Main page</div> },
+  { path: Route.Profile, element: <div>Profile page</div> },
+  { path: Route.Decks, element: <div>Decks page</div> },
+  { path: `${Route.Decks}/:id`, element: <div>Deck page</div> },
 ]
 
 export const publicRoutes: RouteObject[] = [
-  { path: '/sign-in', element: <SignInPage /> },
-  { path: '/sign-up', element: <SignUpPage /> },
-  { path: '/forgot-password', element: <ForgotPassword /> },
-  { path: '/create-new-password', element: <CreateNewPassword /> },
-  { path: '/404', element: <NotFoundPage /> },
+  { path: Route.SignIn, element: <SignInPage /> },
+  { path: Route.SignUp, element: <SignUpPage /> },
+  { path: Route.ForgotPassword, element: <ForgotPasswordPage /> },
+  { path: Route.CreateNewPassword, element: <CreateNewPasswordPage /> },
+  { path: Route.NotFound, element: <NotFoundPage /> },
 ]

@@ -8,8 +8,6 @@ export const Card = forwardRef<ElementRef<'div'>, ComponentPropsWithoutRef<'div'
   ({ className, ...restProps }, ref): JSX.Element => {
     const cardClasses = cn(s.root, className)
 
-    return <div ref={ref} className={cardClasses} {...restProps}></div>
+    return <div ref={ref} className={cardClasses} {...restProps} />
   }
 )
-
-export type CardProps = typeof Card

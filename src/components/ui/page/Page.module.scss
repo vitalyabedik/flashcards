@@ -1,7 +1,7 @@
 @import '@styles/mixins';
 
-.container {
+.root {
   @include container;
 
-  padding-top: 13rem;
+  padding-top: 3.6rem;
 }

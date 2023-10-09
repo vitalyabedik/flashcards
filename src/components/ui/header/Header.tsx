@@ -1,12 +1,13 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import cn from 'classnames'
+import { Link } from 'react-router-dom'
 
 import s from './Header.module.scss'
 import { HeaderProfileInfo } from './headerProfileInfo'
 
 import { Logo, LogoutIcon, PersonIcon } from '@/assets'
-import { TypographyVariant } from '@/common'
+import { Route, TypographyVariant } from '@/common'
 import {
   Avatar,
   Button,
@@ -56,7 +57,9 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
               </Dropdown>
             </div>
           ) : (
-            <Button as="a">Sign In</Button>
+            <Button as={Link} to={Route.SignIn}>
+              Sign In
+            </Button>
           )}
         </div>
       </header>

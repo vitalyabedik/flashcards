@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import s from './SignUpForm.module.scss'
 import { SignUpFormValues, useSignUpForm } from './useSignUpForm'
 
-import { ButtonVariant, TypographyVariant } from '@/common'
+import { ButtonVariant, Route, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
 
 type Props = {
@@ -45,7 +45,7 @@ export const SignUpForm = ({ onSubmit }: Props): JSX.Element => {
       <Typography className={s.infoText} variant={TypographyVariant.Body2}>
         Already have an account?
       </Typography>
-      <Button className={s.signInLink} as={Link} to="/sign-in" variant={ButtonVariant.Link}>
+      <Button className={s.signInLink} as={Link} to={Route.SignIn} variant={ButtonVariant.Link}>
         Sign In
       </Button>
     </Card>
