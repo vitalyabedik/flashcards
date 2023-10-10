@@ -3,15 +3,15 @@ import { useState } from 'react'
 import { Page } from '@/components'
 import {
   CheckEmail,
-  ForgotParamsType,
+  RecoverPasswordParamsType,
   ForgotPasswordForm,
-  useForgotPasswordMutation,
+  useRecoverPasswordMutation,
 } from '@/features'
 
 export const ForgotPasswordPage = (): JSX.Element => {
-  const [recoverPassword, { isSuccess }] = useForgotPasswordMutation()
+  const [recoverPassword, { isSuccess }] = useRecoverPasswordMutation()
   const [email, setEmail] = useState('')
-  const recoveryPasswordHandler = (data: ForgotParamsType) => {
+  const recoveryPasswordHandler = (data: RecoverPasswordParamsType) => {
     recoverPassword(data)
     setEmail(data.email)
   }

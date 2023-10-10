@@ -27,4 +27,4 @@ export type LoginParamsType = SignUpDataType & {
   rememberMe?: boolean
 }
 
-export type ForgotParamsType = Pick<SignUpParamsType, 'email'>
+export type RecoverPasswordParamsType = Pick<SignUpParamsType, 'email'>
