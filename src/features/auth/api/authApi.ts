@@ -1,9 +1,12 @@
-import { LoginResponseType, LoginParamsType } from './authApi.types'
+import { SignUpParamsType, SignUpResponseType, LoginResponseType, LoginParamsType } from './authApi.types'
 
 import { baseApi } from '@/common'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    signUp: builder.mutation<SignUpResponseType, SignUpParamsType>({
+      query: params => ({
+        url: 'auth/sign-up',
     login: builder.mutation<LoginResponseType, LoginParamsType>({
       query: params => ({
         url: 'auth/login',
@@ -14,4 +17,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const { useSignUpMutation, useLoginMutation } = authApi

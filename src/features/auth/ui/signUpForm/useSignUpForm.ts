@@ -4,9 +4,9 @@ import { z } from 'zod'
 
 const signUpSchema = z
   .object({
-    email: z.string().email({ message: 'Please enter a valid email address' }),
-    password: z.string().min(3, 'Use 3 characters or more for your password'),
-    confirmPassword: z.string().min(3, 'Use 3 characters or more for your password'),
+    email: z.string().email({ message: 'Please enter a valid email address' }).trim(),
+    password: z.string().min(3, 'Use 3 characters or more for your password').trim(),
+    confirmPassword: z.string().min(3, 'Use 3 characters or more for your password').trim(),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Those passwords didn’t match. Try again.',

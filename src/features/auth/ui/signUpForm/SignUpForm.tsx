@@ -2,13 +2,14 @@ import { DevTool } from '@hookform/devtools'
 import { Link } from 'react-router-dom'
 
 import s from './SignUpForm.module.scss'
-import { SignUpFormValues, useSignUpForm } from './useSignUpForm'
+import { useSignUpForm } from './useSignUpForm'
 
 import { ButtonVariant, Route, TypographyVariant } from '@/common'
 import { Button, Card, ControlledInput, Typography } from '@/components'
+import { SignUpDataType } from '@/features'
 
 type Props = {
-  onSubmit: (data: SignUpFormValues) => void
+  onSubmit: (data: SignUpDataType) => void
 }
 
 export const SignUpForm = ({ onSubmit }: Props): JSX.Element => {
