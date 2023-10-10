@@ -13,7 +13,7 @@ export const DecksPage = (): JSX.Element => {
   const [tabValue, setTabValue] = useState('allCards')
   const [sliderValue, setSliderValue] = useState([1, 10])
 
-  const { data } = useGetDecksQuery()
+  const { data, isLoading, isError } = useGetDecksQuery()
 
   const onClearFilter = () => {
     setValue('')
@@ -23,6 +23,26 @@ export const DecksPage = (): JSX.Element => {
 
   const onChangePageSize = (value: string) => {
     setPageSize(Number(value))
+  }
+
+  if (isLoading) {
+    return (
+      <Page>
+        <Typography variant={TypographyVariant.Large} as="h1">
+          Loading...
+        </Typography>
+      </Page>
+    )
+  }
+
+  if (isError) {
+    return (
+      <Page>
+        <Typography variant={TypographyVariant.Large} as="h1">
+          Error...
+        </Typography>
+      </Page>
+    )
   }
 
   return (
