@@ -3,6 +3,7 @@ import {
   SignUpResponseType,
   LoginResponseType,
   LoginParamsType,
+  ForgotParamsType,
 } from './authApi.types'
 
 import { baseApi } from '@/common'
@@ -23,7 +24,7 @@ export const authApi = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    forgotPassword: builder.mutation<void, { email: string }>({
+    forgotPassword: builder.mutation<void, ForgotParamsType>({
       query: params => ({
         url: 'auth/recover-password',
         method: 'POST',

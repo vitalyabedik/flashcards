@@ -1,5 +1,7 @@
 import { JSX } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import s from './CheckEmail.module.scss'
 
 import { Email } from '@/assets'
@@ -20,7 +22,7 @@ export const CheckEmail = ({ email = 'example@mail.com' }: CheckEmailProps): JSX
       <Typography className={s.instructionText} variant={TypographyVariant.Body2}>
         {`We’ve sent an Email with instructions to ${email}`}
       </Typography>
-      <Button className={s.signInLink} as="a" href="https://google.com" fullWidth>
+      <Button className={s.signInLink} as={Link} to="/sign-in" fullWidth>
         Back to Sign In
       </Button>
     </Card>

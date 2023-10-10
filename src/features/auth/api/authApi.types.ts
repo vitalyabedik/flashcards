@@ -26,3 +26,5 @@ export type SignUpDataType = Pick<SignUpParamsType, 'email' | 'password'>
 export type LoginParamsType = SignUpDataType & {
   rememberMe?: boolean
 }
+
+export type ForgotParamsType = Pick<SignUpParamsType, 'email'>
