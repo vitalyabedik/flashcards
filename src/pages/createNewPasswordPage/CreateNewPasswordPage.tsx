@@ -1,16 +1,21 @@
 import { useParams } from 'react-router-dom'
 
 import { Page } from '@/components'
-import { CreateNewPasswordForm } from '@/features'
+import { CreateNewPasswordForm, useResetPasswordMutation } from '@/features'
 
 export const CreateNewPasswordPage = (): JSX.Element => {
-  const params = useParams()
+  const { token } = useParams<{ token: string }>()
+  const [resetPassword] = useResetPasswordMutation()
 
-  console.log(params)
+  const resetPasswordHandler = (data: { password: string }) => {
+    if (token) {
+      resetPassword({ ...data, token })
+    }
+  }
 
   return (
     <Page>
-      <CreateNewPasswordForm onSubmit={() => console.log('Submit')} />
+      <CreateNewPasswordForm onSubmit={resetPasswordHandler} />
     </Page>
   )
 }
