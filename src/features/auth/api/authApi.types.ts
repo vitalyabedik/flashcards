@@ -1,13 +1,3 @@
-export type LoginResponseType = {
-  accessToken: string
-}
-
-export type LoginParamsType = {
-  password: string
-  email: string
-  rememberMe?: boolean
-}
-
 export type SignUpResponseType = {
   avatar: string
   id: string
@@ -27,4 +17,12 @@ export type SignUpParamsType = {
   sendConfirmationEmail?: boolean
 }
 
+export type LoginResponseType = {
+  accessToken: string
+}
+
 export type SignUpDataType = Pick<SignUpParamsType, 'email' | 'password'>
+
+export type LoginParamsType = SignUpDataType & {
+  rememberMe?: boolean
+}
