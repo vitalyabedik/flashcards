@@ -23,7 +23,18 @@ export const authApi = baseApi.injectEndpoints({
         body: params,
       }),
     }),
+    forgotPassword: builder.mutation<void, { email: string }>({
+      query: params => ({
+        url: 'auth/recover-password',
+        method: 'POST',
+        body: {
+          html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:3000/create-new-password/##token##">here</a> to recover your password</p>',
+          email: params.email,
+          subject: 'Recovery Password',
+        },
+      }),
+    }),
   }),
 })
 
-export const { useSignUpMutation, useLoginMutation } = authApi
+export const { useSignUpMutation, useLoginMutation, useForgotPasswordMutation } = authApi
