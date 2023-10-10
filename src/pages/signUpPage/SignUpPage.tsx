@@ -1,10 +1,16 @@
 import { Page } from '@/components'
-import { SignUpForm } from '@/features'
+import { SignUpDataType, SignUpForm, useSignUpMutation } from '@/features'
 
 export const SignUpPage = (): JSX.Element => {
+  const [signUp] = useSignUpMutation()
+
+  const signUpHandler = ({ email, password }: SignUpDataType) => {
+    signUp({ email, password })
+  }
+
   return (
     <Page>
-      <SignUpForm onSubmit={() => console.log('Submit')} />
+      <SignUpForm onSubmit={signUpHandler} />
     </Page>
   )
 }
