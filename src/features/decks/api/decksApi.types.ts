@@ -22,10 +22,10 @@ type Deck = {
   name: string
   isPrivate: boolean
   shots: number
-  cover?: string | null
+  cover: string | null
   rating: number
-  isDeleted?: any
-  isBlocked?: any
+  isDeleted?: boolean | null
+  isBlocked?: boolean | null
   created: string
   updated: string
   cardsCount: number
