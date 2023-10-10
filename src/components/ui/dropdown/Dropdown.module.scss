@@ -21,14 +21,6 @@
   border-radius: 0.4rem;
 }
 
-.button {
-  @include icon-button;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
 .arrow {
   position: absolute;
   top: -0.4rem;

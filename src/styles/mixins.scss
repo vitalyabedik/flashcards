@@ -74,29 +74,6 @@
   border-radius: 50%;
 }
 
-@mixin icon-button($width: 2.4rem, $height: 2.4rem, $bgColor: transparent) {
-  all: unset;
-
-  cursor: pointer;
-
-  position: relative;
-
-  width: $width;
-  height: $height;
-  padding: 0;
-
-  background-color: $bgColor;
-  border: none;
-  outline: none;
-
-  span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
 @mixin pagination-item {
   @include flex($justify: center, $align: center);
 
