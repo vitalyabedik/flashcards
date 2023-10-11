@@ -5,7 +5,7 @@ import s from './DecksTable.module.scss'
 
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { Button, Sort, Table, TableHeader, Typography } from '@/components'
+import { Button, IconButton, Sort, Table, TableHeader, Typography } from '@/components'
 import { useGetDecksQuery } from '@/features'
 
 export const DecksTable = (): JSX.Element => {
@@ -45,15 +45,9 @@ export const DecksTable = (): JSX.Element => {
                   <Typography variant={TypographyVariant.Body2}>{item.author.name}</Typography>
                 </Table.Cell>
                 <Table.Cell className={s.iconsWrapper}>
-                  <button className={s.tableIcon}>
-                    <PlayCircleIcon size={1.6} />
-                  </button>
-                  <button className={s.tableIcon}>
-                    <EditIcon size={1.6} />
-                  </button>
-                  <button className={s.tableIcon}>
-                    <DeleteIcon size={1.6} />
-                  </button>
+                  <IconButton icon={<PlayCircleIcon />} size={1.6} />
+                  <IconButton icon={<EditIcon />} size={1.6} />
+                  <IconButton icon={<DeleteIcon />} size={1.6} />
                 </Table.Cell>
               </Table.Row>
             ))}

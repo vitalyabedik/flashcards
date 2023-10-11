@@ -21,16 +21,6 @@
 
     .userNameWrapper {
       @include flex($align: center, $justify: center, $gap: 0.9rem);
-
-      .editUserName {
-        @include icon-button($width: 1.6rem, $height: 1.6rem);
-
-        transition: opacity 0.2s ease-in-out;
-
-        &:hover {
-          opacity: 0.8;
-        }
-      }
     }
 
     .email {

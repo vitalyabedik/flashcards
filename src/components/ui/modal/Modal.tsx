@@ -9,7 +9,7 @@ import { modalAnimations } from './modalWindowAnimations'
 
 import { CloseIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
-import { Card, Typography } from '@/components'
+import { Card, IconButton, Typography } from '@/components'
 
 export type ModalProps = {
   trigger: ReactNode
@@ -24,7 +24,6 @@ export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
       root: cn(s.root, className),
       overlay: s.overlay,
       header: s.header,
-      closeBtn: s.closeBtn,
     }
 
     return (
@@ -45,9 +44,7 @@ export const Modal = forwardRef<ElementRef<'div'>, ModalProps>(
                           {title}
                         </Typography>
                         <ModalPrimitive.Close asChild>
-                          <button className={classNames.closeBtn} aria-label="Close">
-                            <CloseIcon />
-                          </button>
+                          <IconButton icon={<CloseIcon />} aria-label="Close" />
                         </ModalPrimitive.Close>
                       </header>
                       <div>{children}</div>

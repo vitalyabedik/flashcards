@@ -8,6 +8,7 @@ import s from './Dropdown.module.scss'
 import { dropdownAnimations } from './dropdownMenuAnimations'
 
 import { MoreIcon } from '@/assets'
+import { IconButton } from '@/components'
 
 export type DropdownProps = {
   children: ReactNode
@@ -22,7 +23,6 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
 
     const classNames = {
       trigger: s.trigger,
-      button: s.button,
       content: cn(s.content, className),
       arrow: s.arrow,
     }
@@ -30,11 +30,7 @@ export const Dropdown = forwardRef<ElementRef<typeof DropdownPrimitive.Content>,
     return (
       <DropdownPrimitive.Root open={open} onOpenChange={setOpen}>
         <DropdownPrimitive.Trigger className={classNames.trigger} asChild>
-          {trigger ?? (
-            <button className={classNames.button}>
-              <MoreIcon />
-            </button>
-          )}
+          {trigger ?? <IconButton icon={<MoreIcon />} />}
         </DropdownPrimitive.Trigger>
         <AnimatePresence>
           {open && (
