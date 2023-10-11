@@ -1,4 +1,4 @@
-export type SignUpResponseType = {
+export type BaseResponseType = {
   avatar: string
   id: string
   email: string
