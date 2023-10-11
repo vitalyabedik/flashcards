@@ -5,11 +5,15 @@ import { privateRoutes, publicRoutes } from './routerSettings.tsx'
 
 import { Route } from '@/common'
 import { Header } from '@/components'
+import { useMeQuery } from '@/features'
 
 const AppLayout = () => {
+  const { isError } = useMeQuery()
+  const isAuth = !isError
+
   return (
     <>
-      <Header isLoggedIn={false} />
+      <Header isLoggedIn={isAuth} />
       <Outlet />
     </>
   )

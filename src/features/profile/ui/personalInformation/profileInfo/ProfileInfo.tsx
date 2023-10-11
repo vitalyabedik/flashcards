@@ -2,7 +2,7 @@ import s from './ProfileInfo.module.scss'
 
 import { EditIcon, LogoutIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
-import { Button, Typography } from '@/components'
+import { Button, IconButton, Typography } from '@/components'
 
 type Props = {
   email: string
@@ -19,9 +19,7 @@ export const ProfileInfo = ({ email, name, onEditProfile }: Props): JSX.Element 
         <Typography className={s.user} variant={TypographyVariant.H1} as="h3">
           {name}
         </Typography>
-        <button className={s.editUserName} onClick={onEditProfile}>
-          <EditIcon size={1.6} />
-        </button>
+        <IconButton icon={<EditIcon />} size={1.6} onClick={onEditProfile} />
       </div>
       <Typography className={s.email} variant={TypographyVariant.Body2}>
         {email}

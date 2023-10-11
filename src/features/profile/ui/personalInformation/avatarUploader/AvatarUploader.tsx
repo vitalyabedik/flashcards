@@ -3,7 +3,7 @@ import cn from 'classnames'
 import s from './AvatarUploader.module.scss'
 
 import { EditIcon } from '@/assets'
-import { Avatar } from '@/components'
+import { Avatar, IconButton } from '@/components'
 
 type Props = {
   avatar?: string
@@ -23,11 +23,7 @@ export const AvatarUploader = ({
   return (
     <div className={avatarUploaderClasses}>
       <Avatar image={avatar} userName={name} size="large" />
-      {editable && (
-        <button className={s.editAvatar}>
-          <EditIcon size={1.6} />
-        </button>
-      )}
+      {editable && <IconButton className={s.editAvatar} icon={<EditIcon />} />}
     </div>
   )
 }

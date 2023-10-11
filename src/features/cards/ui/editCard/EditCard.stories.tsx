@@ -1,10 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react'
 
 import { EditCard } from './EditCard'
-import s from './EditCard.module.scss'
 
 import { EditIcon } from '@/assets'
-import { OptionType } from '@/components'
+import { IconButton, OptionType } from '@/components'
 
 const meta: Meta<typeof EditCard> = {
   title: 'Cards/EditCard',
@@ -22,11 +21,7 @@ const initialState: OptionType[] = [
 
 export const Default: Story = {
   args: {
-    trigger: (
-      <button className={s.editCardIcon}>
-        <EditIcon size={1.6} />
-      </button>
-    ),
+    trigger: <IconButton icon={<EditIcon />} size={1.6} />,
     options: initialState,
     card: {
       question: `"How "This" works in JavaScript?`,

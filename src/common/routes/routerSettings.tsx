@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom'
+import { Navigate, RouteObject } from 'react-router-dom'
 
 import { Route } from '@/common'
 import {
@@ -13,7 +13,7 @@ import {
 } from '@/pages'
 
 export const privateRoutes: RouteObject[] = [
-  { path: Route.Main, element: <div>Main page</div> },
+  { path: Route.Main, element: <Navigate to={Route.Decks} /> },
   { path: Route.Profile, element: <ProfilePage /> },
   { path: Route.Decks, element: <DecksPage /> },
   { path: `${Route.Decks}/:id`, element: <div>Deck page</div> },
