@@ -4,7 +4,7 @@ import s from './DecksPage.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Button, Page, Pagination, Panel, Typography } from '@/components'
-import { AddDeckModal, DecksTable, useGetDecksQuery, useMeQuery } from '@/features'
+import { AddDeckModal, DecksTable, useGetDecksQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const [search, setSearch] = useState('')
