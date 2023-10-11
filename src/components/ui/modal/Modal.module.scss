@@ -22,17 +22,3 @@
     border-bottom: 1px solid var(--color-dark-500);
   }
 }
-
-.closeBtn {
-  @include icon-button;
-
-  border-radius: 50%;
-
-  &:hover {
-    background-color: var(--color-dark-300);
-  }
-
-  &:active {
-    background-color: var(--color-dark-100);
-  }
-}

@@ -8,7 +8,7 @@ import { Column, Sort, TableHeader } from './tableHeader'
 
 import { ArrowDownIcon, CheckIcon, DeleteIcon, EditIcon, Logo, PlayCircleIcon } from '@/assets'
 import { TypographyVariant } from '@/common'
-import { Button, Rating, Typography } from '@/components'
+import { Button, IconButton, Rating, Typography } from '@/components'
 
 const meta: Meta<typeof Table.Root> = {
   title: 'Components/Table',
@@ -82,20 +82,6 @@ const iconHeadCellPrimitives: CSSProperties = {
   transform: 'translateY(-50%)',
 }
 
-const tableIcon: CSSProperties = {
-  all: 'unset',
-  cursor: 'pointer',
-
-  width: '1.6rem',
-  height: '1.6rem',
-  padding: '0',
-
-  backgroundColor: 'transparent',
-  border: 'none',
-  outline: 'none',
-  transition: 'opacity 0.2s ease-in-out',
-}
-
 // primitives
 export const Primitives = () => {
   return (
@@ -122,25 +108,15 @@ export const Primitives = () => {
         <Table.Row>
           <Table.Cell style={iconsPrimitivesWrapper}>
             <Typography variant={TypographyVariant.Body2}>Name</Typography>
-            <button style={tableIcon}>
-              <PlayCircleIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <EditIcon size={1.6} />
-            </button>
+            <IconButton icon={<PlayCircleIcon />} size={1.6} />
+            <IconButton icon={<EditIcon />} size={1.6} />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
           <Table.Cell style={iconsPrimitivesWrapper}>
-            <button style={tableIcon}>
-              <PlayCircleIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <EditIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <DeleteIcon size={1.6} />
-            </button>
+            <IconButton icon={<PlayCircleIcon />} size={1.6} />
+            <IconButton icon={<EditIcon />} size={1.6} />
+            <IconButton icon={<DeleteIcon />} size={1.6} />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -276,15 +252,9 @@ export const Default = () => {
             <Typography variant={TypographyVariant.Body2}>5</Typography>
           </Table.Cell>
           <Table.Cell style={iconsTableWrapper}>
-            <button style={tableIcon}>
-              <PlayCircleIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <EditIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <DeleteIcon size={1.6} />
-            </button>
+            <IconButton icon={<PlayCircleIcon />} size={1.6} />
+            <IconButton icon={<EditIcon />} size={1.6} />
+            <IconButton icon={<DeleteIcon />} size={1.6} />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -308,15 +278,9 @@ export const Default = () => {
             <Typography variant={TypographyVariant.Body2}>4</Typography>
           </Table.Cell>
           <Table.Cell style={iconsTableWrapper}>
-            <button style={tableIcon}>
-              <PlayCircleIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <EditIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <DeleteIcon size={1.6} />
-            </button>
+            <IconButton icon={<PlayCircleIcon />} size={1.6} />
+            <IconButton icon={<EditIcon />} size={1.6} />
+            <IconButton icon={<DeleteIcon />} size={1.6} />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -340,15 +304,9 @@ export const Default = () => {
             <Typography variant={TypographyVariant.Body2}>3</Typography>
           </Table.Cell>
           <Table.Cell style={iconsTableWrapper}>
-            <button style={tableIcon}>
-              <PlayCircleIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <EditIcon size={1.6} />
-            </button>
-            <button style={tableIcon}>
-              <DeleteIcon size={1.6} />
-            </button>
+            <IconButton icon={<PlayCircleIcon />} size={1.6} />
+            <IconButton icon={<EditIcon />} size={1.6} />
+            <IconButton icon={<DeleteIcon />} size={1.6} />
           </Table.Cell>
         </Table.Row>
       </Table.Body>
@@ -405,15 +363,9 @@ export const Mapped = () => {
               )
             })}
             <Table.Cell style={iconsTableWrapper}>
-              <button style={tableIcon}>
-                <PlayCircleIcon size={1.6} />
-              </button>
-              <button style={tableIcon}>
-                <EditIcon size={1.6} />
-              </button>
-              <button style={tableIcon}>
-                <DeleteIcon size={1.6} />
-              </button>
+              <IconButton icon={<PlayCircleIcon />} size={1.6} />
+              <IconButton icon={<EditIcon />} size={1.6} />
+              <IconButton icon={<DeleteIcon />} size={1.6} />
             </Table.Cell>
           </Table.Row>
         ))}
@@ -453,15 +405,9 @@ export const Sortable = () => {
               <Typography variant={TypographyVariant.Body2}>{item.createdBy}</Typography>
             </Table.Cell>
             <Table.Cell style={iconsTableWrapper}>
-              <button style={tableIcon}>
-                <PlayCircleIcon size={1.6} />
-              </button>
-              <button style={tableIcon}>
-                <EditIcon size={1.6} />
-              </button>
-              <button style={tableIcon}>
-                <DeleteIcon size={1.6} />
-              </button>
+              <IconButton icon={<PlayCircleIcon />} size={1.6} />
+              <IconButton icon={<EditIcon />} size={1.6} />
+              <IconButton icon={<DeleteIcon />} size={1.6} />
             </Table.Cell>
           </Table.Row>
         ))}
