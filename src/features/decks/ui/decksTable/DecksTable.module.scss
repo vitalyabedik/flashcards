@@ -3,13 +3,34 @@
 .root {
   margin-bottom: 3.6rem;
 
-  .iconsWrapper {
+  .cell {
+    @include flex($align: center, $gap: 1rem);
+
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .image {
+    width: 100%;
+    max-width: 11.8rem;
+    max-height: 4.8rem;
+    object-fit: cover;
+  }
+
+  .cellIcon {
     @include flex($align: center, $gap: 1rem);
 
     height: 3.6rem;
   }
 
-  .emptyWrapper {
-    @include flex($direction: column, $align: center, $gap: 3rem);
+  .cellIconCover {
+    height: 6.08rem;
   }
+}
+
+.emptyWrapper {
+  @include flex($direction: column, $align: center, $gap: 3rem);
 }
