@@ -31,3 +31,18 @@ type Deck = {
   cardsCount: number
   author: Author
 }
+
+type FieldType = 'name' | 'card' | 'updated' | 'created'
+type DirectionType = 'asc' | 'desc'
+
+export type GetDecksParamsType = {
+  minCardsCount?: string
+  maxCardsCount?: string
+  name?: string
+  authorId?: string
+  orderBy?: `${FieldType}-${DirectionType}`
+  currentPage?: number
+  itemsPerPage?: number
+}
+
+export type SortType = Pick<GetDecksParamsType, 'orderBy'>
