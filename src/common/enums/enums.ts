@@ -26,7 +26,7 @@ export enum Route {
   SignIn = '/sign-in',
   SignUp = '/sign-up',
   ForgotPassword = '/forgot-password',
-  CreateNewPassword = '/create-new-password/:token',
+  CreateNewPassword = '/create-new-password',
   Profile = '/profile',
   Decks = '/decks',
   NotFound = '/not-found',
