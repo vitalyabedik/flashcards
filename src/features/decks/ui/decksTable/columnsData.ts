@@ -11,7 +11,7 @@ export const columnsData: ColumnData[] = [
     sortable: true,
   },
   {
-    key: 'cardsCount',
+    key: 'card',
     title: 'Cards',
     sortable: true,
   },
