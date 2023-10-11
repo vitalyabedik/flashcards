@@ -45,7 +45,7 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
           <Button variant={ButtonVariant.Link} as={Link} to={Route.Main}>
             <Logo className={classNames.logo} />
           </Button>
-          {isLoggedIn ? (
+          {isLoggedIn && (
             <div className={classNames.profileInfoWrapper}>
               <Typography className={classNames.userName} variant={TypographyVariant.Subtitle1}>
                 {name}
@@ -58,7 +58,8 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
                 <DropdownItemWithIcon icon={<LogoutIcon size={1.6} />} text="Sign Out" />
               </Dropdown>
             </div>
-          ) : (
+          )}
+          {!isLoggedIn && (
             <Button as={Link} to={Route.SignIn}>
               Sign In
             </Button>
