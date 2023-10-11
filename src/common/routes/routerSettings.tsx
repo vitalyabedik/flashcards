@@ -24,6 +24,6 @@ export const publicRoutes: RouteObject[] = [
   { path: Route.SignIn, element: <SignInPage /> },
   { path: Route.SignUp, element: <SignUpPage /> },
   { path: Route.ForgotPassword, element: <ForgotPasswordPage /> },
-  { path: Route.CreateNewPassword, element: <CreateNewPasswordPage /> },
+  { path: `${Route.CreateNewPassword}/:token`, element: <CreateNewPasswordPage /> },
   { path: Route.NotFound, element: <NotFoundPage /> },
 ]

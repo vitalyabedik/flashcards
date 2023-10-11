@@ -3,6 +3,8 @@ import {
   LoginResponseType,
   LoginParamsType,
   BaseResponseType,
+  RecoverPasswordParamsType,
+  ResetPasswordParamsType,
 } from './authApi.types'
 
 import { baseApi } from '@/common'
@@ -29,7 +31,31 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
+    recoverPassword: builder.mutation<void, RecoverPasswordParamsType>({
+      query: params => ({
+        url: 'auth/recover-password',
+        method: 'POST',
+        body: {
+          html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:3000/create-new-password/##token##">here</a> to recover your password</p>',
+          email: params.email,
+          subject: 'Recovery Password',
+        },
+      }),
+    }),
+    resetPassword: builder.mutation<void, ResetPasswordParamsType>({
+      query: ({ password, token }) => ({
+        url: `auth/reset-password/${token}`,
+        method: 'POST',
+        body: { password },
+      }),
+    }),
   }),
 })
 
-export const { useMeQuery, useSignUpMutation, useLoginMutation } = authApi
+export const {
+  useMeQuery,
+  useSignUpMutation,
+  useLoginMutation,
+  useRecoverPasswordMutation,
+  useResetPasswordMutation,
+} = authApi

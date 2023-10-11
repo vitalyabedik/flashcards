@@ -125,7 +125,7 @@ const InputIcon = ({ icon, className, onClick }: IconProps) => {
   }
 
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className} type="button" onClick={onClick}>
       {icon}
     </button>
   )
