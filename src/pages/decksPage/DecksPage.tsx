@@ -4,21 +4,29 @@ import s from './DecksPage.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Button, Page, Pagination, Panel, Typography } from '@/components'
-import { AddDeckModal, DecksTable, useGetDecksQuery } from '@/features'
+import { AddDeckModal, DecksTable, useGetDecksQuery, useMeQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
+  const [search, setSearch] = useState('')
+  const [tabValue, setTabValue] = useState('allCards')
+  const [sliderValue, setSliderValue] = useState([0, 10])
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
-  const [inputValue, setValue] = useState('')
-  const [tabValue, setTabValue] = useState('allCards')
-  const [sliderValue, setSliderValue] = useState([1, 10])
 
-  const { data } = useGetDecksQuery()
+  const optionValues = [
+    { value: '10', title: '10' },
+    { value: '20', title: '20' },
+    { value: '30', title: '30' },
+    { value: '40', title: '40' },
+    { value: '50', title: '50' },
+  ]
+
+  const { currentData: decks } = useGetDecksQuery()
 
   const onClearFilter = () => {
-    setValue('')
+    setSearch('')
     setTabValue('allCards')
-    setSliderValue([1, 10])
+    setSliderValue([0, 10])
   }
 
   const onChangePageSize = (value: string) => {
@@ -27,7 +35,7 @@ export const DecksPage = (): JSX.Element => {
 
   return (
     <Page className={s.root}>
-      {!!data?.items.length && (
+      {!!decks?.items.length && (
         <>
           <div className={s.titleAndModalWrapper}>
             <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
@@ -47,13 +55,13 @@ export const DecksPage = (): JSX.Element => {
           </div>
           <Panel
             className={s.panelWrapper}
-            inputValue={inputValue}
-            onChangeInputValue={setValue}
+            inputValue={search}
+            onChangeInputValue={setSearch}
             tabValue={tabValue}
             tabLabel="Show packs cards"
             sliderValue={sliderValue}
             onChangeTabValue={setTabValue}
-            minSliderValue={1}
+            minSliderValue={0}
             maxSliderValue={10}
             sliderLabel="Number of cards"
             onChangeSliderValue={setSliderValue}
@@ -61,23 +69,24 @@ export const DecksPage = (): JSX.Element => {
           />
         </>
       )}
-      <DecksTable />
-      <Pagination
-        totalCount={87}
-        pageSize={pageSize}
+      <DecksTable
+        search={search}
         currentPage={currentPage}
-        value={pageSize.toString()}
-        onPageChange={setCurrentPage}
-        onValueChange={onChangePageSize}
-        options={[
-          { value: '10', title: '10' },
-          { value: '20', title: '20' },
-          { value: '30', title: '30' },
-          { value: '40', title: '40' },
-          { value: '50', title: '50' },
-        ]}
-        placeholder={100}
+        pageSize={pageSize}
+        sliderValue={sliderValue}
+        tabValue={tabValue}
       />
+      {!!decks?.items.length && (
+        <Pagination
+          totalCount={decks?.pagination.totalItems ?? 10}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          value={String(pageSize)}
+          onPageChange={setCurrentPage}
+          onValueChange={onChangePageSize}
+          options={optionValues}
+        />
+      )}
     </Page>
   )
 }
