@@ -1,5 +1,3 @@
-import { useMemo, useState } from 'react'
-
 import cn from 'classnames'
 
 import { columnsData } from './columnsData'
@@ -8,51 +6,22 @@ import s from './DecksTable.module.scss'
 import { PlayCircleIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
 import { Button, IconButton, Sort, Table, TableHeader, Typography } from '@/components'
-import { AddDeckModal, useGetDecksQuery, useMeQuery } from '@/features'
+import { AddDeckModal, DecksResponseType } from '@/features'
 
 type Props = {
-  search: string
-  currentPage: number
-  pageSize: number
-  sliderValue: number[]
-  tabValue: string
+  decksData: DecksResponseType
+  sort: Sort
+  onSort: (sort: Sort) => void
 }
 
-export const DecksTable = ({
-  search,
-  tabValue,
-  sliderValue,
-  currentPage,
-  pageSize,
-}: Props): JSX.Element => {
-  const [sort, setSort] = useState<Sort>(null)
-
-  const sortedString = useMemo(() => {
-    if (!sort) return null
-
-    return `${sort.key}-${sort.direction}`
-  }, [sort])
-  const { data: meData } = useMeQuery()
-
-  const { data } = useGetDecksQuery({
-    name: search,
-    authorId: tabValue === 'myCards' ? meData?.id : undefined,
-    minCardsCount: String(sliderValue[0]),
-    maxCardsCount: String(sliderValue[1]),
-    orderBy: sortedString ?? 'updated-desc',
-    itemsPerPage: pageSize,
-    currentPage,
-  })
-
-  console.log(sortedString)
-
+export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
   return (
     <>
-      {!!data?.items.length && (
+      {!!decksData?.items.length && (
         <Table.Root className={s.root}>
-          <TableHeader columns={columnsData} sort={sort} onSort={setSort} />
+          <TableHeader columns={columnsData} sort={sort} onSort={onSort} />
           <Table.Body>
-            {data?.items.map(item => {
+            {decksData?.items.map((item: any) => {
               const cellIconClasses = cn(s.cellIcon, item.cover && s.cellIconCover)
 
               return (
@@ -83,7 +52,7 @@ export const DecksTable = ({
           </Table.Body>
         </Table.Root>
       )}
-      {!data?.items.length && (
+      {!decksData?.items.length && (
         <div className={s.emptyWrapper}>
           <Table.Empty />
           <AddDeckModal

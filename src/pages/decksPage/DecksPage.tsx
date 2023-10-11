@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import s from './DecksPage.module.scss'
 
-import { TypographyVariant } from '@/common'
-import { Button, Page, Pagination, Panel, Typography } from '@/components'
-import { AddDeckModal, DecksTable, useGetDecksQuery } from '@/features'
+import { Page, Pagination, Panel, Sort } from '@/components'
+import { DecksTable, useGetDecksQuery, useMeQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const [search, setSearch] = useState('')
   const [tabValue, setTabValue] = useState('allCards')
   const [sliderValue, setSliderValue] = useState([0, 10])
+  const [sort, setSort] = useState<Sort>(null)
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -21,7 +21,22 @@ export const DecksPage = (): JSX.Element => {
     { value: '50', title: '50' },
   ]
 
-  const { currentData: decks } = useGetDecksQuery()
+  const sortedString = useMemo(() => {
+    if (!sort) return null
+
+    return `${sort.key}-${sort.direction}`
+  }, [sort])
+
+  const { data: meData } = useMeQuery()
+  const { data: decks } = useGetDecksQuery({
+    name: search,
+    authorId: tabValue === 'myCards' ? meData?.id : undefined,
+    minCardsCount: String(sliderValue[0]),
+    maxCardsCount: String(sliderValue[1]),
+    orderBy: sortedString ?? 'updated-desc',
+    itemsPerPage: pageSize,
+    currentPage,
+  })
 
   const onClearFilter = () => {
     setSearch('')
@@ -36,46 +51,22 @@ export const DecksPage = (): JSX.Element => {
   return (
     <Page className={s.root}>
       {!!decks?.items.length && (
-        <>
-          <div className={s.titleAndModalWrapper}>
-            <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
-              Decks list
-            </Typography>
-            <AddDeckModal
-              trigger={
-                <Button>
-                  <Typography variant={TypographyVariant.Subtitle2} as="span">
-                    Add New Deck
-                  </Typography>
-                </Button>
-              }
-              buttonTitle="Add New Deck"
-              onSubmit={() => {}}
-            />
-          </div>
-          <Panel
-            className={s.panelWrapper}
-            inputValue={search}
-            onChangeInputValue={setSearch}
-            tabValue={tabValue}
-            tabLabel="Show packs cards"
-            sliderValue={sliderValue}
-            onChangeTabValue={setTabValue}
-            minSliderValue={0}
-            maxSliderValue={10}
-            sliderLabel="Number of cards"
-            onChangeSliderValue={setSliderValue}
-            onClearFilter={onClearFilter}
-          />
-        </>
+        <Panel
+          className={s.panelWrapper}
+          inputValue={search}
+          onChangeInputValue={setSearch}
+          tabValue={tabValue}
+          tabLabel="Show packs cards"
+          sliderValue={sliderValue}
+          onChangeTabValue={setTabValue}
+          minSliderValue={0}
+          maxSliderValue={10}
+          sliderLabel="Number of cards"
+          onChangeSliderValue={setSliderValue}
+          onClearFilter={onClearFilter}
+        />
       )}
-      <DecksTable
-        search={search}
-        currentPage={currentPage}
-        pageSize={pageSize}
-        sliderValue={sliderValue}
-        tabValue={tabValue}
-      />
+      {decks && <DecksTable decksData={decks} sort={sort} onSort={setSort} />}
       {!!decks?.items.length && (
         <Pagination
           totalCount={decks?.pagination.totalItems ?? 10}
