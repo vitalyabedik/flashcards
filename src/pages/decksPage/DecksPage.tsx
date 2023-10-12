@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react'
 
 import s from './DecksPage.module.scss'
+import { DecksPageHeader } from './decksPageHeader'
 
-import { TypographyVariant } from '@/common'
-import { Button, Page, Pagination, Panel, Sort, Typography } from '@/components'
-import { AddDeckModal, DecksTable, useGetDecksQuery, useMeQuery } from '@/features'
+import { Page, Pagination, Panel, Sort } from '@/components'
+import { DecksTable, useGetDecksQuery, useMeQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const [search, setSearch] = useState('')
@@ -51,22 +51,7 @@ export const DecksPage = (): JSX.Element => {
 
   return (
     <Page className={s.root}>
-      <div className={s.titleAndModalWrapper}>
-        <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
-          Decks list
-        </Typography>
-        <AddDeckModal
-          trigger={
-            <Button>
-              <Typography variant={TypographyVariant.Subtitle2} as="span">
-                Add New Deck
-              </Typography>
-            </Button>
-          }
-          buttonTitle="Add New Deck"
-          onSubmit={() => {}}
-        />
-      </div>
+      <DecksPageHeader />
       <Panel
         className={s.panelWrapper}
         inputValue={search}
