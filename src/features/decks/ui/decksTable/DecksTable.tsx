@@ -3,10 +3,10 @@ import cn from 'classnames'
 import { columnsData } from './columnsData'
 import s from './DecksTable.module.scss'
 
-import { PlayCircleIcon } from '@/assets'
+import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
 import { IconButton, Sort, Table, TableHeader, Typography } from '@/components'
-import { DecksResponseType } from '@/features'
+import { DecksResponseType, useMeQuery } from '@/features'
 
 type Props = {
   decksData: DecksResponseType
@@ -15,36 +15,44 @@ type Props = {
 }
 
 export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
+  const { data: user } = useMeQuery()
+
   return (
     <>
       {!!decksData?.items.length && (
         <Table.Root className={s.root}>
           <TableHeader columns={columnsData} sort={sort} onSort={onSort} />
           <Table.Body>
-            {decksData?.items.map((item: any) => {
+            {decksData?.items.map(item => {
               const cellIconClasses = cn(s.cellIcon, item.cover && s.cellIconCover)
 
               return (
                 <Table.Row key={`${item.userId}-${item.updated}`}>
-                  <Table.Cell>
-                    <div className={s.cell}>
+                  <Table.Cell className={s.cellName}>
+                    <div className={s.cellImage}>
                       {item.cover && <img className={s.image} src={item.cover} alt="deck-cover" />}
                       <Typography variant={TypographyVariant.Body2}>{item.name}</Typography>
                     </div>
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell className={s.cellCardsCount}>
                     <Typography variant={TypographyVariant.Body2}>{item.cardsCount}</Typography>
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell className={s.cellUpdated}>
                     <Typography variant={TypographyVariant.Body2}>
                       {formatDate(item.updated)}
                     </Typography>
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell className={s.cellAuthor}>
                     <Typography variant={TypographyVariant.Body2}>{item.author.name}</Typography>
                   </Table.Cell>
                   <Table.Cell className={cellIconClasses}>
                     <IconButton icon={<PlayCircleIcon />} size={1.6} />
+                    {user?.id === item.author.id && (
+                      <>
+                        <IconButton icon={<EditIcon />} size={1.6} />
+                        <IconButton icon={<DeleteIcon />} size={1.6} />
+                      </>
+                    )}
                   </Table.Cell>
                 </Table.Row>
               )

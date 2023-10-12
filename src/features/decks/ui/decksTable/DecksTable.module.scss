@@ -3,7 +3,17 @@
 .root {
   margin-bottom: 3.6rem;
 
-  .cell {
+  .cellName,
+  .cellCardsCount,
+  .cellUpdated {
+    width: 24.5rem;
+  }
+
+  .cellAuthor {
+    width: 28.8rem;
+  }
+
+  .cellImage {
     @include flex($align: center, $gap: 1rem);
 
     cursor: pointer;
