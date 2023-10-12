@@ -58,8 +58,8 @@ export const Panel = ({
         value={tabValue}
         onValueChange={onChangeTabValue}
       >
-        <TabItem value="myCards">My Cards</TabItem>
-        <TabItem value="allCards">All Cards</TabItem>
+        <TabItem value="my">My Cards</TabItem>
+        <TabItem value="all">All Cards</TabItem>
       </Tabs>
       <Slider
         value={sliderValue}
