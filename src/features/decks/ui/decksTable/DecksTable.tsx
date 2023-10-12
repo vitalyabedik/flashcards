@@ -28,7 +28,7 @@ export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
               return (
                 <Table.Row key={`${item.userId}-${item.updated}`}>
                   <Table.Cell className={s.cellName}>
-                    <Link to={`${Route.Decks}/${item.id}`}>
+                    <Link to={`${Route.Decks}/${item.id}/cards`}>
                       <div className={s.cellImage}>
                         {item.cover && (
                           <img className={s.image} src={item.cover} alt="deck-cover" />
