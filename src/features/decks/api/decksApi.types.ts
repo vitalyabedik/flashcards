@@ -1,7 +1,7 @@
 export type DecksResponseType = {
   maxCardsCount: number
   pagination: Pagination
-  items: Deck[]
+  items: DeckType[]
 }
 
 type Pagination = {
@@ -16,7 +16,7 @@ type Author = {
   name: string
 }
 
-type Deck = {
+export type DeckType = {
   id: string
   userId: string
   name: string
@@ -47,3 +47,7 @@ export type GetDecksParamsType = {
 }
 
 export type SortType = Pick<GetDecksParamsType, 'orderBy'>
+
+export type DeleteDeckResponseType = Omit<DeckType, 'author'>
+
+export type DeleteDeckParamsType = Pick<DeckType, 'id'>
