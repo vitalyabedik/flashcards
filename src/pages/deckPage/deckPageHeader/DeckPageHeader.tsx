@@ -10,7 +10,7 @@ type Props = {
 }
 export const DeckPageHeader = ({ id, isOwner }: Props): JSX.Element => {
   return (
-    <div>
+    <div className={s.root}>
       <Typography variant={TypographyVariant.Large} as="h1">
         {isOwner && 'My Deck'}
         {!isOwner && 'Friends Deck'}

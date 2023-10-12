@@ -2,7 +2,7 @@ export type CardsResponseType = {
   items: Card[]
   pagination: CardsPagination
 }
-type Card = {
+export type Card = {
   id: string
   deckId: string
   userId: string

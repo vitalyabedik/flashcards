@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { DeckPageHeader } from './deckPageHeader'
 
-import { GoBack, Page } from '@/components'
-import { useGetDeckQuery, useMeQuery } from '@/features'
+import { Button, GoBack, Page, Table } from '@/components'
+import { CardsTable, useGetDeckQuery, useMeQuery } from '@/features'
 import { useGetCardsQuery } from '@features/cards/api/cardsApi.ts'
 
 export const DeckPage = (): JSX.Element => {
@@ -21,14 +21,26 @@ export const DeckPage = (): JSX.Element => {
   }
   const { data: user } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id })
-  const { data: decksInfo } = useGetCardsQuery(queryParams)
+  const { data: deckData } = useGetCardsQuery(queryParams)
 
   const isOwner = user?.id === deck?.userId
 
+  if (!deckData?.items.length) {
+    return (
+      <Page>
+        <GoBack title="Back to Decks List" />
+        <Table.Empty>
+          <Button>Add new Card</Button>
+        </Table.Empty>
+      </Page>
+    )
+  }
+
   return (
     <Page>
-      <GoBack title="Back to Packs List" />
+      <GoBack title="Back to Decks List" />
       <DeckPageHeader id={id} isOwner={isOwner} />
+      <CardsTable isOwner={isOwner} cards={deckData?.items} />
     </Page>
   )
 }

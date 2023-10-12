@@ -1,6 +1,6 @@
 import { Column } from '@/components'
 
-export const columnsData: Column[] = [
+export const cardsColumnsData: Column[] = [
   {
     key: 'question',
     title: 'Question',
@@ -28,7 +28,7 @@ export const columnsData: Column[] = [
 ]
 
 export const getCardsColumnsData = (isOwner: boolean) => {
-  if (isOwner) return columnsData
+  if (isOwner) return cardsColumnsData
 
-  return columnsData.slice(0, columnsData.length - 1)
+  return cardsColumnsData.slice(0, cardsColumnsData.length - 1)
 }
