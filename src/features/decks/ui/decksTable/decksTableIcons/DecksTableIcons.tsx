@@ -5,7 +5,7 @@ import {
   EditDeckModal,
   useDeleteDeckMutation,
   useMeQuery,
-  // useUpdateDeckMutation,
+  useUpdateDeckMutation,
 } from '@/features'
 
 type Props = {
@@ -13,35 +13,38 @@ type Props = {
 }
 
 export const DecksTableIcons = ({ deck }: Props): JSX.Element => {
+  const { id, name, isPrivate, cover, author } = deck
+
   const { data: user } = useMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
-  // const [updateDeck] = useUpdateDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
 
-  const deleteDeckCallback = (id: string) => {
+  const deleteDeckCallback = () => {
     deleteDeck({ id })
   }
 
-  // const updateDeckCallback = (id: string, data: any) => {
-  //   updateDeck({ id, body: data })
-  // }
+  const editDeckCallback = (data: FormData) => {
+    updateDeck({ id, body: data })
+  }
 
   return (
     <>
       <IconButton icon={<PlayCircleIcon />} size={1.6} />
-      {user?.id === deck.author.id && (
+      {user?.id === author.id && (
         <>
           <EditDeckModal
             trigger={<IconButton icon={<EditIcon />} size={1.6} />}
             buttonTitle="Save Changes"
-            onSubmit={() => {}}
+            onSubmit={editDeckCallback}
+            values={{ name, cover, isPrivate }}
           />
           <Dialog
             trigger={<IconButton icon={<DeleteIcon />} size={1.6} />}
             modalHeaderTitle="Delete Deck"
-            itemName={deck.name}
+            itemName={name}
             action="removeDeck"
             buttonTitle="Delete Deck"
-            onClick={() => deleteDeckCallback(deck.id)}
+            onClick={deleteDeckCallback}
           />
         </>
       )}

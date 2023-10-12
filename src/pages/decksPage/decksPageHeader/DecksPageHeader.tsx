@@ -7,8 +7,8 @@ import { AddDeckModal, useCreateDeckMutation } from '@/features'
 export const DecksPageHeader = (): JSX.Element => {
   const [createDeck] = useCreateDeckMutation()
 
-  const createDeckCallback = (deck: any) => {
-    createDeck(deck)
+  const createDeckCallback = (data: FormData) => {
+    createDeck(data)
   }
 
   return (
