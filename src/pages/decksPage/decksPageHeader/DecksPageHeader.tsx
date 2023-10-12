@@ -2,9 +2,15 @@ import s from './DecksPageHeader.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddDeckModal } from '@/features'
+import { AddDeckModal, useCreateDeckMutation } from '@/features'
 
 export const DecksPageHeader = (): JSX.Element => {
+  const [createDeck] = useCreateDeckMutation()
+
+  const createDeckCallback = (deck: any) => {
+    createDeck(deck)
+  }
+
   return (
     <div className={s.root}>
       <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
@@ -19,7 +25,7 @@ export const DecksPageHeader = (): JSX.Element => {
           </Button>
         }
         buttonTitle="Add New Deck"
-        onSubmit={() => {}}
+        onSubmit={createDeckCallback}
       />
     </div>
   )

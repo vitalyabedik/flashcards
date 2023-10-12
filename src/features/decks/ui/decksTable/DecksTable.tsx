@@ -5,8 +5,8 @@ import s from './DecksTable.module.scss'
 
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { IconButton, Sort, Table, TableHeader, Typography } from '@/components'
-import { DecksResponseType, useMeQuery } from '@/features'
+import { Dialog, IconButton, Sort, Table, TableHeader, Typography } from '@/components'
+import { DecksResponseType, useDeleteDeckMutation, useMeQuery } from '@/features'
 
 type Props = {
   decksData: DecksResponseType
@@ -15,7 +15,12 @@ type Props = {
 }
 
 export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
+  const [deleteDeck] = useDeleteDeckMutation()
   const { data: user } = useMeQuery()
+
+  const deleteDeckCallback = (id: string) => {
+    deleteDeck({ id })
+  }
 
   return (
     <>
@@ -50,7 +55,14 @@ export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
                     {user?.id === item.author.id && (
                       <>
                         <IconButton icon={<EditIcon />} size={1.6} />
-                        <IconButton icon={<DeleteIcon />} size={1.6} />
+                        <Dialog
+                          trigger={<IconButton icon={<DeleteIcon />} size={1.6} />}
+                          modalHeaderTitle="Delete Deck"
+                          itemName={item.name}
+                          action="removeDeck"
+                          buttonTitle="Delete Deck"
+                          onClick={() => deleteDeckCallback(item.id)}
+                        />
                       </>
                     )}
                   </Table.Cell>

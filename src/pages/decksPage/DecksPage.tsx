@@ -28,10 +28,10 @@ export const DecksPage = (): JSX.Element => {
     return `${sort.key}-${sort.direction}`
   }, [sort])
 
-  const { data: meData } = useMeQuery()
+  const { data: user } = useMeQuery()
   const { data: decks } = useGetDecksQuery({
     name: search,
-    authorId: tabValue === 'myCards' ? meData?.id : undefined,
+    authorId: tabValue === 'myCards' ? user?.id : undefined,
     minCardsCount: String(sliderValue[0]),
     maxCardsCount: String(sliderValue[1]),
     orderBy: sortedString ?? 'updated-desc',
