@@ -67,9 +67,10 @@ export const TableHeader = forwardRef<ElementRef<typeof Table.Head>, Props>(
                   {title}
                   {sort && sort.key === key && (
                     <>
-                      {sort.direction === 'asc' ? (
+                      {sort.direction === 'asc' && (
                         <ArrowUpIcon className={s.sortIcon} size={1.2} />
-                      ) : (
+                      )}
+                      {sort.direction !== 'asc' && (
                         <ArrowDownIcon className={s.sortIcon} size={1.2} />
                       )}
                     </>

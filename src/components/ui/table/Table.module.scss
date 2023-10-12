@@ -23,6 +23,8 @@
 }
 
 .empty {
+  @include flex($direction: column, $align: center, $gap: 3rem);
+
   .emptyDescription {
     color: var(--color-dark-100);
   }

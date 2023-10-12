@@ -1,7 +1,7 @@
 export type DecksResponseType = {
   maxCardsCount: number
   pagination: Pagination
-  items: Deck[]
+  items: DeckType[]
 }
 
 type Pagination = {
@@ -16,7 +16,7 @@ type Author = {
   name: string
 }
 
-type Deck = {
+export type DeckType = {
   id: string
   userId: string
   name: string
@@ -30,4 +30,29 @@ type Deck = {
   updated: string
   cardsCount: number
   author: Author
+}
+
+// type FieldType = 'name' | 'card' | 'updated' | 'created'
+// type DirectionType = 'asc' | 'desc'
+
+export type GetDecksParamsType = {
+  minCardsCount?: string
+  maxCardsCount?: string
+  name?: string
+  authorId?: string
+  orderBy?: string
+  // orderBy?: `${FieldType}-${DirectionType}`
+  currentPage?: number
+  itemsPerPage?: number
+}
+
+export type SortType = Pick<GetDecksParamsType, 'orderBy'>
+
+export type DeleteDeckResponseType = Omit<DeckType, 'author'>
+
+export type DeleteDeckParamsType = Pick<DeckType, 'id'>
+
+export type UpdateDeckParamsType = {
+  id: string
+  body: FormData
 }

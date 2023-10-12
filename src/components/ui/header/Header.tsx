@@ -7,7 +7,7 @@ import s from './Header.module.scss'
 import { HeaderProfileInfo } from './headerProfileInfo'
 
 import { Logo, LogoutIcon, PersonIcon } from '@/assets'
-import { Route, TypographyVariant } from '@/common'
+import { ButtonVariant, Route, TypographyVariant } from '@/common'
 import {
   Avatar,
   Button,
@@ -42,8 +42,10 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
     return (
       <header ref={ref} className={classNames.root}>
         <div className={classNames.headerContainer}>
-          <Logo className={classNames.logo} />
-          {isLoggedIn ? (
+          <Button variant={ButtonVariant.Link} as={Link} to={Route.Main}>
+            <Logo className={classNames.logo} />
+          </Button>
+          {isLoggedIn && (
             <div className={classNames.profileInfoWrapper}>
               <Typography className={classNames.userName} variant={TypographyVariant.Subtitle1}>
                 {name}
@@ -56,7 +58,8 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
                 <DropdownItemWithIcon icon={<LogoutIcon size={1.6} />} text="Sign Out" />
               </Dropdown>
             </div>
-          ) : (
+          )}
+          {!isLoggedIn && (
             <Button as={Link} to={Route.SignIn}>
               Sign In
             </Button>
