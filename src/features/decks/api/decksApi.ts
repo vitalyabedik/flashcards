@@ -5,6 +5,7 @@ import {
   DeleteDeckParamsType,
   DeleteDeckResponseType,
   UpdateDeckParamsType,
+  GetDeckParamsType,
 } from './decksApi.types'
 
 import { baseApi } from '@/common'
@@ -42,6 +43,12 @@ export const decksApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Decks'],
     }),
+    getDeck: builder.query<DeckType, GetDeckParamsType>({
+      query: ({ id }) => ({
+        url: `decks/${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -50,4 +57,5 @@ export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useUpdateDeckMutation,
+  useGetDeckQuery,
 } = decksApi

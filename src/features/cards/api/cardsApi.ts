@@ -6,7 +6,7 @@ export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getCards: builder.query<CardsResponseType, { id: string; params: CardsParams }>({
       query: ({ id, params }) => ({
-        url: `decks/${id}`,
+        url: `decks/${id}/cards`,
         params,
       }),
       providesTags: ['Cards'],

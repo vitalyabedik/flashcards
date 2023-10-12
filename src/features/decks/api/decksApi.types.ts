@@ -56,3 +56,4 @@ export type UpdateDeckParamsType = {
   id: string
   body: FormData
 }
+export type GetDeckParamsType = Pick<DeckType, 'id'>

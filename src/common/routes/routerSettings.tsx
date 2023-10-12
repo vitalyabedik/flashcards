@@ -17,7 +17,7 @@ export const privateRoutes: RouteObject[] = [
   { path: Route.Main, element: <Navigate to={Route.Decks} /> },
   { path: Route.Profile, element: <ProfilePage /> },
   { path: Route.Decks, element: <DecksPage /> },
-  { path: `${Route.Decks}/:id`, element: <DeckPage /> },
+  { path: `${Route.Decks}/:id/cards`, element: <DeckPage /> },
   { path: `${Route.Decks}/:id/learn`, element: <LearnPage /> },
 ]
 
