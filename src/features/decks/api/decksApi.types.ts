@@ -51,3 +51,8 @@ export type SortType = Pick<GetDecksParamsType, 'orderBy'>
 export type DeleteDeckResponseType = Omit<DeckType, 'author'>
 
 export type DeleteDeckParamsType = Pick<DeckType, 'id'>
+
+export type UpdateDeckParamsType = {
+  id: string
+  body: FormData
+}
