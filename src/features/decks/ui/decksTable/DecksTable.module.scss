@@ -28,7 +28,3 @@
     height: 6.08rem;
   }
 }
-
-.emptyWrapper {
-  @include flex($direction: column, $align: center, $gap: 3rem);
-}
