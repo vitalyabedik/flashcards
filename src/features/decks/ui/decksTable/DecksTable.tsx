@@ -2,11 +2,11 @@ import cn from 'classnames'
 
 import { columnsData } from './columnsData'
 import s from './DecksTable.module.scss'
+import { DecksTableIcons } from './decksTableIcons'
 
-import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { Dialog, IconButton, Sort, Table, TableHeader, Typography } from '@/components'
-import { DecksResponseType, useDeleteDeckMutation, useMeQuery } from '@/features'
+import { Sort, Table, TableHeader, Typography } from '@/components'
+import { DecksResponseType } from '@/features'
 
 type Props = {
   decksData: DecksResponseType
@@ -15,13 +15,6 @@ type Props = {
 }
 
 export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
-  const [deleteDeck] = useDeleteDeckMutation()
-  const { data: user } = useMeQuery()
-
-  const deleteDeckCallback = (id: string) => {
-    deleteDeck({ id })
-  }
-
   return (
     <>
       {!!decksData?.items.length && (
@@ -51,20 +44,7 @@ export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
                     <Typography variant={TypographyVariant.Body2}>{item.author.name}</Typography>
                   </Table.Cell>
                   <Table.Cell className={cellIconClasses}>
-                    <IconButton icon={<PlayCircleIcon />} size={1.6} />
-                    {user?.id === item.author.id && (
-                      <>
-                        <IconButton icon={<EditIcon />} size={1.6} />
-                        <Dialog
-                          trigger={<IconButton icon={<DeleteIcon />} size={1.6} />}
-                          modalHeaderTitle="Delete Deck"
-                          itemName={item.name}
-                          action="removeDeck"
-                          buttonTitle="Delete Deck"
-                          onClick={() => deleteDeckCallback(item.id)}
-                        />
-                      </>
-                    )}
+                    <DecksTableIcons deck={item} />
                   </Table.Cell>
                 </Table.Row>
               )
