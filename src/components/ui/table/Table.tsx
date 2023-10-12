@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode } from 'react'
 
 import cn from 'classnames'
 
@@ -55,8 +55,22 @@ const Cell = forwardRef<ElementRef<'td'>, ComponentPropsWithoutRef<'td'>>(
   }
 )
 
-const Empty = forwardRef<ElementRef<'div'>, ComponentPropsWithoutRef<'div'>>(
-  ({ className, ...restProps }, ref): JSX.Element => {
+type EmptyProps = {
+  children?: ReactNode
+  text?: string
+  className?: string
+} & ComponentPropsWithoutRef<'div'>
+
+const Empty = forwardRef<ElementRef<'div'>, EmptyProps>(
+  (
+    {
+      text = 'This deck is empty. Click add new deck to fill this deck',
+      children,
+      className,
+      ...restProps
+    },
+    ref
+  ): JSX.Element => {
     const classNames = {
       root: cn(s.empty, className),
       emptyDescription: s.emptyDescription,
@@ -66,12 +80,12 @@ const Empty = forwardRef<ElementRef<'div'>, ComponentPropsWithoutRef<'div'>>(
     return (
       <div ref={ref} className={emptyClasses} {...restProps}>
         <Typography className={classNames.emptyDescription} variant={TypographyVariant.Body1}>
-          This pack is empty. Click add new card to fill this pack
+          {text}
         </Typography>
+        {children}
       </div>
     )
   }
 )
 
 export const Table = { Root, Head, Body, Row, HeadCell, Cell, Empty }
-export type TableProps = typeof Table

@@ -9,7 +9,7 @@ export type DeckProps = {
   values?: {
     name: string
     isPrivate?: boolean
-    cover?: string
+    cover?: string | null
   }
   onSubmit: (data: FormData) => void
 }

@@ -9,12 +9,12 @@ import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledCheckbox, ControlledInput, Typography, Uploader } from '@/components'
 import { DeckFormValues, useDeckForm } from '@/features'
 
-type AddDeckFormProps = {
+type DeckFormProps = {
   buttonTitle: string
   values?: {
     name: string
     isPrivate?: boolean
-    cover?: string
+    cover?: string | null
   }
   onSubmit: (data: FormData) => void
   onClose: () => void
@@ -25,7 +25,7 @@ export const DeckForm = ({
   values,
   onSubmit,
   onClose,
-}: AddDeckFormProps): JSX.Element => {
+}: DeckFormProps): JSX.Element => {
   const [cover, setCover] = useState<File | null>(null)
   const [error, setError] = useState<null | string>(null)
 
@@ -44,7 +44,10 @@ export const DeckForm = ({
 
     formData.append('name', data.name)
     formData.append('isPrivate', `${data.isPrivate}`)
-    formData.append('cover', cover || '')
+
+    if (cover) {
+      formData.append('cover', cover || '')
+    }
 
     onSubmit(formData)
     onClose()
