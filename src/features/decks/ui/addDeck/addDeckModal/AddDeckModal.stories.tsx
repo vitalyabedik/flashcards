@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddDeckModal, DeckProps, DeckFormValues } from '@/features'
+import { AddDeckModal, DeckProps } from '@/features'
 
 const meta: Meta<typeof AddDeckModal> = {
   title: 'Decks/AddDeckModal',
@@ -28,7 +28,7 @@ export const ControlledAddDeck: Story = {
       </Button>
     ),
     buttonTitle: 'Add Deck',
-    onSubmit: (data: DeckFormValues) => {
+    onSubmit: (data: FormData) => {
       action('Add new Deck')(data)
     },
   },

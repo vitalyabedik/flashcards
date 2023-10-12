@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { DevTool } from '@hookform/devtools'
 
 import s from './DeckForm.module.scss'
@@ -14,7 +16,7 @@ type AddDeckFormProps = {
     isPrivate?: boolean
     cover?: string
   }
-  onSubmit: (data: DeckFormValues) => void
+  onSubmit: (data: FormData) => void
   onClose: () => void
 }
 
@@ -24,18 +26,35 @@ export const DeckForm = ({
   onSubmit,
   onClose,
 }: AddDeckFormProps): JSX.Element => {
-  const { control, handleSubmit, watch } = useDeckForm({
+  const [cover, setCover] = useState<File | null>(null)
+  const [error, setError] = useState<null | string>(null)
+
+  // --- for testing error
+  console.log(error)
+  const { control, handleSubmit } = useDeckForm({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,
   })
 
-  const file = watch('cover')
-  const imageUrl = file ? URL.createObjectURL(file) : values?.cover
+  const imageUrl = cover ? URL.createObjectURL(cover) : values?.cover
 
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
   const onSubmitHandler = (data: DeckFormValues) => {
-    onSubmit(data)
+    const formData = new FormData()
+
+    formData.append('name', data.name)
+    formData.append('isPrivate', `${data.isPrivate}`)
+    formData.append('cover', cover || '')
+
+    onSubmit(formData)
     onClose()
+  }
+  const onLoadCover = (data: File) => {
+    setCover(data)
+    setError(null)
+  }
+  const onLoadCoverError = (error: string) => {
+    setError(error)
   }
 
   return (
@@ -45,7 +64,7 @@ export const DeckForm = ({
           <img src={imageUrl} alt="Pack cover" />
         </div>
       )}
-      <Uploader className={s.uploader} name="cover" control={control}>
+      <Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>
         <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
           <ImageIcon />
           <Typography variant={TypographyVariant.Subtitle2} as="span">

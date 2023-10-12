@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { DeckProps, DeckFormValues, EditDeckModal } from '@/features'
+import { DeckProps, EditDeckModal } from '@/features'
 
 const meta: Meta<typeof EditDeckModal> = {
   title: 'Decks/EditDeckModal',
@@ -34,7 +34,7 @@ export const ControlledEditDeck: Story = {
       cover:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFfO_eNEJGw_BJiSB99LmDGCOny9NeGaDDAg&usqp=CAU',
     },
-    onSubmit: (data: DeckFormValues) => {
+    onSubmit: (data: FormData) => {
       action('Add new Deck')(data)
     },
   },
