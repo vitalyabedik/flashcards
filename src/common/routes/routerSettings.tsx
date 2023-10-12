@@ -10,13 +10,14 @@ import {
   ProfilePage,
   DecksPage,
   LearnPage,
+  DeckPage,
 } from '@/pages'
 
 export const privateRoutes: RouteObject[] = [
   { path: Route.Main, element: <Navigate to={Route.Decks} /> },
   { path: Route.Profile, element: <ProfilePage /> },
   { path: Route.Decks, element: <DecksPage /> },
-  { path: `${Route.Decks}/:id`, element: <div>Deck page</div> },
+  { path: `${Route.Decks}/:id`, element: <DeckPage /> },
   { path: `${Route.Decks}/:id/learn`, element: <LearnPage /> },
 ]
 
