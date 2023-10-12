@@ -5,8 +5,8 @@ import s from './DecksTable.module.scss'
 
 import { PlayCircleIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { Button, IconButton, Sort, Table, TableHeader, Typography } from '@/components'
-import { AddDeckModal, DecksResponseType } from '@/features'
+import { IconButton, Sort, Table, TableHeader, Typography } from '@/components'
+import { DecksResponseType } from '@/features'
 
 type Props = {
   decksData: DecksResponseType
@@ -53,20 +53,7 @@ export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
         </Table.Root>
       )}
       {!decksData?.items.length && (
-        <div className={s.emptyWrapper}>
-          <Table.Empty />
-          <AddDeckModal
-            trigger={
-              <Button>
-                <Typography variant={TypographyVariant.Subtitle2} as="span">
-                  Add New Deck
-                </Typography>
-              </Button>
-            }
-            buttonTitle="Add New Deck"
-            onSubmit={() => {}}
-          />
-        </div>
+        <Table.Empty text="Your Decks list is empty. Click Add New Deck to fill this deck." />
       )}
     </>
   )
