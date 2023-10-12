@@ -8,7 +8,7 @@ import { DecksTable, useGetDecksQuery, useMeQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const [search, setSearch] = useState('')
-  const [tabValue, setTabValue] = useState('allCards')
+  const [tabValue, setTabValue] = useState('all')
   const [sliderValue, setSliderValue] = useState([0, 10])
   const [sort, setSort] = useState<Sort>(null)
   const [pageSize, setPageSize] = useState(10)
@@ -31,7 +31,7 @@ export const DecksPage = (): JSX.Element => {
   const { data: user } = useMeQuery()
   const { data: decks } = useGetDecksQuery({
     name: search,
-    authorId: tabValue === 'myCards' ? user?.id : undefined,
+    authorId: tabValue === 'my' ? user?.id : undefined,
     minCardsCount: String(sliderValue[0]),
     maxCardsCount: String(sliderValue[1]),
     orderBy: sortedString ?? 'updated-desc',
@@ -41,7 +41,7 @@ export const DecksPage = (): JSX.Element => {
 
   const onClearFilter = () => {
     setSearch('')
-    setTabValue('allCards')
+    setTabValue('all')
     setSliderValue([0, 10])
   }
 
