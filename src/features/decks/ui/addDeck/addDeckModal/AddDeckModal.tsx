@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react'
 
 import { Modal } from '@/components'
-import { DeckForm, DeckFormValues } from '@/features'
+import { DeckForm } from '@/features'
 
 export type DeckProps = {
   trigger: ReactNode
@@ -11,7 +11,7 @@ export type DeckProps = {
     isPrivate?: boolean
     cover?: string
   }
-  onSubmit: (data: DeckFormValues) => void
+  onSubmit: (data: FormData) => void
 }
 
 export const AddDeckModal = ({
