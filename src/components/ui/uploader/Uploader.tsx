@@ -1,34 +1,45 @@
-import { ChangeEvent, ReactNode, useRef } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, ReactNode, useRef } from 'react'
 
 import cn from 'classnames'
-import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
+import { ZodError } from 'zod'
 
 import s from './Uploader.module.scss'
+import { UploaderPayload, uploaderSchema } from './uploaderSchema'
 
 import { TypographyVariant } from '@/common'
 import { Typography } from '@/components'
 
-type ImageUploaderProps<T extends FieldValues> = {
+type Props = {
   children: ReactNode
-  className?: string
-} & UseControllerProps<T>
+  onLoadCover: (file: UploaderPayload) => void
+  onLoadError: (error: string) => void
+} & ComponentPropsWithoutRef<'input'>
 
-export const Uploader = <T extends FieldValues>({
-  name,
-  control,
+export const Uploader = ({
   children,
   className,
+  onLoadCover,
+  onLoadError,
   ...restProps
-}: ImageUploaderProps<T>): JSX.Element => {
-  const {
-    field: { onChange },
-  } = useController({
-    name,
-    control,
-  })
+}: Props): JSX.Element => {
   const ref = useRef<HTMLInputElement>(null)
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.files?.[0])
+    const file = e.target.files?.[0]
+
+    try {
+      uploaderSchema.parse(file)
+      if (file) {
+        onLoadCover(file)
+      }
+    } catch (e) {
+      const err = e as Error | ZodError
+
+      if (err instanceof ZodError) {
+        onLoadError('Zod error: ' + err.errors[0].message)
+      } else {
+        onLoadError('Native error: ' + err.message)
+      }
+    }
   }
   const uploaderClassName = cn(s.uploader, className)
 
@@ -44,7 +55,6 @@ export const Uploader = <T extends FieldValues>({
         ref={ref}
         className={s.fileInput}
         type="file"
-        name={name}
         onChange={onChangeHandler}
         {...restProps}
       />
