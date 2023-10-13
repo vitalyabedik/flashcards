@@ -1,11 +1,19 @@
+import { Link } from 'react-router-dom'
+
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
+import { Route } from '@/common'
 import { Dialog, DropdownItemWithIcon, IconButton } from '@/components'
-import { DeckType, EditDeckModal, useDeleteDeckMutation, useUpdateDeckMutation } from '@/features'
+import {
+  EditDeckModal,
+  GetDeckResponseType,
+  useDeleteDeckMutation,
+  useUpdateDeckMutation,
+} from '@/features'
 
 type Props = {
   isOwner: boolean
   variant: 'dropDown' | 'tableCell'
-  deck: DeckType
+  deck: GetDeckResponseType
 }
 
 export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
@@ -20,6 +28,16 @@ export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
   const editDeckCallback = (data: FormData) => {
     updateDeck({ id, body: data })
   }
+
+  const learnIcon =
+    variant === 'dropDown' ? (
+      <DropdownItemWithIcon
+        icon={<PlayCircleIcon size={1.6} />}
+        text={<Link to={`${Route.Decks}/${deck.id}/learn`}>{'Learn'}</Link>}
+      />
+    ) : (
+      <IconButton icon={<PlayCircleIcon />} size={1.6} />
+    )
 
   const editIcon =
     variant === 'dropDown' ? (
@@ -37,8 +55,9 @@ export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
 
   return (
     <>
-      <IconButton icon={<PlayCircleIcon />} size={1.6} />
-      {isOwner && variant === 'tableCell' && (
+      {learnIcon}
+      {/*<Link to={`${Route.Decks}/${deck.id}/learn`}>{learnIcon}</Link>*/}
+      {isOwner && variant === 'dropDown' && (
         <>
           <EditDeckModal
             trigger={editIcon}

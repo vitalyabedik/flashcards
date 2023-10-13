@@ -30,7 +30,7 @@ export const DropdownItem = forwardRef<
 })
 export type DropdownItemWithIconProps = Omit<DropdownItemProps, 'children'> & {
   icon: ReactNode
-  text: string
+  text: string | ReactNode
 } & ComponentPropsWithoutRef<typeof DropdownPrimitive.Item>
 
 export const DropdownItemWithIcon = forwardRef<
