@@ -43,12 +43,10 @@ export const decksSlice = createSlice({
 export const decksActions = decksSlice.actions
 
 // types
-type SliderValuesType = [number, number]
-
 type FilterType = {
   searchByName: string
   tabValue: string
-  sliderValues: SliderValuesType
+  sliderValues: number[]
 }
 
 type PageOptionType = {
