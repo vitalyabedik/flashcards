@@ -4,9 +4,10 @@ import { useParams } from 'react-router-dom'
 
 import { DeckPageHeader } from './deckPageHeader'
 
-import { Button, GoBack, Page, Pagination, Sort, Table } from '@/components'
-import { CardsTable, useGetDeckQuery, useMeQuery } from '@/features'
-import { useGetCardsQuery } from '@features/cards/api/cardsApi.ts'
+import { SearchIcon } from '@/assets'
+import { Button, GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
+import { CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -39,7 +40,7 @@ export const DeckPage = (): JSX.Element => {
   const { data: deckData } = useGetCardsQuery(queryParams)
 
   const isOwner = user?.id === deck?.userId
-  const isHaveData = deckData?.items.length
+  const isCardsData = deckData?.items.length
 
   const onPageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber)
@@ -52,9 +53,14 @@ export const DeckPage = (): JSX.Element => {
   return (
     <Page>
       <GoBack title="Back to Decks List" />
-      {!!isHaveData && (
+      {!!isCardsData && (
         <>
           <DeckPageHeader id={id} isOwner={isOwner} />
+          <Input
+            leftIcon={<SearchIcon size={2} placeholder="Input search" />}
+            value={question}
+            onChangeValue={setQuestion}
+          />
           <CardsTable isOwner={isOwner} cards={deckData.items} sort={sort} onSort={setSort} />
           <Pagination
             totalCount={deckData.pagination.totalItems}
@@ -67,7 +73,7 @@ export const DeckPage = (): JSX.Element => {
           />
         </>
       )}
-      {!isHaveData && (
+      {!isCardsData && (
         <Table.Empty>
           <Button>Add new Card</Button>
         </Table.Empty>
