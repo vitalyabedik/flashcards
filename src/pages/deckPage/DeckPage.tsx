@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
+import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { Button, GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
 import { CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
-
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -52,14 +52,16 @@ export const DeckPage = (): JSX.Element => {
 
   return (
     <Page>
-      <GoBack title="Back to Decks List" />
+      <GoBack className={s.link} title="Back to Decks List" />
       {!!isCardsData && (
         <>
           <DeckPageHeader id={id} isOwner={isOwner} />
           <Input
-            leftIcon={<SearchIcon size={2} placeholder="Input search" />}
+            className={s.input}
+            leftIcon={<SearchIcon size={2} />}
             value={question}
             onChangeValue={setQuestion}
+            placeholder="Input search"
           />
           <CardsTable isOwner={isOwner} cards={deckData.items} sort={sort} onSort={setSort} />
           <Pagination
@@ -73,10 +75,13 @@ export const DeckPage = (): JSX.Element => {
           />
         </>
       )}
-      {!isCardsData && (
+      {isOwner && !isCardsData && (
         <Table.Empty>
           <Button>Add new Card</Button>
         </Table.Empty>
+      )}
+      {!isOwner && !isCardsData && (
+        <Table.Empty text="The deck is empty, please go back to learn other decks." />
       )}
     </Page>
   )

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import s from './DeckPageHeader.module.scss'
 
 import { Route, TypographyVariant } from '@/common'
-import { Button, Typography } from '@/components'
+import { Button, Dropdown, Typography } from '@/components'
+
 type Props = {
   id: string
   isOwner: boolean
@@ -11,10 +12,12 @@ type Props = {
 export const DeckPageHeader = ({ id, isOwner }: Props): JSX.Element => {
   return (
     <div className={s.root}>
-      <Typography variant={TypographyVariant.Large} as="h1">
-        {isOwner && 'My Deck'}
-        {!isOwner && 'Friends Deck'}
-      </Typography>
+      <div className={s.deckOwnerWrapper}>
+        <Typography variant={TypographyVariant.Large} as="h1">
+          {isOwner ? 'My Deck' : 'Friends Deck'}
+        </Typography>
+        {isOwner && <Dropdown>sdgbgf</Dropdown>}
+      </div>
       {isOwner && (
         <Button>
           <Typography variant={TypographyVariant.Subtitle2} as="span">
