@@ -56,7 +56,6 @@ export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
   return (
     <>
       {learnIcon}
-      {/*<Link to={`${Route.Decks}/${deck.id}/learn`}>{learnIcon}</Link>*/}
       {isOwner && variant === 'dropDown' && (
         <>
           <EditDeckModal

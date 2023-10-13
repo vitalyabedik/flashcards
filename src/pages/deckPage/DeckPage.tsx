@@ -53,9 +53,9 @@ export const DeckPage = (): JSX.Element => {
   return (
     <Page>
       <GoBack className={s.link} title="Back to Decks List" />
+      {deck && <DeckPageHeader isOwner={isOwner} deck={deck} />}
       {!!isCardsData && (
         <>
-          <DeckPageHeader id={id} isOwner={isOwner} />
           <Input
             className={s.input}
             leftIcon={<SearchIcon size={2} />}
