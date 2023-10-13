@@ -2,17 +2,19 @@ import s from './CardsTable.module.scss'
 
 import { DeleteIcon, EditIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { Rating, Table, TableHeader, Typography } from '@/components'
+import { Rating, Sort, Table, TableHeader, Typography } from '@/components'
 import { Card, getCardsColumnsData } from '@/features'
 
 type Props = {
   isOwner: boolean
   cards: Card[]
+  sort: Sort
+  onSort: (value: Sort) => void
 }
-export const CardsTable = ({ isOwner, cards }: Props): JSX.Element => {
+export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element => {
   return (
     <Table.Root className={s.root}>
-      <TableHeader columns={getCardsColumnsData(isOwner)} />
+      <TableHeader columns={getCardsColumnsData(isOwner)} sort={sort} onSort={onSort} />
       <Table.Body>
         {cards.map(card => {
           return (
