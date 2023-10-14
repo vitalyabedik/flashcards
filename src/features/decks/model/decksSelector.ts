@@ -1,13 +1,17 @@
 import { RootState } from '@/app'
 
-export const selectSearchByName = (state: RootState) => state.decks.filter.searchByName
+export const selectSearchName = (state: RootState) => state.decks.searchName
 
-export const selectTabValue = (state: RootState) => state.decks.filter.tabValue
+export const selectTabValue = (state: RootState) => state.decks.tabValue
 
-export const selectSliderValues = (state: RootState) => state.decks.filter.sliderValues
+export const selectSliderValues = (state: RootState) => state.decks.sliderValues
 
-export const selectCurrentPage = (state: RootState) => state.decks.pagination.currentPage
+export const selectAuthorId = (state: RootState) => state.decks.authorId
 
-export const selectPageSize = (state: RootState) => state.decks.pagination.pageSize
+export const selectSortOptions = (state: RootState) => state.decks.sortOptions
 
-export const selectPageOptions = (state: RootState) => state.decks.pagination.pageOptions
+export const selectCurrentPage = (state: RootState) => state.decks.currentPage
+
+export const selectPageSize = (state: RootState) => state.decks.pageSize
+
+export const selectPageOptions = (state: RootState) => state.decks.pageOptions
