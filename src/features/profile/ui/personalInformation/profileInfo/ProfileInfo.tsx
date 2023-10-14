@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.scss'
 import { EditIcon, LogoutIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, IconButton, Typography } from '@/components'
+import { useLogoutMutation } from '@/features'
 
 type Props = {
   email: string
@@ -11,7 +12,11 @@ type Props = {
 }
 
 export const ProfileInfo = ({ email, name, onEditProfile }: Props): JSX.Element => {
-  const onLogout = () => {}
+  const [logout] = useLogoutMutation()
+
+  const onLogout = () => {
+    logout()
+  }
 
   return (
     <div className={s.root}>
