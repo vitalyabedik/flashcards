@@ -9,8 +9,8 @@ export const updateDecksQueryData = (state: RootState) => {
   return {
     name: searchName,
     authorId,
-    minCardsCount: String(sliderValues[0]),
-    maxCardsCount: String(sliderValues[1]),
+    minCardsCount: sliderValues[0],
+    maxCardsCount: sliderValues[1],
     orderBy: sortedString,
     itemsPerPage: pageSize,
     currentPage,
