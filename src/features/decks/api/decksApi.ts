@@ -84,20 +84,18 @@ export const decksApi = baseApi.injectEndpoints({
 
             const name = body.get('name')
             const isPrivate = body.get('isPrivate')
-            const cover = body.get('cover') as Blob
-
-            const coverURL = URL.createObjectURL(cover)
+            const cover = URL.createObjectURL(body.get('cover') as Blob)
 
             if (index !== -1) {
               draft.items[index] = {
                 ...draft.items[index],
                 name: typeof name === 'string' ? name : '',
                 isPrivate: !!isPrivate,
-                cover: coverURL,
+                cover: cover,
               }
             }
 
-            URL.revokeObjectURL(coverURL)
+            // URL.revokeObjectURL(cover)
           })
         )
 
