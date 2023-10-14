@@ -1,11 +1,16 @@
 import { useState } from 'react'
 
-import { EditProfileValues } from './editProfile/useEditProfile.ts'
 import s from './PersonalInformation.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Card, Typography } from '@/components'
-import { AvatarUploader, EditProfile, ProfileInfo, useUpdateProfileMutation } from '@/features'
+import {
+  EditProfileValues,
+  AvatarUploader,
+  EditProfile,
+  ProfileInfo,
+  useUpdateProfileMutation,
+} from '@/features'
 
 export type ProfileDataType = {
   avatar?: string

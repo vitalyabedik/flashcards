@@ -1,12 +1,12 @@
 import { Route } from '@/common'
 import { GoBack, Page } from '@/components'
 import {
+  EditProfileValues,
   PersonalInformation,
   ProfileDataType,
   useMeQuery,
   useUpdateProfileMutation,
 } from '@/features'
-import { EditProfileValues } from '@features/profile/ui/personalInformation/editProfile/useEditProfile.ts'
 
 export const ProfilePage = (): JSX.Element => {
   const { data } = useMeQuery()
