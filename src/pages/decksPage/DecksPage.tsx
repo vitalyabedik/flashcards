@@ -1,14 +1,14 @@
-import { useMemo, useState } from 'react'
-
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
 import { Page, Pagination, Panel, Sort } from '@/components'
 import {
   DecksTable,
-  selectSearchByName,
-  selectSliderValues,
+  selectSearchName,
   selectTabValue,
+  selectSliderValues,
+  selectAuthorId,
+  selectSortOptions,
   selectCurrentPage,
   selectPageSize,
   selectPageOptions,
@@ -19,52 +19,73 @@ import {
 import { useAppDispatch, useAppSelector } from '@common/hooks'
 
 export const DecksPage = (): JSX.Element => {
-  const searchByName = useAppSelector(selectSearchByName)
+  const searchName = useAppSelector(selectSearchName)
   const tabValue = useAppSelector(selectTabValue)
   const sliderValues = useAppSelector(selectSliderValues)
+  const authorId = useAppSelector(selectAuthorId)
+  const sortOptions = useAppSelector(selectSortOptions)
   const currentPage = useAppSelector(selectCurrentPage)
   const pageSize = useAppSelector(selectPageSize)
   const pageOptions = useAppSelector(selectPageOptions)
 
   const dispatch = useAppDispatch()
 
-  const [sort, setSort] = useState<Sort>(null)
-  const [filterValue, setFilterValue] = useState(tabValue)
-  const [sliderValue, setSliderValue] = useState(sliderValues)
-
-  const sortedString = useMemo(() => {
-    if (!sort) return null
-
-    return `${sort.key}-${sort.direction}`
-  }, [sort])
+  const sortedString = sortOptions ? `${sortOptions.key}-${sortOptions.direction}` : undefined
 
   const { data: user } = useMeQuery()
-  const { data: decks } = useGetDecksQuery({
-    name: searchByName,
-    authorId: filterValue === 'my' ? user?.id : undefined,
-    minCardsCount: String(sliderValue[0]),
-    maxCardsCount: String(sliderValue[1]),
-    orderBy: sortedString ?? 'updated-desc',
+  const { currentData: decks } = useGetDecksQuery({
+    name: searchName,
+    authorId,
+    minCardsCount: String(sliderValues[0]),
+    maxCardsCount: String(sliderValues[1]),
+    orderBy: sortedString,
     itemsPerPage: pageSize,
     currentPage,
   })
 
+  const onSearchCallback = (name: string) => {
+    dispatch(decksActions.setSearchByName({ searchName: name }))
+  }
+
+  const onChangeTabValueCallback = (tabValue: string) => {
+    dispatch(decksActions.setTabValue({ tabValue }))
+
+    if (tabValue === 'my') {
+      dispatch(decksActions.setAuthorId({ authorId: user?.id }))
+    } else {
+      dispatch(decksActions.setAuthorId({ authorId: undefined }))
+    }
+  }
+
+  const onChangeSliderValueCallback = (sliderValues: number[]) => {
+    dispatch(decksActions.setSliderValues({ sliderValues }))
+  }
+
+  const onChangeSortCallback = (orderBy: Sort) => {
+    dispatch(decksActions.setSortOptions({ sortOptions: orderBy }))
+  }
+
+  const onChangeCurrentPageCallback = (currentPage: number) => {
+    dispatch(decksActions.setCurrentPage({ currentPage }))
+  }
+
+  const onChangePageSizeCallback = (pageSize: string) => {
+    dispatch(decksActions.setPageSize({ pageSize: Number(pageSize) }))
+  }
+
   const onClearFilter = () => {
-    dispatch(decksActions.setSearchByName({ searchByName: '' }))
-    setFilterValue('all')
-    setSliderValue([0, 10])
-  }
-
-  const onSearchCallback = (value: string) => {
-    dispatch(decksActions.setSearchByName({ searchByName: value }))
-  }
-
-  const onChangeCurrentPageCallback = (value: number) => {
-    dispatch(decksActions.setCurrentPage({ currentPage: value }))
-  }
-
-  const onChangePageSizeCallback = (value: string) => {
-    dispatch(decksActions.setPageSize({ pageSize: Number(value) }))
+    dispatch(decksActions.setSearchByName({ searchName: '' }))
+    dispatch(decksActions.setTabValue({ tabValue: 'all' }))
+    dispatch(decksActions.setSliderValues({ sliderValues: [0, 10] }))
+    dispatch(decksActions.setAuthorId({ authorId: undefined }))
+    dispatch(
+      decksActions.setSortOptions({
+        sortOptions: {
+          key: 'updated',
+          direction: 'asc',
+        },
+      })
+    )
   }
 
   return (
@@ -72,22 +93,22 @@ export const DecksPage = (): JSX.Element => {
       <DecksPageHeader />
       <Panel
         className={s.panelWrapper}
-        inputValue={searchByName}
+        inputValue={searchName}
         onChangeInputValue={onSearchCallback}
-        tabValue={filterValue}
+        tabValue={tabValue}
         tabLabel="Show packs cards"
-        sliderValue={sliderValue}
-        onChangeTabValue={setFilterValue}
+        sliderValue={sliderValues}
+        onChangeTabValue={onChangeTabValueCallback}
         minSliderValue={0}
         maxSliderValue={10}
         sliderLabel="Number of cards"
-        onChangeSliderValue={setSliderValue}
+        onChangeSliderValue={onChangeSliderValueCallback}
         onClearFilter={onClearFilter}
       />
-      {decks && <DecksTable decksData={decks} sort={sort} onSort={setSort} />}
+      {decks && <DecksTable decksData={decks} sort={sortOptions} onSort={onChangeSortCallback} />}
       {!!decks?.items.length && (
         <Pagination
-          totalCount={decks?.pagination.totalItems ?? 10}
+          totalCount={decks?.pagination.totalItems || 10}
           pageSize={pageSize}
           currentPage={currentPage}
           value={String(pageSize)}

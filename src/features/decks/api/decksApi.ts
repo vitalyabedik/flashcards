@@ -7,6 +7,7 @@ import {
   UpdateDeckParamsType,
 } from './decksApi.types'
 
+import { RootState } from '@/app'
 import { baseApi } from '@/common'
 
 export const decksApi = baseApi.injectEndpoints({
@@ -20,11 +21,43 @@ export const decksApi = baseApi.injectEndpoints({
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<DeckType, FormData>({
-      query: params => ({
+      query: body => ({
         url: 'decks',
         method: 'POST',
-        body: params,
+        body,
       }),
+      async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+        const { searchName, authorId, sliderValues, sortOptions, currentPage, pageSize } =
+          state.decks
+
+        try {
+          const sortedString = sortOptions
+            ? `${sortOptions.key}-${sortOptions.direction}`
+            : undefined
+          const response = await queryFulfilled
+
+          dispatch(
+            decksApi.util.updateQueryData(
+              'getDecks',
+              {
+                name: searchName,
+                authorId,
+                minCardsCount: String(sliderValues[0]),
+                maxCardsCount: String(sliderValues[1]),
+                orderBy: sortedString,
+                itemsPerPage: pageSize,
+                currentPage,
+              },
+              draft => {
+                draft.items.unshift(response.data)
+              }
+            )
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
     deleteDeck: builder.mutation<DeleteDeckResponseType, DeleteDeckParamsType>({

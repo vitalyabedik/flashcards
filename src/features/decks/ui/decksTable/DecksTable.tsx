@@ -10,7 +10,7 @@ import { DecksResponseType } from '@/features'
 
 type Props = {
   decksData: DecksResponseType
-  sort: Sort
+  sort: Sort | undefined
   onSort: (sort: Sort) => void
 }
 
