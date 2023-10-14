@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import cn from 'classnames'
 
 import s from './AvatarUploader.module.scss'
@@ -24,12 +22,6 @@ export const AvatarUploader = ({
 }: Props): JSX.Element => {
   const avatarUploaderClasses = cn(s.root, className)
 
-  const [image, setImage] = useState(avatar)
-
-  useEffect(() => {
-    setImage(avatar)
-  }, [avatar])
-
   const onLoadCover = async (data: File) => {
     const formData = new FormData()
 
@@ -39,7 +31,7 @@ export const AvatarUploader = ({
 
   return (
     <div className={avatarUploaderClasses}>
-      <Avatar image={image} userName={name} size="large" />
+      <Avatar image={avatar} userName={name} size="large" />
       {editable && (
         <Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={() => {}}>
           <IconButton className={s.editAvatar} icon={<EditIcon />} />
