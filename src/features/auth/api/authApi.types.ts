@@ -30,5 +30,3 @@ export type LoginParamsType = SignUpDataType & {
 export type RecoverPasswordParamsType = Pick<SignUpParamsType, 'email'>
 
 export type ResetPasswordParamsType = Pick<SignUpParamsType, 'password'> & { token: string }
-
-export type UpdateProfileFormDataType = FormData

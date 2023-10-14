@@ -5,7 +5,6 @@ import {
   BaseResponseType,
   RecoverPasswordParamsType,
   ResetPasswordParamsType,
-  UpdateProfileFormDataType,
 } from './authApi.types'
 
 import { baseApi } from '@/common'
@@ -57,7 +56,7 @@ export const authApi = baseApi.injectEndpoints({
         body: { password },
       }),
     }),
-    updateProfile: builder.mutation<BaseResponseType, UpdateProfileFormDataType>({
+    updateProfile: builder.mutation<BaseResponseType, FormData>({
       query: body => ({
         url: 'auth/me',
         method: 'PATCH',
