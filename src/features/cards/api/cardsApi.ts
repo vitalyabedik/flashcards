@@ -1,17 +1,46 @@
-import { CardsParams, CardsResponseType } from './cardsApi.types'
+import { Card, CardsParams, CardsResponseType } from './cardsApi.types'
 
 import { baseApi } from '@/common'
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getCards: builder.query<CardsResponseType, { id: string; params: CardsParams }>({
-      query: ({ id, params }) => ({
+    getCards: builder.query<CardsResponseType, { id: string; body: CardsParams }>({
+      query: ({ id, body }) => ({
         url: `decks/${id}/cards`,
-        params,
+        method: 'GET',
+        body,
       }),
       providesTags: ['Cards'],
+    }),
+    createCard: builder.mutation<Card, { id: string; body: FormData }>({
+      query: ({ id, body }) => ({
+        url: `decks/${id}/cards`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Cards'],
+    }),
+    updateCard: builder.mutation<Card, { id: string; body: FormData }>({
+      query: ({ id, body }) => ({
+        url: `cards/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Cards'],
+    }),
+    deleteCard: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `cards/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Cards'],
     }),
   }),
 })
 
-export const { useGetCardsQuery } = cardsApi
+export const {
+  useGetCardsQuery,
+  useCreateCardMutation,
+  useUpdateCardMutation,
+  useDeleteCardMutation,
+} = cardsApi
