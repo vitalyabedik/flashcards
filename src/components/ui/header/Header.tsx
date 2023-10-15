@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import cn from 'classnames'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import s from './Header.module.scss'
 import { HeaderProfileInfo } from './headerProfileInfo'
@@ -23,11 +23,12 @@ type Props = {
   avatar?: string
   email?: string
   className?: string
+  logout: () => void
 } & ComponentPropsWithoutRef<'div'>
 
 export const Header = forwardRef<ElementRef<'div'>, Props>(
   (
-    { name = 'name', avatar = 'avatar', email = 'email', isLoggedIn, className },
+    { name = 'name', avatar = 'avatar', email = 'email', isLoggedIn, className, logout },
     ref
   ): JSX.Element => {
     const classNames = {
@@ -37,6 +38,12 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
       userName: s.userName,
       profileInfoWrapper: s.profileInfoWrapper,
       dropdownItemWrapper: s.dropdownItemWrapper,
+    }
+
+    const navigate = useNavigate()
+
+    const toProfile = () => {
+      navigate(Route.Profile)
     }
 
     return (
@@ -51,11 +58,19 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
                 {name}
               </Typography>
               <Dropdown trigger={<Avatar image={avatar} userName={name} size="small" />}>
-                <DropdownItem className={classNames.dropdownItemWrapper}>
+                <DropdownItem className={classNames.dropdownItemWrapper} onSelect={toProfile}>
                   <HeaderProfileInfo name={name} avatar={avatar} email={email} />
                 </DropdownItem>
-                <DropdownItemWithIcon icon={<PersonIcon size={1.6} />} text="My Profile" />
-                <DropdownItemWithIcon icon={<LogoutIcon size={1.6} />} text="Sign Out" />
+                <DropdownItemWithIcon
+                  icon={<PersonIcon size={1.6} />}
+                  text="My Profile"
+                  onSelect={toProfile}
+                />
+                <DropdownItemWithIcon
+                  icon={<LogoutIcon size={1.6} />}
+                  text="Logout"
+                  onSelect={logout}
+                />
               </Dropdown>
             </div>
           )}

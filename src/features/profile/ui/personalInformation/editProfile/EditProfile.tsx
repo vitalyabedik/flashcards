@@ -13,7 +13,7 @@ export const EditProfile = ({ onSubmit, initialValues }: Props): JSX.Element => 
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <ControlledInput className={s.input} name="name" control={control} label="Nickmame" />
+      <ControlledInput className={s.input} name="name" control={control} label="Nickname" />
       <Button type="submit" fullWidth>
         Save Changes
       </Button>
