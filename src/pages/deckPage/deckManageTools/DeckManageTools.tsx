@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { Route } from '@/common'
@@ -20,7 +20,10 @@ export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
   const { id, name, isPrivate, cover } = deck
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
+  const navigate = useNavigate()
+  const toLearnDeck = () => {
+    navigate(`${Route.Decks}/${deck.id}/learn`)
+  }
   const deleteDeckCallback = () => {
     deleteDeck({ id })
   }
@@ -33,7 +36,8 @@ export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
     variant === 'dropDown' ? (
       <DropdownItemWithIcon
         icon={<PlayCircleIcon size={1.6} />}
-        text={<Link to={`${Route.Decks}/${deck.id}/learn`}>{'Learn'}</Link>}
+        text="Learn"
+        onSelect={toLearnDeck}
       />
     ) : (
       <IconButton icon={<PlayCircleIcon />} size={1.6} />

@@ -30,7 +30,7 @@ export const DropdownItem = forwardRef<
 })
 export type DropdownItemWithIconProps = Omit<DropdownItemProps, 'children'> & {
   icon: ReactNode
-  text: string | ReactNode
+  text: string
 } & ComponentPropsWithoutRef<typeof DropdownPrimitive.Item>
 
 export const DropdownItemWithIcon = forwardRef<
@@ -43,7 +43,13 @@ export const DropdownItemWithIcon = forwardRef<
   }
 
   return (
-    <DropdownPrimitive.Item ref={ref} className={classNames.item} asChild {...props}>
+    <DropdownPrimitive.Item
+      ref={ref}
+      className={classNames.item}
+      asChild
+      {...props}
+      onSelect={onSelect}
+    >
       <motion.div {...dropdownAnimations.item}>
         <div className={classNames.itemIcon}>{icon}</div>
         <Typography variant={TypographyVariant.Caption}>{text}</Typography>
