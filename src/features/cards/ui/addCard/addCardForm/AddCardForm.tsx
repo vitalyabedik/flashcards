@@ -5,38 +5,20 @@ import { DevTool } from '@hookform/devtools'
 import s from './AddCardForm.module.scss'
 import { AddCardFormValues, useAddCard } from './useAddCard'
 
-import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledInput, ControlledSelect, OptionType, Typography } from '@/components'
 
-export type CardType = {
-  question?: string
-  answer?: string
-  answerImg?: string
-  questionImg?: string
-  questionVideo?: string
-  answerVideo?: string
-}
-
 type Props = {
-  card: CardType
   placeholder: ReactNode
   options: OptionType[]
   onSubmit: (data: AddCardFormValues) => void
   closeModal: () => void
 }
 
-export const AddCardForm = ({
-  card,
-  placeholder,
-  options,
-  onSubmit,
-  closeModal,
-}: Props): JSX.Element => {
+export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Props): JSX.Element => {
   const { control, handleSubmit, watch } = useAddCard()
-
-  const isPictureQuestion = card?.questionImg && watch().questionFormat === 'picture'
-  const isPictureAnswer = card?.answerImg && watch().questionFormat === 'picture'
+  const questionFormat = watch('questionFormat')
+  const answerFormat = watch('answerFormat')
 
   const onSubmitHandler = (data: AddCardFormValues) => {
     onSubmit(data)
@@ -54,54 +36,20 @@ export const AddCardForm = ({
         label="Choose a question format"
         fullWidth
       />
-      {!isPictureQuestion && (
-        <ControlledInput
-          className={s.questionInput}
-          name="question"
-          placeholder={card?.question}
-          control={control}
-          label="Question"
-        />
+      {questionFormat === 'text' && (
+        <ControlledInput name="question" control={control} label="Question" />
       )}
-      {isPictureQuestion && (
-        <div className={s.imageBlock}>
-          <Typography className={s.typographyWrapper} variant={TypographyVariant.Subtitle2}>
-            Question:
-          </Typography>
-          {card?.questionImg && (
-            <div className={s.imgWrapper}>
-              <img src={card.questionImg} alt="question" />
-            </div>
-          )}
-          <Button variant={ButtonVariant.Secondary}>
-            <ImageIcon size={1.6} />
-            <Typography variant={TypographyVariant.Subtitle2}>Change Cover</Typography>
-          </Button>
-        </div>
-      )}
-      {!isPictureAnswer && (
-        <ControlledInput
-          placeholder={card?.answer}
-          control={control}
-          name="answer"
-          label="Answer"
-        />
-      )}
-      {isPictureAnswer && (
-        <div className={s.imageBlock}>
-          <Typography className={s.typographyWrapper} variant={TypographyVariant.Subtitle2}>
-            Answer:
-          </Typography>
-          {card?.answerImg && (
-            <div className={s.imgWrapper}>
-              <img src={card.answerImg} alt="answer" />
-            </div>
-          )}
-          <Button variant={ButtonVariant.Secondary}>
-            <ImageIcon size={1.6} />
-            <Typography variant={TypographyVariant.Subtitle2}>Change Cover</Typography>
-          </Button>
-        </div>
+
+      <ControlledSelect
+        options={options}
+        placeholder={placeholder}
+        control={control}
+        name="answerFormat"
+        label="Choose an answer format"
+        fullWidth
+      />
+      {answerFormat === 'text' && (
+        <ControlledInput name="answer" control={control} label="Answer" />
       )}
       <div className={s.actionBlock}>
         <Button variant={ButtonVariant.Secondary} onClick={closeModal} type="reset">

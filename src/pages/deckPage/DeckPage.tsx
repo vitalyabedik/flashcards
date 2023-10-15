@@ -7,7 +7,7 @@ import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { Button, GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
-import { CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+import { AddCardModal, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -77,7 +77,15 @@ export const DeckPage = (): JSX.Element => {
       )}
       {isOwner && !isCardsData && (
         <Table.Empty>
-          <Button>Add new Card</Button>
+          <AddCardModal
+            trigger={<Button>Add new Card</Button>}
+            placeholder={'asdawsd'}
+            options={[
+              { value: 'text', title: 'Text' },
+              { value: 'picture', title: 'Picture' },
+            ]}
+            onSubmit={() => console.log(1)}
+          />
         </Table.Empty>
       )}
       {!isOwner && !isCardsData && (

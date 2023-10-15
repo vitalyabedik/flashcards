@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 const addCardSchema = z.object({
   questionFormat: z.string().trim(),
+  answerFormat: z.string().trim(),
   question: z.string().min(3, 'Use 3 characters or more for your password').trim(),
   answer: z.string().min(3, 'Use 3 characters or more for your password').trim(),
 })
@@ -15,6 +16,7 @@ export const useAddCard = () =>
     resolver: zodResolver(addCardSchema),
     defaultValues: {
       questionFormat: 'text',
+      answerFormat: 'text',
       question: '',
       answer: '',
     },
