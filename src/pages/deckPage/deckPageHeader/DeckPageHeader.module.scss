@@ -1,0 +1,11 @@
+@import '@styles/mixins';
+
+.root {
+  @include flex($justify: space-between, $align: center);
+
+  margin-bottom: 2.6rem;
+
+  .deckOwnerWrapper {
+    @include flex($align: center, $gap: 1.6rem);
+  }
+}
