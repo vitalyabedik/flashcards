@@ -1,27 +1,40 @@
 import { useState } from 'react'
 
-import { EditProfileValues } from './editProfile/useEditProfile.ts'
 import s from './PersonalInformation.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Card, Typography } from '@/components'
-import { AvatarUploader, EditProfile, ProfileInfo } from '@/features'
+import {
+  EditProfileValues,
+  AvatarUploader,
+  EditProfile,
+  ProfileInfo,
+  useUpdateProfileMutation,
+} from '@/features'
 
-type Props = {
+export type ProfileDataType = {
   avatar?: string
   email: string
   name: string
 }
 
-export const PersonalInformation = ({ avatar, email, name }: Props): JSX.Element => {
+type Props = {
+  data: ProfileDataType
+  update: (data: EditProfileValues) => void
+}
+
+export const PersonalInformation = ({ data, update }: Props): JSX.Element => {
+  const { email, name, avatar } = data
   const [editMode, setEditMode] = useState(false)
+
+  const [updateProfile] = useUpdateProfileMutation()
 
   const onEditProfile = () => {
     setEditMode(true)
   }
 
   const onSubmit = (data: EditProfileValues) => {
-    console.log(data)
+    update(data)
     setEditMode(false)
   }
 
@@ -35,6 +48,7 @@ export const PersonalInformation = ({ avatar, email, name }: Props): JSX.Element
         avatar={avatar}
         name={name}
         editable={!editMode}
+        updateAvatar={updateProfile}
       />
       {editMode ? (
         <EditProfile onSubmit={onSubmit} initialValues={{ name }} />

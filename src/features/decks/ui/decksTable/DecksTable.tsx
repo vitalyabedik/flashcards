@@ -1,10 +1,11 @@
 import cn from 'classnames'
+import { Link } from 'react-router-dom'
 
 import { columnsData } from './columnsData'
 import s from './DecksTable.module.scss'
 import { DecksTableIcons } from './decksTableIcons'
 
-import { formatDate, TypographyVariant } from '@/common'
+import { formatDate, Route, TypographyVariant } from '@/common'
 import { Sort, Table, TableHeader, Typography } from '@/components'
 import { DecksResponseType } from '@/features'
 
@@ -27,10 +28,14 @@ export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
               return (
                 <Table.Row key={`${item.userId}-${item.updated}`}>
                   <Table.Cell className={s.cellName}>
-                    <div className={s.cellImage}>
-                      {item.cover && <img className={s.image} src={item.cover} alt="deck-cover" />}
-                      <Typography variant={TypographyVariant.Body2}>{item.name}</Typography>
-                    </div>
+                    <Link to={`${Route.Decks}/${item.id}/cards`}>
+                      <div className={s.cellImage}>
+                        {item.cover && (
+                          <img className={s.image} src={item.cover} alt="deck-cover" />
+                        )}
+                        <Typography variant={TypographyVariant.Body2}>{item.name}</Typography>
+                      </div>
+                    </Link>
                   </Table.Cell>
                   <Table.Cell className={s.cellCardsCount}>
                     <Typography variant={TypographyVariant.Body2}>{item.cardsCount}</Typography>

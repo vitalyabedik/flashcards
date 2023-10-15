@@ -1,0 +1,23 @@
+@import '@styles/mixins';
+
+.root {
+  margin-bottom: 3.6rem;
+
+  .cellQuestion,
+  .cellAnswer {
+    width: 34rem;
+  }
+
+  .cellUpdated {
+    width: 23rem;
+  }
+
+  .imageWrapper {
+    @include flex($align: center, $gap: 1rem);
+  }
+
+  .image {
+    max-width: 16rem;
+    max-height: 6.5rem;
+  }
+}

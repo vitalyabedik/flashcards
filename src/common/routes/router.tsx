@@ -5,15 +5,23 @@ import { privateRoutes, publicRoutes } from './routerSettings.tsx'
 
 import { Route } from '@/common'
 import { Header } from '@/components'
-import { useMeQuery } from '@/features'
+import { useLogoutMutation, useMeQuery } from '@/features'
 
 const AppLayout = () => {
-  const { isError } = useMeQuery()
+  const { data, isError } = useMeQuery()
+
+  const [logout] = useLogoutMutation()
   const isAuth = !isError
 
   return (
     <>
-      <Header isLoggedIn={isAuth} />
+      <Header
+        name={data?.name}
+        avatar={data?.avatar}
+        email={data?.email}
+        isLoggedIn={isAuth}
+        logout={logout}
+      />
       <Outlet />
     </>
   )
