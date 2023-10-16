@@ -6,6 +6,7 @@ import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledInput, Typography, Uploader } from '@/components'
 import { AddCardFormValues } from '@features/cards/ui/addCard/addCardForm/useAddCard.ts'
+
 type Props = {
   dataFieldFormat: string
   imageUrl: string | null

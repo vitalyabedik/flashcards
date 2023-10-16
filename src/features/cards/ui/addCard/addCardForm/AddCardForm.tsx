@@ -3,7 +3,7 @@ import { ReactNode, useState } from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import s from './AddCardForm.module.scss'
-import { AddCardFormField } from './AddCardFormField/AddCardFormField.tsx'
+import { AddCardFormField } from './AddCardFormField'
 import { AddCardFormValues, useAddCard } from './useAddCard'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
@@ -18,19 +18,29 @@ type Props = {
 
 export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Props): JSX.Element => {
   const [questionCover, setQuestionCover] = useState<File | null>(null)
-  const [questionCoverError, setQuestionCoverError] = useState<null | string>(null)
   const [answerCover, setAnswerCover] = useState<File | null>(null)
+  // use toast component for error
+  const [questionCoverError, setQuestionCoverError] = useState<null | string>(null)
   const [answerCoverError, setAnswerCoverError] = useState<null | string>(null)
 
-  // for testing
-  console.log(questionCoverError)
-  console.log(answerCoverError)
-
-  const { control, handleSubmit, watch } = useAddCard()
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setValue,
+  } = useAddCard()
   const questionFormat = watch('questionFormat')
+  const questionError = errors.question?.message
   const answerFormat = watch('answerFormat')
+  const answerError = errors.answer?.message
 
-  console.log(questionFormat)
+  if (questionError && questionFormat === 'picture') {
+    setValue('questionFormat', 'text')
+  }
+  if (answerError && answerFormat === 'picture') {
+    setValue('answerFormat', 'text')
+  }
   const questionImageUrl = questionCover && URL.createObjectURL(questionCover)
   const answerImageUrl = answerCover && URL.createObjectURL(answerCover)
 
@@ -39,6 +49,9 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
 
     formData.append('question', data.question)
     formData.append('answer', data.answer)
+    questionCover && formData.append('questionImg', questionCover)
+    answerCover && formData.append('answerImg', answerCover)
+
     onSubmit(formData)
     closeModal()
   }
@@ -67,7 +80,7 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
         placeholder={placeholder}
         control={control}
         name="questionFormat"
-        label="Choose a question format"
+        label="Choose a question format (text format is required!)"
         fullWidth
       />
       <AddCardFormField
@@ -85,7 +98,7 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
         placeholder={placeholder}
         control={control}
         name="answerFormat"
-        label="Choose an answer format"
+        label="Choose an answer format (text format is required!)"
         fullWidth
       />
       <AddCardFormField
