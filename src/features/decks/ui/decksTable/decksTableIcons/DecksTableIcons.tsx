@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { Dialog, IconButton } from '@/components'
 import {
@@ -19,6 +21,8 @@ export const DecksTableIcons = ({ deck }: Props): JSX.Element => {
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
 
+  const navigate = useNavigate()
+
   const deleteDeckCallback = () => {
     deleteDeck({ id })
   }
@@ -27,9 +31,13 @@ export const DecksTableIcons = ({ deck }: Props): JSX.Element => {
     updateDeck({ id, body: data })
   }
 
+  const learnCallback = () => {
+    navigate(`${id}/learn`)
+  }
+
   return (
     <>
-      <IconButton icon={<PlayCircleIcon />} size={1.6} />
+      <IconButton icon={<PlayCircleIcon />} size={1.6} onClick={learnCallback} />
       {user?.id === author.id && (
         <>
           <EditDeckModal
