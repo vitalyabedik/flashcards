@@ -1,38 +1,31 @@
 import { useState } from 'react'
 
+import { useParams } from 'react-router-dom'
+
 import s from './LearnCard.module.scss'
-import { RateLearnCard } from './rateLearnCard'
+import { RateLearnCard, RateLearnCardValues } from './rateLearnCard'
 
 import { TypographyVariant } from '@/common'
 import { Button, Card, Typography } from '@/components'
+import { useGetDeckQuery, useGetRandomCardQuery, useRateCardMutation } from '@/features'
 
-type Props = {
-  deck: {
-    id: string
-    name: string
-  }
-  card: {
-    id: string
-    question: string
-    answer: string
-    shots: number
-    answerImg?: string
-    questionImg?: string
-    questionVideo?: string
-    answerVideo?: string
-  }
-}
-
-export const LearnCard = ({ deck, card }: Props): JSX.Element => {
+export const LearnCard = (): JSX.Element => {
   const [isShowAnswer, setIsShowAnswer] = useState(false)
+
+  const [rateCard] = useRateCardMutation()
+
+  const params = useParams()
+  const id = params.id as string
+  const { data: deck } = useGetDeckQuery({ id })
+  const { data: card } = useGetRandomCardQuery({ id })
 
   const onShowAnswer = () => {
     setIsShowAnswer(true)
   }
 
-  const onSubmit = (data: unknown) => {
+  const onSubmit = (data: RateLearnCardValues) => {
     setIsShowAnswer(false)
-    console.log(data)
+    rateCard({ deckId: id, cardId: card!.id, grade: Number(data.grade) })
   }
 
   return (
