@@ -17,39 +17,42 @@ export const useDecksFilters = () => {
   const authorId = useAppSelector(selectAuthorId)
   const sortOptions = useAppSelector(selectSortOptions)
 
+  const { setSearchByName, setTabValue, setSliderValues, setAuthorId, setSortOptions } =
+    decksActions
+
   const dispatch = useAppDispatch()
 
   const { data: user } = useMeQuery()
 
   const onSearchCallback = (name: string) => {
-    dispatch(decksActions.setSearchByName({ searchName: name }))
+    dispatch(setSearchByName({ searchName: name }))
   }
 
   const onChangeTabValueCallback = (tabValue: string) => {
-    dispatch(decksActions.setTabValue({ tabValue }))
+    dispatch(setTabValue({ tabValue }))
 
     if (tabValue === 'my') {
-      dispatch(decksActions.setAuthorId({ authorId: user?.id }))
+      dispatch(setAuthorId({ authorId: user?.id }))
     } else {
-      dispatch(decksActions.setAuthorId({ authorId: undefined }))
+      dispatch(setAuthorId({ authorId: undefined }))
     }
   }
 
   const onChangeSliderValueCallback = (sliderValues: number[]) => {
-    dispatch(decksActions.setSliderValues({ sliderValues }))
+    dispatch(setSliderValues({ sliderValues }))
   }
 
   const onChangeSortCallback = (orderBy: Sort) => {
-    dispatch(decksActions.setSortOptions({ sortOptions: orderBy }))
+    dispatch(setSortOptions({ sortOptions: orderBy }))
   }
 
   const onClearFilterCallback = () => {
-    dispatch(decksActions.setSearchByName({ searchName: '' }))
-    dispatch(decksActions.setTabValue({ tabValue: 'all' }))
-    dispatch(decksActions.setSliderValues({ sliderValues: [0, 10] }))
-    dispatch(decksActions.setAuthorId({ authorId: undefined }))
+    dispatch(setSearchByName({ searchName: '' }))
+    dispatch(setTabValue({ tabValue: 'all' }))
+    dispatch(setSliderValues({ sliderValues: [0, 10] }))
+    dispatch(setAuthorId({ authorId: undefined }))
     dispatch(
-      decksActions.setSortOptions({
+      setSortOptions({
         sortOptions: {
           key: 'updated',
           direction: 'asc',

@@ -6,14 +6,16 @@ export const useDecksPagination = () => {
   const pageSize = useAppSelector(selectPageSize)
   const pageOptions = useAppSelector(selectPageOptions)
 
+  const { setCurrentPage, setPageSize } = decksActions
+
   const dispatch = useAppDispatch()
 
   const onChangeCurrentPageCallback = (currentPage: number) => {
-    dispatch(decksActions.setCurrentPage({ currentPage }))
+    dispatch(setCurrentPage({ currentPage }))
   }
 
   const onChangePageSizeCallback = (pageSize: string) => {
-    dispatch(decksActions.setPageSize({ pageSize: Number(pageSize) }))
+    dispatch(setPageSize({ pageSize: Number(pageSize) }))
   }
 
   return {
