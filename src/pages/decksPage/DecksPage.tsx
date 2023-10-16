@@ -2,7 +2,7 @@ import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
 import { formatSortedString, useAppDispatch, useAppSelector } from '@/common'
-import { Page, Pagination, Panel, Sort } from '@/components'
+import { Page, Pagination, Panel, Sort, Toast } from '@/components'
 import {
   DecksTable,
   selectSearchName,
@@ -90,6 +90,7 @@ export const DecksPage = (): JSX.Element => {
 
   return (
     <Page className={s.root}>
+      <Toast />
       <DecksPageHeader />
       <Panel
         className={s.panelWrapper}
