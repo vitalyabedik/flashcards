@@ -3,6 +3,9 @@ import { Sort } from '@/components'
 import {
   decksActions,
   selectAuthorId,
+  selectCurrentPage,
+  selectPageOptions,
+  selectPageSize,
   selectSearchName,
   selectSliderValues,
   selectSortOptions,
@@ -10,15 +13,25 @@ import {
   useMeQuery,
 } from '@/features'
 
-export const useDecksFilters = () => {
+export const useDecksOptions = () => {
   const searchName = useAppSelector(selectSearchName)
   const tabValue = useAppSelector(selectTabValue)
   const sliderValues = useAppSelector(selectSliderValues)
   const authorId = useAppSelector(selectAuthorId)
   const sortOptions = useAppSelector(selectSortOptions)
+  const currentPage = useAppSelector(selectCurrentPage)
+  const pageSize = useAppSelector(selectPageSize)
+  const pageOptions = useAppSelector(selectPageOptions)
 
-  const { setSearchByName, setTabValue, setSliderValues, setAuthorId, setSortOptions } =
-    decksActions
+  const {
+    setSearchByName,
+    setTabValue,
+    setSliderValues,
+    setAuthorId,
+    setSortOptions,
+    setCurrentPage,
+    setPageSize,
+  } = decksActions
 
   const dispatch = useAppDispatch()
 
@@ -61,16 +74,29 @@ export const useDecksFilters = () => {
     )
   }
 
+  const onChangeCurrentPageCallback = (currentPage: number) => {
+    dispatch(setCurrentPage({ currentPage }))
+  }
+
+  const onChangePageSizeCallback = (pageSize: string) => {
+    dispatch(setPageSize({ pageSize: Number(pageSize) }))
+  }
+
   return {
     searchName,
     tabValue,
     sliderValues,
     authorId,
     sortOptions,
+    currentPage,
+    pageSize,
+    pageOptions,
     onSearchCallback,
     onChangeTabValueCallback,
     onChangeSliderValueCallback,
     onChangeSortCallback,
     onClearFilterCallback,
+    onChangePageSizeCallback,
+    onChangeCurrentPageCallback,
   }
 }

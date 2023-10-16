@@ -3,7 +3,7 @@ import { DecksPageHeader } from './decksPageHeader'
 
 import { formatSortedString, useDebounce } from '@/common'
 import { Page, Pagination, Panel } from '@/components'
-import { DecksTable, useDecksPagination, useGetDecksQuery, useDecksFilters } from '@/features'
+import { DecksTable, useDecksOptions, useGetDecksQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const {
@@ -12,20 +12,17 @@ export const DecksPage = (): JSX.Element => {
     sliderValues,
     authorId,
     sortOptions,
+    currentPage,
+    pageSize,
+    pageOptions,
     onSearchCallback,
     onChangeTabValueCallback,
     onChangeSliderValueCallback,
     onChangeSortCallback,
     onClearFilterCallback,
-  } = useDecksFilters()
-
-  const {
-    currentPage,
-    pageSize,
-    pageOptions,
     onChangePageSizeCallback,
     onChangeCurrentPageCallback,
-  } = useDecksPagination()
+  } = useDecksOptions()
 
   const debouncedSearchName = useDebounce(searchName, 1500)
   const sortedString = formatSortedString(sortOptions)

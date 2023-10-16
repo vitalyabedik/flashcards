@@ -1,2 +1,1 @@
-export * from './useDecksFilters'
-export * from './useDecksPagination'
+export * from './useDecksOptions'
