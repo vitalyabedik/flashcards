@@ -1,3 +1,3 @@
 export * from './AddNewCard'
-export * from './addCardForm'
+export * from './cardForm'
 export * from './addCardModal'

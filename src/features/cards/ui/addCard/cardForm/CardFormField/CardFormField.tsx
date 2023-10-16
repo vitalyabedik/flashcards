@@ -1,23 +1,24 @@
 import { Control } from 'react-hook-form'
 
-import s from './AddCardFormField.module.scss'
+import { CardFormValues } from '../useAddForm'
+
+import s from './CardFormField.module.scss'
 
 import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledInput, Typography, Uploader } from '@/components'
-import { AddCardFormValues } from '@features/cards/ui/addCard/addCardForm/useAddCard.ts'
 
 type Props = {
   dataFieldFormat: string
   imageUrl: string | null
   name: 'question' | 'answer'
   label: string
-  control: Control<AddCardFormValues>
+  control: Control<CardFormValues>
   onLoadCover: (data: File) => void
   onLoadError: (error: string) => void
 }
 
-export const AddCardFormField = ({
+export const CardFormField = ({
   dataFieldFormat,
   imageUrl,
   name,

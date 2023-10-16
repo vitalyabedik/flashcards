@@ -1,8 +1,7 @@
 import { ReactNode, useState } from 'react'
 
-import { AddCardForm } from '../addCardForm'
-
 import { Modal, OptionType } from '@/components'
+import { CardForm } from '@/features'
 
 type Props = {
   trigger: ReactNode
@@ -20,7 +19,7 @@ export const AddCardModal = ({ trigger, placeholder, options, onSubmit }: Props)
 
   return (
     <Modal trigger={trigger} open={isOpen} setOpen={setIsOpen} title="Add New Card">
-      <AddCardForm
+      <CardForm
         placeholder={placeholder}
         options={options}
         onSubmit={onSubmit}
