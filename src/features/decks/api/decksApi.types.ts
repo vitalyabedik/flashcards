@@ -36,8 +36,8 @@ export type DeckType = {
 // type DirectionType = 'asc' | 'desc'
 
 export type GetDecksParamsType = {
-  minCardsCount?: string
-  maxCardsCount?: string
+  minCardsCount?: number
+  maxCardsCount?: number
   name?: string
   authorId?: string
   orderBy?: string
