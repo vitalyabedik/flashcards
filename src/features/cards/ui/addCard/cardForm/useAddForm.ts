@@ -10,14 +10,14 @@ const addCardSchema = z.object({
 })
 
 export type CardFormValues = z.infer<typeof addCardSchema>
-
-export const useCardForm = () =>
+type DefaultCardVAlueType = Omit<CardFormValues, 'answerFormat' | 'questionFormat'>
+export const useCardForm = (defaultValues: DefaultCardVAlueType) =>
   useForm<CardFormValues>({
     resolver: zodResolver(addCardSchema),
     defaultValues: {
       questionFormat: 'text',
       answerFormat: 'text',
-      question: '',
-      answer: '',
+      question: defaultValues.question,
+      answer: defaultValues.answer,
     },
   })

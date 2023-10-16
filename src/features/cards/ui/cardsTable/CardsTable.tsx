@@ -4,6 +4,7 @@ import { DeleteIcon, EditIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
 import { Rating, Sort, Table, TableHeader, Typography } from '@/components'
 import { Card, getCardsColumnsData } from '@/features'
+import { EditCard } from '@features/cards/ui/editCard/EditCard.tsx'
 
 type Props = {
   isOwner: boolean
@@ -45,7 +46,8 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
               </Table.Cell>
               {isOwner && (
                 <Table.Cell className={s.cellIcons}>
-                  <EditIcon />
+                  <EditCard card={card} trigger={<EditIcon />} />
+
                   <DeleteIcon />
                 </Table.Cell>
               )}

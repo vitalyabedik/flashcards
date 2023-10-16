@@ -10,7 +10,7 @@ import { Button, ControlledInput, Typography, Uploader } from '@/components'
 
 type Props = {
   dataFieldFormat: string
-  imageUrl: string | null
+  imageUrl: string | null | undefined
   name: 'question' | 'answer'
   label: string
   control: Control<CardFormValues>

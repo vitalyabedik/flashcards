@@ -7,7 +7,8 @@ type Props = {
   trigger: ReactNode
 }
 export const EditCard = ({ card, trigger }: Props): JSX.Element => {
-  const { id } = card
+  const { id, answer, answerImg, question, questionImg } = card
+
   const [updateCard] = useUpdateCardMutation()
   const updateCardCallBack = (body: FormData) => {
     updateCard({ id, body })
@@ -16,8 +17,8 @@ export const EditCard = ({ card, trigger }: Props): JSX.Element => {
   return (
     <EditCardModal
       trigger={trigger}
-      card={card}
       placeholder={'Data format type'}
+      cardValues={{ answer, question, answerImg, questionImg }}
       options={[
         { value: 'text', title: 'Text' },
         { value: 'picture', title: 'Picture' },

@@ -20,6 +20,7 @@ export const AddCardModal = ({ trigger, placeholder, options, onSubmit }: Props)
   return (
     <Modal trigger={trigger} open={isOpen} setOpen={setIsOpen} title="Add New Card">
       <CardForm
+        buttonTitle="Add New Card"
         placeholder={placeholder}
         options={options}
         onSubmit={onSubmit}

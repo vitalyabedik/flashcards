@@ -8,15 +8,25 @@ import { CardFormValues, useCardForm } from './useAddForm'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledSelect, OptionType, Typography } from '@/components'
+import { CardValues } from '@/features'
 
 type Props = {
+  buttonTitle: string
   placeholder: ReactNode
   options: OptionType[]
+  cardValues?: CardValues
   onSubmit: (data: FormData) => void
   closeModal: () => void
 }
 
-export const CardForm = ({ placeholder, options, onSubmit, closeModal }: Props): JSX.Element => {
+export const CardForm = ({
+  buttonTitle,
+  placeholder,
+  options,
+  cardValues,
+  onSubmit,
+  closeModal,
+}: Props): JSX.Element => {
   const [questionCover, setQuestionCover] = useState<File | null>(null)
   const [answerCover, setAnswerCover] = useState<File | null>(null)
   // use toast component for error
@@ -30,7 +40,7 @@ export const CardForm = ({ placeholder, options, onSubmit, closeModal }: Props):
     watch,
     formState: { errors },
     setValue,
-  } = useCardForm()
+  } = useCardForm({ answer: cardValues?.answer || '', question: cardValues?.question || '' })
   const questionFormat = watch('questionFormat')
   const questionError = errors.question?.message
   const answerFormat = watch('answerFormat')
@@ -42,8 +52,10 @@ export const CardForm = ({ placeholder, options, onSubmit, closeModal }: Props):
   if (answerError && answerFormat === 'picture') {
     setValue('answerFormat', 'text')
   }
-  const questionImageUrl = questionCover && URL.createObjectURL(questionCover)
-  const answerImageUrl = answerCover && URL.createObjectURL(answerCover)
+  const questionImageUrl = questionCover
+    ? URL.createObjectURL(questionCover)
+    : cardValues?.questionImg
+  const answerImageUrl = answerCover ? URL.createObjectURL(answerCover) : cardValues?.questionImg
 
   const onSubmitHandler = (data: CardFormValues) => {
     const formData = new FormData()
@@ -116,7 +128,7 @@ export const CardForm = ({ placeholder, options, onSubmit, closeModal }: Props):
           <Typography variant={TypographyVariant.Subtitle2}>Cancel</Typography>
         </Button>
         <Button type="submit">
-          <Typography variant={TypographyVariant.Subtitle2}>Add New Card</Typography>
+          <Typography variant={TypographyVariant.Subtitle2}>{buttonTitle}</Typography>
         </Button>
       </div>
     </form>
