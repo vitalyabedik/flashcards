@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react'
 
-import { AddCardForm } from './addCardForm'
+import { AddCardForm } from '../addCardForm'
 
 import { Modal, OptionType } from '@/components'
 

@@ -6,7 +6,7 @@ type Props = {
   id: string
 }
 
-export const AddNewCard = ({ id }: Props) => {
+export const AddNewCard = ({ id }: Props): JSX.Element => {
   const [createCard] = useCreateCardMutation()
 
   const createCardCallback = (body: FormData) => {

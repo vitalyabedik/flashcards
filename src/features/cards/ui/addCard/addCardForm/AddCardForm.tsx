@@ -30,6 +30,7 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
   const questionFormat = watch('questionFormat')
   const answerFormat = watch('answerFormat')
 
+  console.log(questionFormat)
   const questionImageUrl = questionCover && URL.createObjectURL(questionCover)
   const answerImageUrl = answerCover && URL.createObjectURL(answerCover)
 

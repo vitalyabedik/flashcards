@@ -6,7 +6,7 @@ import { Route, TypographyVariant } from '@/common'
 import { Button, Dropdown, Typography } from '@/components'
 import { GetDeckResponseType } from '@/features'
 import { DeckManageTools } from '@/pages'
-import { AddNewCard } from '@pages/deckPage/addNewCard/AddNewCard.tsx'
+import { AddNewCard } from '@features/cards/ui/addCard/AddNewCard.tsx'
 
 type Props = {
   isOwner: boolean

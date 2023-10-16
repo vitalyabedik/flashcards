@@ -7,8 +7,7 @@ import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
-import { CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
-import { AddNewCard } from '@pages/deckPage/addNewCard/AddNewCard.tsx'
+import { AddNewCard, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
