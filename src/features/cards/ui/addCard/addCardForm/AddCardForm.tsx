@@ -3,7 +3,7 @@ import { ReactNode, useState } from 'react'
 import { DevTool } from '@hookform/devtools'
 
 import s from './AddCardForm.module.scss'
-import { AddCardFormField } from './AddCardFormField'
+import { AddCardFormField } from './AddCardFormField/AddCardFormField.tsx'
 import { AddCardFormValues, useAddCard } from './useAddCard'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
@@ -12,7 +12,7 @@ import { Button, ControlledSelect, OptionType, Typography } from '@/components'
 type Props = {
   placeholder: ReactNode
   options: OptionType[]
-  onSubmit: (data: AddCardFormValues) => void
+  onSubmit: (data: FormData) => void
   closeModal: () => void
 }
 
@@ -34,7 +34,11 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
   const answerImageUrl = answerCover && URL.createObjectURL(answerCover)
 
   const onSubmitHandler = (data: AddCardFormValues) => {
-    onSubmit(data)
+    const formData = new FormData()
+
+    formData.append('question', data.question)
+    formData.append('answer', data.answer)
+    onSubmit(formData)
     closeModal()
   }
   const onLoadQuestionCover = (data: File) => {
@@ -57,6 +61,7 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
     <form className={s.form} onSubmit={handleSubmit(onSubmitHandler)}>
       <DevTool control={control} />
       <ControlledSelect
+        className={s.selectItem}
         options={options}
         placeholder={placeholder}
         control={control}
@@ -67,11 +72,14 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
       <AddCardFormField
         dataFieldFormat={questionFormat}
         imageUrl={questionImageUrl}
+        name="question"
+        label="Question"
         control={control}
         onLoadCover={onLoadQuestionCover}
         onLoadError={onLoadQuestionCoverError}
       />
       <ControlledSelect
+        className={s.selectItem}
         options={options}
         placeholder={placeholder}
         control={control}
@@ -82,6 +90,8 @@ export const AddCardForm = ({ placeholder, options, onSubmit, closeModal }: Prop
       <AddCardFormField
         dataFieldFormat={answerFormat}
         imageUrl={answerImageUrl}
+        name="answer"
+        label="Answer"
         control={control}
         onLoadCover={onLoadAnswerCover}
         onLoadError={onLoadAnswerCoverError}

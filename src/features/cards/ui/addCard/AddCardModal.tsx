@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react'
 
 import { AddCardForm } from './addCardForm'
-import { AddCardFormValues } from './addCardForm/useAddCard'
 
 import { Modal, OptionType } from '@/components'
 
@@ -9,7 +8,7 @@ type Props = {
   trigger: ReactNode
   placeholder: ReactNode
   options: OptionType[]
-  onSubmit: (data: AddCardFormValues) => void
+  onSubmit: (data: FormData) => void
 }
 
 export const AddCardModal = ({ trigger, placeholder, options, onSubmit }: Props): JSX.Element => {

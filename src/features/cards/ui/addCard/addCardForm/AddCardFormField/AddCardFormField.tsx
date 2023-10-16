@@ -1,15 +1,16 @@
 import { Control } from 'react-hook-form'
 
-import s from './AddCardForm.module.scss'
+import s from './AddCardFormField.module.scss'
 
 import { ImageIcon } from '@/assets'
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledInput, Typography, Uploader } from '@/components'
 import { AddCardFormValues } from '@features/cards/ui/addCard/addCardForm/useAddCard.ts'
-
 type Props = {
   dataFieldFormat: string
   imageUrl: string | null
+  name: 'question' | 'answer'
+  label: string
   control: Control<AddCardFormValues>
   onLoadCover: (data: File) => void
   onLoadError: (error: string) => void
@@ -18,14 +19,18 @@ type Props = {
 export const AddCardFormField = ({
   dataFieldFormat,
   imageUrl,
+  name,
+  label,
   control,
   onLoadCover,
   onLoadError,
 }: Props) => {
+  const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
+
   return (
     <>
       {dataFieldFormat === 'text' && (
-        <ControlledInput name="question" control={control} label="Question" />
+        <ControlledInput className={s.fieldItem} name={name} control={control} label={label} />
       )}
       {dataFieldFormat === 'picture' && (
         <>
@@ -35,10 +40,15 @@ export const AddCardFormField = ({
             </div>
           )}
           <Uploader onLoadCover={onLoadCover} onLoadError={onLoadError}>
-            <Button type="button" variant={ButtonVariant.Secondary} fullWidth>
+            <Button
+              className={s.fieldItem}
+              type="button"
+              variant={ButtonVariant.Secondary}
+              fullWidth
+            >
               <ImageIcon />
               <Typography variant={TypographyVariant.Subtitle2} as="span">
-                {'Add card'}
+                {buttonUploadText}
               </Typography>
             </Button>
           </Uploader>

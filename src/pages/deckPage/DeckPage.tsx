@@ -6,8 +6,9 @@ import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
-import { Button, GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
-import { AddCardModal, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
+import { CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+import { AddNewCard } from '@pages/deckPage/addNewCard/AddNewCard.tsx'
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -77,15 +78,7 @@ export const DeckPage = (): JSX.Element => {
       )}
       {isOwner && !isCardsData && (
         <Table.Empty>
-          <AddCardModal
-            trigger={<Button>Add new Card</Button>}
-            placeholder={'asdawsd'}
-            options={[
-              { value: 'text', title: 'Text' },
-              { value: 'picture', title: 'Picture' },
-            ]}
-            onSubmit={() => console.log(1)}
-          />
+          <AddNewCard id={id} />
         </Table.Empty>
       )}
       {!isOwner && !isCardsData && (
