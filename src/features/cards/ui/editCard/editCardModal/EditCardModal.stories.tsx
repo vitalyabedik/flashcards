@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { EditCard } from './EditCard'
+import { EditCardModal } from './EditCardModal.tsx'
 
 import { EditIcon } from '@/assets'
 import { IconButton, OptionType } from '@/components'
 
-const meta: Meta<typeof EditCard> = {
-  title: 'Cards/EditCard',
-  component: EditCard,
+const meta: Meta<typeof EditCardModal> = {
+  title: 'Cards/EditCardModal',
+  component: EditCardModal,
   tags: ['autodocs'],
 }
 

@@ -7,7 +7,7 @@ import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
-import { AddNewCard, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+import { AddCard, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -77,7 +77,7 @@ export const DeckPage = (): JSX.Element => {
       )}
       {isOwner && !isCardsData && (
         <Table.Empty>
-          <AddNewCard id={id} />
+          <AddCard id={id} />
         </Table.Empty>
       )}
       {!isOwner && !isCardsData && (

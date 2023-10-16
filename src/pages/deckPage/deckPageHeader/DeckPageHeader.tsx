@@ -6,7 +6,7 @@ import { Route, TypographyVariant } from '@/common'
 import { Button, Dropdown, Typography } from '@/components'
 import { GetDeckResponseType } from '@/features'
 import { DeckManageTools } from '@/pages'
-import { AddNewCard } from '@features/cards/ui/addCard/AddNewCard.tsx'
+import { AddCard } from '@features/cards/ui/addCard/AddCard.tsx'
 
 type Props = {
   isOwner: boolean
@@ -25,7 +25,7 @@ export const DeckPageHeader = ({ isOwner, deck }: Props): JSX.Element => {
           </Dropdown>
         )}
       </div>
-      {isOwner && !!deck.cardsCount && <AddNewCard id={deck.id} />}
+      {isOwner && !!deck.cardsCount && <AddCard id={deck.id} />}
       {!isOwner && (
         <Button as={Link} to={`${Route.Decks}/${deck.id}/learn`}>
           <Typography variant={TypographyVariant.Subtitle2} as="span">

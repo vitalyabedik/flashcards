@@ -1,6 +1,6 @@
 import s from './CardsTable.module.scss'
 
-import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
+import { DeleteIcon, EditIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
 import { Rating, Sort, Table, TableHeader, Typography } from '@/components'
 import { Card, getCardsColumnsData } from '@/features'
@@ -45,7 +45,6 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
               </Table.Cell>
               {isOwner && (
                 <Table.Cell className={s.cellIcons}>
-                  <PlayCircleIcon />
                   <EditIcon />
                   <DeleteIcon />
                 </Table.Cell>

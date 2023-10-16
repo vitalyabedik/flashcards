@@ -1,34 +1,28 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 
-import { CardType, EditCardForm } from './editCardForm'
-import { EditCardFormValues } from './editCardForm/useEditCard'
-
-import { Modal, OptionType } from '@/components'
+import { Card, EditCardModal, useUpdateCardMutation } from '@/features'
 
 type Props = {
+  card: Card
   trigger: ReactNode
-  card: CardType
-  placeholder: ReactNode
-  options: OptionType[]
-  onSubmit: (data: EditCardFormValues) => void
 }
-
-export const EditCard = ({ trigger, card, placeholder, options, onSubmit }: Props): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(true)
-
-  const closeModal = () => {
-    setIsOpen(false)
+export const EditCard = ({ card, trigger }: Props): JSX.Element => {
+  const { id } = card
+  const [updateCard] = useUpdateCardMutation()
+  const updateCardCallBack = (body: FormData) => {
+    updateCard({ id, body })
   }
 
   return (
-    <Modal trigger={trigger} open={isOpen} setOpen={setIsOpen} title="Edit Card">
-      <EditCardForm
-        card={card}
-        placeholder={placeholder}
-        options={options}
-        onSubmit={onSubmit}
-        closeModal={closeModal}
-      />
-    </Modal>
+    <EditCardModal
+      trigger={trigger}
+      card={card}
+      placeholder={'Data format type'}
+      options={[
+        { value: 'text', title: 'Text' },
+        { value: 'picture', title: 'Picture' },
+      ]}
+      onSubmit={updateCardCallBack}
+    />
   )
 }

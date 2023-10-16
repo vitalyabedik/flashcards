@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { AddCardModal } from './AddCardModal.tsx'
+import { AddCardModal } from './AddCardModal'
 
 import { Button, OptionType } from '@/components'
 

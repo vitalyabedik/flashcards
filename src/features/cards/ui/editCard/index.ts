@@ -1,1 +1,1 @@
-export * from './EditCard'
+export * from './editCardModal/EditCardModal.tsx'
