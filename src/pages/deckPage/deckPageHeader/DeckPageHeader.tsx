@@ -4,8 +4,9 @@ import s from './DeckPageHeader.module.scss'
 
 import { Route, TypographyVariant } from '@/common'
 import { Button, Dropdown, Typography } from '@/components'
-import { AddCardModal, GetDeckResponseType } from '@/features'
+import { GetDeckResponseType } from '@/features'
 import { DeckManageTools } from '@/pages'
+import { AddNewCard } from '@pages/deckPage/addNewCard/AddNewCard.tsx'
 
 type Props = {
   isOwner: boolean
@@ -24,23 +25,7 @@ export const DeckPageHeader = ({ isOwner, deck }: Props): JSX.Element => {
           </Dropdown>
         )}
       </div>
-      {isOwner && !!deck.cardsCount && (
-        <AddCardModal
-          trigger={
-            <Button>
-              <Typography variant={TypographyVariant.Subtitle2} as="span">
-                Add New Card
-              </Typography>
-            </Button>
-          }
-          placeholder="Format type"
-          options={[
-            { value: 'text', title: 'Text' },
-            { value: 'picture', title: 'Picture' },
-          ]}
-          onSubmit={() => console.log(1)}
-        />
-      )}
+      {isOwner && !!deck.cardsCount && <AddNewCard id={deck.id} />}
       {!isOwner && (
         <Button as={Link} to={`${Route.Decks}/${deck.id}/learn`}>
           <Typography variant={TypographyVariant.Subtitle2} as="span">
