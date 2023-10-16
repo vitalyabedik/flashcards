@@ -1,7 +1,7 @@
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
-import { formatSortedString, useAppDispatch, useAppSelector } from '@/common'
+import { formatSortedString, useAppDispatch, useAppSelector, useDebounce } from '@/common'
 import { Page, Pagination, Panel, Sort } from '@/components'
 import {
   DecksTable,
@@ -30,11 +30,12 @@ export const DecksPage = (): JSX.Element => {
 
   const dispatch = useAppDispatch()
 
+  const debouncedSearchName = useDebounce(searchName, 1500)
   const sortedString = formatSortedString(sortOptions)
 
   const { data: user } = useMeQuery()
   const { currentData: decks } = useGetDecksQuery({
-    name: searchName,
+    name: debouncedSearchName,
     authorId,
     minCardsCount: sliderValues[0],
     maxCardsCount: sliderValues[1],
