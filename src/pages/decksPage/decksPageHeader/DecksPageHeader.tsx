@@ -1,13 +1,18 @@
 import s from './DecksPageHeader.module.scss'
 
-import { TypographyVariant } from '@/common'
+import { TypographyVariant, useAppDispatch } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddDeckModal, useCreateDeckMutation } from '@/features'
+import { AddDeckModal, decksActions, useCreateDeckMutation } from '@/features'
 
 export const DecksPageHeader = (): JSX.Element => {
+  const { setCurrentPage } = decksActions
+
+  const dispatch = useAppDispatch()
+
   const [createDeck] = useCreateDeckMutation()
 
   const createDeckCallback = (data: FormData) => {
+    dispatch(setCurrentPage({ currentPage: 1 }))
     createDeck(data)
   }
 

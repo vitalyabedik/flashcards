@@ -24,7 +24,15 @@ export const DecksPage = (): JSX.Element => {
     onChangeCurrentPageCallback,
   } = useDecksOptions()
 
-  const debouncedSearchName = useDebounce(searchName, 1500)
+  let delay
+
+  if (searchName === '') {
+    delay = 0
+  } else {
+    delay = 1500
+  }
+
+  const debouncedSearchName = useDebounce(searchName, delay)
   const sortedString = formatSortedString(sortOptions)
 
   const { currentData: decks } = useGetDecksQuery({

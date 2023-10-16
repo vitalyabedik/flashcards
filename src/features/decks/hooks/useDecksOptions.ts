@@ -39,9 +39,11 @@ export const useDecksOptions = () => {
 
   const onSearchCallback = (name: string) => {
     dispatch(setSearchByName({ searchName: name }))
+    dispatch(setCurrentPage({ currentPage: 1 }))
   }
 
   const onChangeTabValueCallback = (tabValue: string) => {
+    dispatch(setCurrentPage({ currentPage: 1 }))
     dispatch(setTabValue({ tabValue }))
 
     if (tabValue === 'my') {
@@ -52,6 +54,7 @@ export const useDecksOptions = () => {
   }
 
   const onChangeSliderValueCallback = (sliderValues: number[]) => {
+    dispatch(setCurrentPage({ currentPage: 1 }))
     dispatch(setSliderValues({ sliderValues }))
   }
 
