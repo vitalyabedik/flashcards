@@ -5,19 +5,30 @@
 
   .cellQuestion,
   .cellAnswer {
-    width: 34rem;
+    width: 32rem;
+
+    .imageWrapper {
+      @include flex($align: center, $gap: 1rem);
+
+      .image {
+        max-width: 16rem;
+        height: 100%;
+        max-height: 6.2rem;
+      }
+    }
   }
 
   .cellUpdated {
-    width: 23rem;
+    width: 20rem;
   }
 
-  .imageWrapper {
+  .cellIcons {
     @include flex($align: center, $gap: 1rem);
+
+    height: 3.6rem;
   }
 
-  .image {
-    max-width: 16rem;
-    max-height: 6.5rem;
+  .cellIconsCover {
+    height: 6.2rem;
   }
 }

@@ -29,7 +29,7 @@ export const DeckForm = ({
   const [cover, setCover] = useState<File | null>(null)
   const [error, setError] = useState<null | string>(null)
 
-  // --- for testing error
+  // --- for toast component error
   console.log(error)
   const { control, handleSubmit } = useDeckForm({
     name: values?.name || '',
@@ -44,10 +44,7 @@ export const DeckForm = ({
 
     formData.append('name', data.name)
     formData.append('isPrivate', `${data.isPrivate}`)
-
-    if (cover) {
-      formData.append('cover', cover || '')
-    }
+    cover && formData.append('cover', cover)
 
     onSubmit(formData)
     onClose()

@@ -4,6 +4,7 @@ import {
   CardsParams,
   CardsResponseType,
   RandomCardRequest,
+  Card,
 } from './cardsApi.types'
 
 import { baseApi } from '@/common'
@@ -14,9 +15,32 @@ export const cardsApi = baseApi.injectEndpoints({
       query: ({ id, params }) => ({
         url: `decks/${id}/cards`,
         method: 'GET',
-        params,
+        params: params,
       }),
       providesTags: ['Cards'],
+    }),
+    createCard: builder.mutation<Card, { id: string; body: FormData }>({
+      query: ({ id, body }) => ({
+        url: `decks/${id}/cards`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Decks', 'Cards', { type: 'Decks', id: 'List' }],
+    }),
+    updateCard: builder.mutation<Card, { id: string; body: FormData }>({
+      query: ({ id, body }) => ({
+        url: `cards/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Cards'],
+    }),
+    deleteCard: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `cards/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({
       query: ({ id, previousCardId }) => ({
@@ -49,4 +73,11 @@ export const cardsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetCardsQuery, useGetRandomCardQuery, useRateCardMutation } = cardsApi
+export const {
+  useGetCardsQuery,
+  useGetRandomCardQuery,
+  useRateCardMutation,
+  useCreateCardMutation,
+  useUpdateCardMutation,
+  useDeleteCardMutation,
+} = cardsApi

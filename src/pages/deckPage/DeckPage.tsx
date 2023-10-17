@@ -6,8 +6,8 @@ import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
-import { Button, GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
-import { CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
+import { AddCard, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -77,7 +77,7 @@ export const DeckPage = (): JSX.Element => {
       )}
       {isOwner && !isCardsData && (
         <Table.Empty>
-          <Button>Add new Card</Button>
+          <AddCard id={id} />
         </Table.Empty>
       )}
       {!isOwner && !isCardsData && (
