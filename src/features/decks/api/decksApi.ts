@@ -9,7 +9,8 @@ import {
   GetDeckResponseType,
 } from './decksApi.types'
 
-import { baseApi } from '@/common'
+import { RootState } from '@/app'
+import { baseApi, updateDecksQueryData } from '@/common'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -22,11 +23,26 @@ export const decksApi = baseApi.injectEndpoints({
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<DeckType, FormData>({
-      query: params => ({
+      query: body => ({
         url: 'decks',
         method: 'POST',
-        body: params,
+        body,
       }),
+      async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+
+        try {
+          const response = await queryFulfilled
+
+          dispatch(
+            decksApi.util.updateQueryData('getDecks', updateDecksQueryData(state), draft => {
+              draft.items.unshift(response.data)
+            })
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
     deleteDeck: builder.mutation<DeleteDeckResponseType, DeleteDeckParamsType>({
@@ -34,6 +50,25 @@ export const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'DELETE',
       }),
+      async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData('getDecks', updateDecksQueryData(state), draft => {
+            const index = draft?.items?.findIndex(deck => deck.id === id)
+
+            if (index !== -1) {
+              draft?.items?.splice(index, 1)
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
     updateDeck: builder.mutation<DeckType, UpdateDeckParamsType>({
@@ -42,6 +77,36 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body,
       }),
+      async onQueryStarted({ id, body }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData('getDecks', updateDecksQueryData(state), draft => {
+            const index = draft.items.findIndex(deck => deck.id === id)
+
+            const name = body.get('name')
+            const isPrivate = body.get('isPrivate')
+            const cover = URL.createObjectURL(body.get('cover') as Blob)
+
+            if (index !== -1) {
+              draft.items[index] = {
+                ...draft.items[index],
+                name: typeof name === 'string' ? name : '',
+                isPrivate: !!isPrivate,
+                cover: cover,
+              }
+            }
+
+            // URL.revokeObjectURL(cover)
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
     getDeck: builder.query<GetDeckResponseType, GetDeckParamsType>({
