@@ -1,6 +1,6 @@
 import { Control } from 'react-hook-form'
 
-import { CardFormValues } from '../useAddForm'
+import { CardFormValuesType } from '../useAddForm'
 
 import s from './CardFormField.module.scss'
 
@@ -13,7 +13,7 @@ type Props = {
   imageUrl: string | null | undefined
   name: 'question' | 'answer'
   label: string
-  control: Control<CardFormValues>
+  control: Control<CardFormValuesType>
   onLoadCover: (data: File) => void
   onLoadError: (error: string) => void
 }
