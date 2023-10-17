@@ -16,7 +16,7 @@ type Props = {
   deck: GetDeckResponseType
 }
 
-export const DeckManageTools = ({ isOwner, variant, deck }: Props) => {
+export const DeckManageTools = ({ isOwner, variant, deck }: Props): JSX.Element => {
   const { id, name, isPrivate, cover } = deck
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()

@@ -4,7 +4,7 @@ import s from './DeckPageHeader.module.scss'
 
 import { Route, TypographyVariant } from '@/common'
 import { Button, Dropdown, Typography } from '@/components'
-import { GetDeckResponseType } from '@/features'
+import { AddCard, GetDeckResponseType } from '@/features'
 import { DeckManageTools } from '@/pages'
 
 type Props = {
@@ -24,13 +24,7 @@ export const DeckPageHeader = ({ isOwner, deck }: Props): JSX.Element => {
           </Dropdown>
         )}
       </div>
-      {isOwner && !!deck.cardsCount && (
-        <Button>
-          <Typography variant={TypographyVariant.Subtitle2} as="span">
-            Add New Card
-          </Typography>
-        </Button>
-      )}
+      {isOwner && !!deck.cardsCount && <AddCard id={deck.id} />}
       {!isOwner && (
         <Button as={Link} to={`${Route.Decks}/${deck.id}/learn`}>
           <Typography variant={TypographyVariant.Subtitle2} as="span">

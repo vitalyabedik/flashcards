@@ -1,34 +1,33 @@
-import { ReactNode, useState } from 'react'
-
-import { AddCardForm, CardType } from './addCardForm'
-import { AddCardFormValues } from './addCardForm/useAddCard'
-
-import { Modal, OptionType } from '@/components'
+import { TypographyVariant } from '@/common'
+import { Button, Typography } from '@/components'
+import { AddCardModal, useCreateCardMutation } from '@/features'
 
 type Props = {
-  trigger: ReactNode
-  card: CardType
-  placeholder: ReactNode
-  options: OptionType[]
-  onSubmit: (data: AddCardFormValues) => void
+  id: string
 }
 
-export const AddCard = ({ trigger, card, placeholder, options, onSubmit }: Props): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(true)
+export const AddCard = ({ id }: Props): JSX.Element => {
+  const [createCard] = useCreateCardMutation()
 
-  const closeModal = () => {
-    setIsOpen(false)
+  const createCardCallback = (body: FormData) => {
+    createCard({ id, body })
   }
 
   return (
-    <Modal trigger={trigger} open={isOpen} setOpen={setIsOpen} title="Add New Card">
-      <AddCardForm
-        card={card}
-        placeholder={placeholder}
-        options={options}
-        onSubmit={onSubmit}
-        closeModal={closeModal}
-      />
-    </Modal>
+    <AddCardModal
+      trigger={
+        <Button>
+          <Typography variant={TypographyVariant.Subtitle2} as="span">
+            Add New Card
+          </Typography>
+        </Button>
+      }
+      placeholder="Data format type"
+      options={[
+        { value: 'text', title: 'Text' },
+        { value: 'picture', title: 'Picture' },
+      ]}
+      onSubmit={createCardCallback}
+    />
   )
 }

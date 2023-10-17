@@ -1,0 +1,16 @@
+@import '@styles/mixins';
+
+.form {
+  width: 100%;
+  padding: 2.4rem 2.4rem 3.6rem;
+
+  .selectItem {
+    margin-bottom: 2.4rem;
+  }
+
+  .actionBlock {
+    @include flex($justify: space-between, $align: center);
+
+    padding-top: 3.6rem;
+  }
+}
