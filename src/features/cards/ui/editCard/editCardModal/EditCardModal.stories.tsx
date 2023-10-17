@@ -23,11 +23,11 @@ export const Default: Story = {
   args: {
     trigger: <IconButton icon={<EditIcon />} size={1.6} />,
     options: initialState,
-    card: {
-      question: `"How "This" works in JavaScript?`,
-      answer: `This is how "This" works in JavaScript`,
-      questionImg: 'https://placehold.co/490x120',
-      answerImg: 'https://placehold.co/490x120',
+    cardValues: {
+      question: 'What is JS',
+      answer: 'It is programming language',
+      answerImg: null,
+      questionImg: null,
     },
   },
 }
