@@ -116,7 +116,7 @@ export const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'GET',
       }),
-      /*providesTags: ['Decks'],*/
+      providesTags: ['Decks'],
     }),
   }),
 })

@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import s from './DecksPageHeader.module.scss'
 
 import { TypographyVariant, useAppDispatch } from '@/common'
@@ -14,6 +16,10 @@ export const DecksPageHeader = (): JSX.Element => {
   const createDeckCallback = (data: FormData) => {
     dispatch(setCurrentPage({ currentPage: 1 }))
     createDeck(data)
+      .unwrap()
+      .catch(e => {
+        toast.error(e.data.errorMessages[0].message)
+      })
   }
 
   return (
