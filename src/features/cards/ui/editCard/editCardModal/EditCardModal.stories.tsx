@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { EditCardModal } from './EditCardModal.tsx'
@@ -29,5 +30,7 @@ export const Default: Story = {
       answerImg: null,
       questionImg: null,
     },
+    placeholder: 'Data format type',
+    onSubmit: (data: FormData) => action('Update with data')(data),
   },
 }
