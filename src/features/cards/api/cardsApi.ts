@@ -4,9 +4,8 @@ import {
   CardsParams,
   CardsResponseType,
   RandomCardRequest,
-  Card
+  Card,
 } from './cardsApi.types'
-
 
 import { baseApi } from '@/common'
 
@@ -41,7 +40,7 @@ export const cardsApi = baseApi.injectEndpoints({
         url: `cards/${id}`,
         method: 'DELETE',
       }),
-      providesTags: ['Cards'],
+      invalidatesTags: ['Cards'],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({
       query: ({ id, previousCardId }) => ({
@@ -74,5 +73,11 @@ export const cardsApi = baseApi.injectEndpoints({
   }),
 })
 
-
-export const { useGetCardsQuery, useGetRandomCardQuery, useRateCardMutation,   useCreateCardMutation, useUpdateCardMutation,   useDeleteCardMutation,} = cardsApi
+export const {
+  useGetCardsQuery,
+  useGetRandomCardQuery,
+  useRateCardMutation,
+  useCreateCardMutation,
+  useUpdateCardMutation,
+  useDeleteCardMutation,
+} = cardsApi
