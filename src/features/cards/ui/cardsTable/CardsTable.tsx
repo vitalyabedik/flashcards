@@ -1,10 +1,13 @@
+import cn from 'classnames'
+
+import { EditCard } from '../editCard'
+
 import s from './CardsTable.module.scss'
 
 import { DeleteIcon, EditIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { Rating, Sort, Table, TableHeader, Typography } from '@/components'
+import { IconButton, Rating, Sort, Table, TableHeader, Typography } from '@/components'
 import { Card, getCardsColumnsData } from '@/features'
-import { EditCard } from '@features/cards/ui/editCard/EditCard.tsx'
 
 type Props = {
   isOwner: boolean
@@ -18,6 +21,11 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
       <TableHeader columns={getCardsColumnsData(isOwner)} sort={sort} onSort={onSort} />
       <Table.Body>
         {cards.map(card => {
+          const cellIconClassName = cn(
+            s.cellIcons,
+            (card.answerImg || card.questionImg) && s.cellIconsCover
+          )
+
           return (
             <Table.Row key={card.id}>
               <Table.Cell className={s.cellQuestion}>
@@ -41,14 +49,13 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
                   {formatDate(card.updated)}
                 </Typography>
               </Table.Cell>
-              <Table.Cell className={s.cellGrade}>
+              <Table.Cell>
                 <Rating rating={card.rating} />
               </Table.Cell>
               {isOwner && (
-                <Table.Cell className={s.cellIcons}>
-                  <EditCard card={card} trigger={<EditIcon />} />
-
-                  <DeleteIcon />
+                <Table.Cell className={cellIconClassName}>
+                  <EditCard card={card} trigger={<IconButton icon={<EditIcon />} size={1.6} />} />
+                  <IconButton icon={<DeleteIcon />} size={1.6} />
                 </Table.Cell>
               )}
             </Table.Row>
