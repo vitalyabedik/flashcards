@@ -13,7 +13,7 @@ const meta: Meta<typeof AddCardModal> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const initialState: OptionType[] = [
+const options: OptionType[] = [
   { value: 'text', title: 'Text' },
   { value: 'picture', title: 'Picture' },
 ]
@@ -21,6 +21,6 @@ const initialState: OptionType[] = [
 export const Default: Story = {
   args: {
     trigger: <Button>Add New Card</Button>,
-    options: initialState,
+    options,
   },
 }
