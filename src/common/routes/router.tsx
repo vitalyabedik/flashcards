@@ -4,7 +4,7 @@ import { PrivateRoutes } from './PrivateRoutes.tsx'
 import { privateRoutes, publicRoutes } from './routerSettings.tsx'
 
 import { Route } from '@/common'
-import { Header } from '@/components'
+import { Header, Toast } from '@/components'
 import { useLogoutMutation, useMeQuery } from '@/features'
 
 const AppLayout = () => {
@@ -15,6 +15,7 @@ const AppLayout = () => {
 
   return (
     <>
+      <Toast />
       <Header
         name={data?.name}
         avatar={data?.avatar}

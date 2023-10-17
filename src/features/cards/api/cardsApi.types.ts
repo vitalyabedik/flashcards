@@ -30,3 +30,13 @@ export type CardsParams = {
   currentPage?: number
   itemsPerPage?: number
 }
+export type CardResponse = Omit<Card, 'userId'>
+export type RandomCardRequest = {
+  id: string
+  previousCardId?: string
+}
+export type CardRateRequest = {
+  deckId: string
+  cardId: string
+  grade: number
+}
