@@ -4,9 +4,8 @@ import s from './DeckPageHeader.module.scss'
 
 import { Route, TypographyVariant } from '@/common'
 import { Button, Dropdown, Typography } from '@/components'
-import { GetDeckResponseType } from '@/features'
+import { AddCard, GetDeckResponseType } from '@/features'
 import { DeckManageTools } from '@/pages'
-import { AddCard } from '@features/cards/ui/addCard/AddCard.tsx'
 
 type Props = {
   isOwner: boolean

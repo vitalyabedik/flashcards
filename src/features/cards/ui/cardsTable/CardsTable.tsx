@@ -1,13 +1,10 @@
 import cn from 'classnames'
 
-import { EditCard } from '../editCard'
-
 import s from './CardsTable.module.scss'
 
-import { DeleteIcon, EditIcon } from '@/assets'
 import { formatDate, TypographyVariant } from '@/common'
-import { IconButton, Rating, Sort, Table, TableHeader, Typography } from '@/components'
-import { Card, getCardsColumnsData } from '@/features'
+import { Rating, Sort, Table, TableHeader, Typography } from '@/components'
+import { Card, DeleteCard, EditCard, getCardsColumnsData } from '@/features'
 
 type Props = {
   isOwner: boolean
@@ -54,8 +51,8 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
               </Table.Cell>
               {isOwner && (
                 <Table.Cell className={cellIconClassName}>
-                  <EditCard card={card} trigger={<IconButton icon={<EditIcon />} size={1.6} />} />
-                  <IconButton icon={<DeleteIcon />} size={1.6} />
+                  <EditCard card={card} />
+                  <DeleteCard id={card.id} />
                 </Table.Cell>
               )}
             </Table.Row>

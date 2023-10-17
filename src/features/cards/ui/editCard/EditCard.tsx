@@ -1,12 +1,11 @@
-import { ReactNode } from 'react'
-
+import { EditIcon } from '@/assets'
+import { IconButton } from '@/components'
 import { Card, EditCardModal, useUpdateCardMutation } from '@/features'
 
 type Props = {
   card: Card
-  trigger: ReactNode
 }
-export const EditCard = ({ card, trigger }: Props): JSX.Element => {
+export const EditCard = ({ card }: Props): JSX.Element => {
   const { id, answer, answerImg, question, questionImg } = card
 
   const [updateCard] = useUpdateCardMutation()
@@ -16,7 +15,7 @@ export const EditCard = ({ card, trigger }: Props): JSX.Element => {
 
   return (
     <EditCardModal
-      trigger={trigger}
+      trigger={<IconButton icon={<EditIcon />} size={1.6} />}
       placeholder={'Data format type'}
       cardValues={{ answer, question, answerImg, questionImg }}
       options={[

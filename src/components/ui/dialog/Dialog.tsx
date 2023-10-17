@@ -68,7 +68,7 @@ const getDialogText = (action: ActionDialog, itemName?: string) => {
     ),
     removeCard: (
       <>
-        Do you really want to remove <b>{itemName}?</b> <br></br>Card will be deleted.
+        Do you really want to remove this card from deck. <br></br>Card will be deleted.
       </>
     ),
   }
