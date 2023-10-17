@@ -9,10 +9,10 @@ const addCardSchema = z.object({
   answer: z.string().min(3, 'Use 3 characters or more for your answer').trim(),
 })
 
-export type CardFormValues = z.infer<typeof addCardSchema>
-type DefaultCardVAlueType = Omit<CardFormValues, 'answerFormat' | 'questionFormat'>
-export const useCardForm = (defaultValues: DefaultCardVAlueType) =>
-  useForm<CardFormValues>({
+export type CardFormValuesType = z.infer<typeof addCardSchema>
+type DefaultCardValueType = Omit<CardFormValuesType, 'answerFormat' | 'questionFormat'>
+export const useCardForm = (defaultValues: DefaultCardValueType) =>
+  useForm<CardFormValuesType>({
     resolver: zodResolver(addCardSchema),
     defaultValues: {
       questionFormat: 'text',

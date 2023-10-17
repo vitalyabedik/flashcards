@@ -21,7 +21,7 @@ const options: OptionType[] = [
 
 export const DefaultEditCardModal: Story = {
   args: {
-    trigger: <IconButton icon={<EditIcon size={1.6} />} />,
+    trigger: <IconButton size={1.6} icon={<EditIcon />} />,
     options,
     cardValues: {
       question: 'What is JS',

@@ -40,7 +40,7 @@ export const cardsApi = baseApi.injectEndpoints({
         url: `cards/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Cards'],
+      invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({
       query: ({ id, previousCardId }) => ({

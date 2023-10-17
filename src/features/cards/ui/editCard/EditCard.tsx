@@ -16,7 +16,7 @@ export const EditCard = ({ card }: Props): JSX.Element => {
   return (
     <EditCardModal
       trigger={<IconButton icon={<EditIcon />} size={1.6} />}
-      placeholder={'Data format type'}
+      placeholder="Data format type"
       cardValues={{ answer, question, answerImg, questionImg }}
       options={[
         { value: 'text', title: 'Text' },

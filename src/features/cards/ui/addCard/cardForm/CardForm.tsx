@@ -4,7 +4,7 @@ import { DevTool } from '@hookform/devtools'
 
 import s from './CardForm.module.scss'
 import { CardFormField } from './CardFormField'
-import { CardFormValues, useCardForm } from './useAddForm'
+import { CardFormValuesType, useCardForm } from './useAddForm'
 
 import { ButtonVariant, TypographyVariant } from '@/common'
 import { Button, ControlledSelect, OptionType, Typography } from '@/components'
@@ -57,7 +57,7 @@ export const CardForm = ({
     : cardValues?.questionImg
   const answerImageUrl = answerCover ? URL.createObjectURL(answerCover) : cardValues?.questionImg
 
-  const onSubmitHandler = (data: CardFormValues) => {
+  const onSubmitHandler = (data: CardFormValuesType) => {
     const formData = new FormData()
 
     formData.append('question', data.question)
