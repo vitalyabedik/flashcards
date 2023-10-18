@@ -1,10 +1,10 @@
 import {
+  Card,
   CardRateRequest,
   CardResponse,
   CardsParams,
   CardsResponseType,
   RandomCardRequest,
-  Card,
 } from './cardsApi.types'
 
 import { baseApi } from '@/common'
