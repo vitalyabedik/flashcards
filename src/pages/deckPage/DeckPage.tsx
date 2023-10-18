@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { useParams } from 'react-router-dom'
 
@@ -6,8 +6,16 @@ import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
+import { useAppDispatch, useAppSelector } from '@/common'
 import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
-import { AddCard, CardsTable, useGetCardsQuery, useGetDeckQuery, useMeQuery } from '@/features'
+import {
+  AddCard,
+  cardsActions,
+  CardsTable,
+  useGetCardsQuery,
+  useGetDeckQuery,
+  useMeQuery,
+} from '@/features'
 // Вынести  отдельно, повторяется в Decks Page
 const optionValues = [
   { value: '10', title: '10' },
@@ -19,10 +27,13 @@ const optionValues = [
 
 export const DeckPage = (): JSX.Element => {
   const { id = '' } = useParams<{ id: string }>()
-  const [question, setQuestion] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [sort, setSort] = useState<Sort>(null)
+
+  const dispatch = useAppDispatch()
+
+  const question = useAppSelector(data => data.cards.question)
+  const currentPage = useAppSelector(data => data.cards.currentPage)
+  const itemsPerPage = useAppSelector(data => data.cards.pageSize)
+  const sort = useAppSelector(data => data.cards.sortData)
 
   const orderBy =
     useMemo(() => {
@@ -42,12 +53,20 @@ export const DeckPage = (): JSX.Element => {
   const isOwner = user?.id === deck?.userId
   const isCardsData = deckData?.items.length
 
-  const onPageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber)
+  const onChangePage = (currentPage: number) => {
+    dispatch(cardsActions.setCurrentPage({ currentPage }))
   }
 
-  const onPageSizeChange = (value: string) => {
-    setItemsPerPage(Number(value))
+  const onChangePageSize = (value: string) => {
+    dispatch(cardsActions.setPageSize({ pageSize: Number(value) }))
+  }
+
+  const onChangeQuestion = (searchQuestion: string) => {
+    dispatch(cardsActions.setSearchByQuestion({ searchQuestion }))
+  }
+
+  const onChangeSort = (sortData: Sort) => {
+    dispatch(cardsActions.setSortOrderBy({ sortData }))
   }
 
   return (
@@ -60,16 +79,16 @@ export const DeckPage = (): JSX.Element => {
             className={s.input}
             leftIcon={<SearchIcon size={2} />}
             value={question}
-            onChangeValue={setQuestion}
+            onChangeValue={onChangeQuestion}
             placeholder="Input search"
           />
-          <CardsTable isOwner={isOwner} cards={deckData.items} sort={sort} onSort={setSort} />
+          <CardsTable isOwner={isOwner} cards={deckData.items} sort={sort} onSort={onChangeSort} />
           <Pagination
             totalCount={deckData.pagination.totalItems}
             pageSize={itemsPerPage}
             currentPage={currentPage}
-            onPageChange={onPageChange}
-            onValueChange={onPageSizeChange}
+            onPageChange={onChangePage}
+            onValueChange={onChangePageSize}
             value={String(itemsPerPage)}
             options={optionValues}
           />
