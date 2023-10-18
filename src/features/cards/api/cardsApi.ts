@@ -9,6 +9,7 @@ import {
   RandomCardRequest,
 } from './cardsApi.types'
 
+import { RootState } from '@/app'
 import { baseApi } from '@/common'
 
 export const cardsApi = baseApi.injectEndpoints({
@@ -27,9 +28,18 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+        const question = state.cards.question
+        const currentPage = state.cards.currentPage
+        const itemsPerPage = state.cards.pageSize
+        const orderBy =
+          state.cards.sortData === null
+            ? 'updated-desc'
+            : `${state.cards.sortData.key}-${state.cards.sortData.direction}`
+
         try {
-          const { data } = await queryFulfilled
+          await queryFulfilled
 
           dispatch(
             cardsApi.util.updateQueryData(
@@ -37,15 +47,14 @@ export const cardsApi = baseApi.injectEndpoints({
               {
                 id: args.id,
                 params: {
-                  currentPage: 1,
-                  itemsPerPage: 10,
-                  orderBy: 'updated-desc',
-                  question: '',
+                  question,
+                  orderBy,
+                  currentPage,
+                  itemsPerPage,
                 },
               },
               draft => {
-                console.log(current(draft))
-                draft.items.unshift(data)
+                draft.items = []
               }
             )
           )
