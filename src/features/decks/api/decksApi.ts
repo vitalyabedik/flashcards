@@ -80,13 +80,15 @@ export const decksApi = baseApi.injectEndpoints({
       async onQueryStarted({ id, body }, { dispatch, getState, queryFulfilled }) {
         const state = getState() as RootState
 
+        let cover = ''
         const patchResult = dispatch(
           decksApi.util.updateQueryData('getDecks', updateDecksQueryData(state), draft => {
             const index = draft.items.findIndex(deck => deck.id === id)
 
             const name = body.get('name')
             const isPrivate = body.get('isPrivate')
-            const cover = URL.createObjectURL(body.get('cover') as Blob)
+
+            cover = URL.createObjectURL(body.get('cover') as Blob)
 
             if (index !== -1) {
               draft.items[index] = {
@@ -96,8 +98,6 @@ export const decksApi = baseApi.injectEndpoints({
                 cover: cover,
               }
             }
-
-            // URL.revokeObjectURL(cover)
           })
         )
 
@@ -105,6 +105,8 @@ export const decksApi = baseApi.injectEndpoints({
           await queryFulfilled
         } catch {
           patchResult.undo()
+        } finally {
+          URL.revokeObjectURL(cover)
         }
       },
       invalidatesTags: ['Decks'],
