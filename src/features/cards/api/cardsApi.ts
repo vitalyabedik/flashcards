@@ -1,3 +1,5 @@
+import { current } from '@reduxjs/toolkit'
+
 import {
   Card,
   CardRateRequest,
@@ -25,6 +27,32 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+
+          dispatch(
+            cardsApi.util.updateQueryData(
+              'getCards',
+              {
+                id: args.id,
+                params: {
+                  currentPage: 1,
+                  itemsPerPage: 10,
+                  orderBy: 'updated-desc',
+                  question: '',
+                },
+              },
+              draft => {
+                console.log(current(draft))
+                draft.items.unshift(data)
+              }
+            )
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      },
       invalidatesTags: ['Decks', 'Cards', { type: 'Decks', id: 'List' }],
     }),
     updateCard: builder.mutation<Card, { id: string; body: FormData }>({
