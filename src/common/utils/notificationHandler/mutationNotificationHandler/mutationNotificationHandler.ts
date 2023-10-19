@@ -2,17 +2,21 @@ import { toast } from 'react-toastify'
 
 export const mutationNotificationHandler = async (
   request: Promise<any>,
-  successMessage: string
+  successMessage?: string
 ) => {
-  const result = await request
+  try {
+    const result = await request
+    const error = result.error?.data
 
-  if ('data' in result) {
-    toast.success(successMessage)
-  }
+    if ('data' in result && successMessage) {
+      toast.success(successMessage)
+    } else if ('error' in result) {
+      let errorMessage =
+        error?.errorMessages?.[0]?.message || error?.message || 'Some error occurred'
 
-  if ('error' in result) {
-    const errorMessage = result.error.data.errorMessages[0].message
-
-    toast.error(errorMessage)
+      toast.error(errorMessage)
+    }
+  } catch (error) {
+    toast.error('Some error occurred')
   }
 }
