@@ -5,7 +5,6 @@ import { Loading } from '@/assets'
 import { formatSortedString, useDebounce } from '@/common'
 import { Page, Pagination, Panel } from '@/components'
 import { DecksTable, useDecksOptions, useGetDecksQuery } from '@/features'
-import { toast } from 'react-toastify'
 
 export const DecksPage = (): JSX.Element => {
   const {
@@ -41,7 +40,6 @@ export const DecksPage = (): JSX.Element => {
     currentData: decks,
     isLoading,
     isFetching,
-    error,
   } = useGetDecksQuery({
     name: debouncedSearchName,
     authorId,
@@ -51,10 +49,6 @@ export const DecksPage = (): JSX.Element => {
     itemsPerPage: pageSize,
     currentPage,
   })
-
-  if (error) {
-    toast.error(error.data)
-  }
 
   return (
     <Page className={s.root}>
