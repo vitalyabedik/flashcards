@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Sort } from '@/components'
 
+type PaginationOptions = { value: string; title: string }[]
+
 const initialState = {
   currentPage: 1,
   pageSize: 10,
@@ -11,7 +13,7 @@ const initialState = {
     { value: '5', title: '5' },
     { value: '10', title: '10' },
     { value: '15', title: '15' },
-  ],
+  ] as PaginationOptions,
 }
 
 export const cardsSlice = createSlice({

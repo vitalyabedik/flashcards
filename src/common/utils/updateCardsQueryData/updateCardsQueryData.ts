@@ -2,9 +2,9 @@ import { RootState } from '@/app'
 import { formatSortedString } from '@/common'
 
 export const updateCardsQueryData = (state: RootState) => {
-  const { question, currentPage, pageSize, sortData } = state.cards
+  const { question, currentPage, pageSize, sortParams } = state.cards
 
-  const sortedString = formatSortedString(sortData)
+  const sortedString = formatSortedString(sortParams)
 
   return {
     question,

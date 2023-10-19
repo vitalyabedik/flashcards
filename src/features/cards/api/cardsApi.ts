@@ -26,16 +26,51 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-
       invalidatesTags: ['Cards', 'Decks', { type: 'Decks', id: 'List' }],
     }),
-    updateCard: builder.mutation<Card, { id: string; body: FormData }>({
-      query: ({ id, body }) => ({
-        url: `cards/${id}`,
+    updateCard: builder.mutation<Card, { cardId: string; deckId: string; body: FormData }>({
+      query: ({ cardId, body }) => ({
+        url: `cards/${cardId}`,
         method: 'PATCH',
         body,
       }),
-      invalidatesTags: ['Cards'],
+      async onQueryStarted({ cardId, deckId, body }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+
+        const patchResult = dispatch(
+          cardsApi.util.updateQueryData(
+            'getCards',
+            {
+              id: deckId,
+              params: updateCardsQueryData(state),
+            },
+            draft => {
+              const index = draft.items.findIndex(card => card.id === cardId)
+
+              if (index !== -1) {
+                const questionFormData = body.get('question')
+                const question = typeof questionFormData === 'string' ? questionFormData : ''
+                const answerFormData = body.get('answer')
+                const answer = typeof answerFormData === 'string' ? answerFormData : ''
+                const updatedCard = {
+                  question,
+                  answer,
+                  questionImg: URL.createObjectURL(body.get('questionImg') as Blob),
+                  answerImg: URL.createObjectURL(body.get('answerImg') as Blob),
+                }
+
+                draft.items[index] = { ...draft.items[index], ...updatedCard }
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          patchResult.undo()
+        }
+      },
     }),
     deleteCard: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
