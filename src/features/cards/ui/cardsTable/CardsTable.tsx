@@ -52,7 +52,7 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
               {isOwner && (
                 <Table.Cell className={cellIconClassName}>
                   <EditCard card={card} />
-                  <DeleteCard id={card.id} />
+                  <DeleteCard cardId={card.id} deckId={card.deckId} />
                 </Table.Cell>
               )}
             </Table.Row>

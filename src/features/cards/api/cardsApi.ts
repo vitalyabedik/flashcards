@@ -8,9 +8,8 @@ import {
 } from './cardsApi.types'
 
 import { RootState } from '@/app'
-import { baseApi, getTextFromFormData, updateCardsQueryData } from '@/common'
+import { baseApi, getTextFromFormData, getFileFromFormData, updateCardsQueryData } from '@/common'
 import { CardValues } from '@/features'
-import { getFileFromFormData } from '@common/utils/getFileFromFormData'
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -79,12 +78,38 @@ export const cardsApi = baseApi.injectEndpoints({
           patchResult.undo()
         }
       },
+      invalidatesTags: ['Cards'],
     }),
-    deleteCard: builder.mutation<void, { id: string }>({
-      query: ({ id }) => ({
-        url: `cards/${id}`,
+    deleteCard: builder.mutation<void, { cardId: string; deckId: string }>({
+      query: ({ cardId }) => ({
+        url: `cards/${cardId}`,
         method: 'DELETE',
       }),
+      async onQueryStarted({ cardId, deckId }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+        const deleteResult = dispatch(
+          cardsApi.util.updateQueryData(
+            'getCards',
+            {
+              id: deckId,
+              params: updateCardsQueryData(state),
+            },
+            draft => {
+              const index = draft.items.findIndex(card => card.id === cardId)
+
+              if (index !== -1) {
+                draft.items = draft.items.filter((_, cardIndex) => cardIndex !== index)
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          deleteResult.undo()
+        }
+      },
       invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({
