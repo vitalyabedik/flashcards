@@ -10,7 +10,7 @@ export const AddCard = ({ id }: Props): JSX.Element => {
   const [createCard] = useCreateCardMutation()
 
   const createCardCallback = (body: FormData) => {
-    createCard({ id, body })
+    createCard({ id, body }).unwrap()
   }
 
   return (

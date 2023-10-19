@@ -6,7 +6,7 @@ const addCardSchema = z.object({
   questionFormat: z.string().trim(),
   answerFormat: z.string().trim(),
   question: z.string().min(3, 'Use 3 characters or more for your question').trim(),
-  answer: z.string().min(3, 'Use 3 characters or more for your answer').trim(),
+  answer: z.string().min(2, 'Use 3 characters or more for your answer').trim(),
 })
 
 export type CardFormValuesType = z.infer<typeof addCardSchema>

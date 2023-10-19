@@ -8,7 +8,9 @@ import {
 } from './cardsApi.types'
 
 import { RootState } from '@/app'
-import { baseApi, updateCardsQueryData } from '@/common'
+import { baseApi, getTextFromFormData, updateCardsQueryData } from '@/common'
+import { CardValues } from '@/features'
+import { getFileFromFormData } from '@common/utils/getFileFromFormData'
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -48,15 +50,21 @@ export const cardsApi = baseApi.injectEndpoints({
               const index = draft.items.findIndex(card => card.id === cardId)
 
               if (index !== -1) {
-                const questionFormData = body.get('question')
-                const question = typeof questionFormData === 'string' ? questionFormData : ''
-                const answerFormData = body.get('answer')
-                const answer = typeof answerFormData === 'string' ? answerFormData : ''
-                const updatedCard = {
+                const question = getTextFromFormData(body.get('question'))
+                const answer = getTextFromFormData(body.get('answer'))
+                const questionImg = getFileFromFormData(body.get('questionImg'))
+                const answerImg = getFileFromFormData(body.get('answerImg'))
+
+                const updatedCard: Partial<CardValues> = {
                   question,
                   answer,
-                  questionImg: URL.createObjectURL(body.get('questionImg') as Blob),
-                  answerImg: URL.createObjectURL(body.get('answerImg') as Blob),
+                }
+
+                if (questionImg) {
+                  updatedCard.questionImg = URL.createObjectURL(questionImg)
+                }
+                if (answerImg) {
+                  updatedCard.answerImg = URL.createObjectURL(answerImg)
                 }
 
                 draft.items[index] = { ...draft.items[index], ...updatedCard }
