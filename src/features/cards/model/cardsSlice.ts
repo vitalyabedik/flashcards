@@ -6,7 +6,12 @@ const initialState = {
   currentPage: 1,
   pageSize: 10,
   question: '',
-  sortData: null as Sort,
+  sortParams: null as Sort,
+  paginationOptions: [
+    { value: '5', title: '5' },
+    { value: '10', title: '10' },
+    { value: '15', title: '15' },
+  ],
 }
 
 export const cardsSlice = createSlice({
@@ -22,8 +27,8 @@ export const cardsSlice = createSlice({
     setSearchByQuestion: (state, action: PayloadAction<{ searchQuestion: string }>) => {
       state.question = action.payload.searchQuestion
     },
-    setSortOrderBy: (state, action: PayloadAction<{ sortData: Sort }>) => {
-      state.sortData = action.payload.sortData
+    setSortOrderBy: (state, action: PayloadAction<{ sortParams: Sort }>) => {
+      state.sortParams = action.payload.sortParams
     },
   },
 })

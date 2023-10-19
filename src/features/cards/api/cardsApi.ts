@@ -1,5 +1,3 @@
-import { current } from '@reduxjs/toolkit'
-
 import {
   Card,
   CardRateRequest,
@@ -10,7 +8,7 @@ import {
 } from './cardsApi.types'
 
 import { RootState } from '@/app'
-import { baseApi } from '@/common'
+import { baseApi, updateCardsQueryData } from '@/common'
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -28,41 +26,8 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
-        const state = getState() as RootState
-        const question = state.cards.question
-        const currentPage = state.cards.currentPage
-        const itemsPerPage = state.cards.pageSize
-        const orderBy =
-          state.cards.sortData === null
-            ? 'updated-desc'
-            : `${state.cards.sortData.key}-${state.cards.sortData.direction}`
 
-        try {
-          await queryFulfilled
-
-          dispatch(
-            cardsApi.util.updateQueryData(
-              'getCards',
-              {
-                id: args.id,
-                params: {
-                  question,
-                  orderBy,
-                  currentPage,
-                  itemsPerPage,
-                },
-              },
-              draft => {
-                draft.items = []
-              }
-            )
-          )
-        } catch (error) {
-          console.log(error)
-        }
-      },
-      invalidatesTags: ['Decks', 'Cards', { type: 'Decks', id: 'List' }],
+      invalidatesTags: ['Cards', 'Decks', { type: 'Decks', id: 'List' }],
     }),
     updateCard: builder.mutation<Card, { id: string; body: FormData }>({
       query: ({ id, body }) => ({

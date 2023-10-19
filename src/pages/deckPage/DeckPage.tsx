@@ -1,47 +1,36 @@
-import { useMemo } from 'react'
-
 import { useParams } from 'react-router-dom'
 
 import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
-import { useAppDispatch, useAppSelector } from '@/common'
+import { formatSortedString, useAppDispatch, useAppSelector } from '@/common'
 import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
 import {
   AddCard,
   cardsActions,
   CardsTable,
+  selectCardsCurrentPage,
+  selectCardsPageSize,
+  selectCardsPaginationOptions,
+  selectCardsQuestion,
+  selectCardsSortParams,
   useGetCardsQuery,
   useGetDeckQuery,
   useMeQuery,
 } from '@/features'
-// Вынести  отдельно, повторяется в Decks Page
-const optionValues = [
-  { value: '10', title: '10' },
-  { value: '20', title: '20' },
-  { value: '30', title: '30' },
-  { value: '40', title: '40' },
-  { value: '50', title: '50' },
-]
 
 export const DeckPage = (): JSX.Element => {
   const { id = '' } = useParams<{ id: string }>()
 
   const dispatch = useAppDispatch()
 
-  const question = useAppSelector(data => data.cards.question)
-  const currentPage = useAppSelector(data => data.cards.currentPage)
-  const itemsPerPage = useAppSelector(data => data.cards.pageSize)
-  const sort = useAppSelector(data => data.cards.sortData)
-
-  const orderBy =
-    useMemo(() => {
-      if (!sort) return null
-
-      return `${sort.key}-${sort.direction}`
-    }, [sort]) || 'updated-desc'
-
+  const question = useAppSelector(selectCardsQuestion)
+  const currentPage = useAppSelector(selectCardsCurrentPage)
+  const itemsPerPage = useAppSelector(selectCardsPageSize)
+  const sort = useAppSelector(selectCardsSortParams)
+  const paginationOptions = useAppSelector(selectCardsPaginationOptions)
+  const orderBy = formatSortedString(sort)
   const queryParams = {
     id,
     params: { question, orderBy, currentPage, itemsPerPage },
@@ -53,20 +42,17 @@ export const DeckPage = (): JSX.Element => {
   const isOwner = user?.id === deck?.userId
   const isCardsData = deckData?.items.length
 
-  const onChangePage = (currentPage: number) => {
-    dispatch(cardsActions.setCurrentPage({ currentPage }))
-  }
-
-  const onChangePageSize = (value: string) => {
-    dispatch(cardsActions.setPageSize({ pageSize: Number(value) }))
-  }
-
   const onChangeQuestion = (searchQuestion: string) => {
     dispatch(cardsActions.setSearchByQuestion({ searchQuestion }))
   }
-
-  const onChangeSort = (sortData: Sort) => {
-    dispatch(cardsActions.setSortOrderBy({ sortData }))
+  const onChangePage = (currentPage: number) => {
+    dispatch(cardsActions.setCurrentPage({ currentPage }))
+  }
+  const onChangePageSize = (value: string) => {
+    dispatch(cardsActions.setPageSize({ pageSize: Number(value) }))
+  }
+  const onChangeSort = (sortParams: Sort) => {
+    dispatch(cardsActions.setSortOrderBy({ sortParams }))
   }
 
   return (
@@ -90,7 +76,7 @@ export const DeckPage = (): JSX.Element => {
             onPageChange={onChangePage}
             onValueChange={onChangePageSize}
             value={String(itemsPerPage)}
-            options={optionValues}
+            options={paginationOptions}
           />
         </>
       )}
