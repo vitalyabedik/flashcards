@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { Route, TypographyVariant } from '@/common'
-import { Typography } from '@/components'
+import { Loading } from '@/assets'
+import { Route } from '@/common'
 import { useMeQuery } from '@/features'
 
 export const PrivateRoutes = () => {
@@ -9,11 +9,7 @@ export const PrivateRoutes = () => {
   const isAuth = !isError
 
   if (isLoading) {
-    return (
-      <Typography variant={TypographyVariant.Large} as="h1">
-        Loading...
-      </Typography>
-    )
+    return <Loading />
   }
 
   return isAuth ? <Outlet /> : <Navigate to={Route.SignIn} />
