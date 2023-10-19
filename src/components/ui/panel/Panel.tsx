@@ -19,6 +19,7 @@ export type PanelProps = {
   sliderLabel: string
   onChangeSliderValue: (value: number[]) => void
   onClearFilter: () => void
+  isDisabled?: boolean
   className?: string
 }
 
@@ -34,6 +35,7 @@ export const Panel = ({
   onChangeTabValue,
   onChangeSliderValue,
   onClearFilter,
+  isDisabled,
   className,
 }: PanelProps): JSX.Element => {
   const classNames = {
@@ -51,6 +53,7 @@ export const Panel = ({
         onChangeValue={onChangeInputValue}
         placeholder="Input search"
         leftIcon={<SearchIcon />}
+        disabled={isDisabled}
       />
       <Tabs
         className={classNames.tabs}
@@ -58,8 +61,12 @@ export const Panel = ({
         value={tabValue}
         onValueChange={onChangeTabValue}
       >
-        <TabItem value="my">My Cards</TabItem>
-        <TabItem value="all">All Cards</TabItem>
+        <TabItem value="my" disabled={isDisabled}>
+          My Cards
+        </TabItem>
+        <TabItem value="all" disabled={isDisabled}>
+          All Cards
+        </TabItem>
       </Tabs>
       <Slider
         value={sliderValue}
@@ -67,11 +74,13 @@ export const Panel = ({
         min={minSliderValue}
         max={maxSliderValue}
         label={sliderLabel}
+        disabled={isDisabled}
       />
       <Button
         className={classNames.button}
         variant={ButtonVariant.Secondary}
         onClick={onClearFilter}
+        disabled={isDisabled}
       >
         <>
           <DeleteIcon size={1.6} />

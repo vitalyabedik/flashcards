@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
@@ -40,6 +42,8 @@ export const DecksPage = (): JSX.Element => {
     currentData: decks,
     isLoading,
     isFetching,
+    error,
+    isError,
   } = useGetDecksQuery({
     name: debouncedSearchName,
     authorId,
@@ -50,9 +54,27 @@ export const DecksPage = (): JSX.Element => {
     currentPage,
   })
 
+  // if (error && 'error' in error) {
+  //   console.log(error)
+  //   toast.error(error.error)
+  // }
+
+  if (
+    error &&
+    'status' in error &&
+    typeof error.data === 'object' &&
+    error.data &&
+    'message' in error.data
+  ) {
+    console.log(error.data.message)
+    toast.error(error.data.message as string)
+  }
+
+  const isDisabled = isLoading || isFetching || isError
+
   return (
     <Page className={s.root}>
-      <DecksPageHeader />
+      <DecksPageHeader isDisabled={isDisabled} />
       <Panel
         className={s.panelWrapper}
         inputValue={searchName}
@@ -66,8 +88,16 @@ export const DecksPage = (): JSX.Element => {
         sliderLabel="Number of cards"
         onChangeSliderValue={onChangeSliderValueCallback}
         onClearFilter={onClearFilterCallback}
+        isDisabled={isDisabled}
       />
-      {decks && <DecksTable decksData={decks} sort={sortOptions} onSort={onChangeSortCallback} />}
+      {decks && (
+        <DecksTable
+          decksData={decks}
+          sort={sortOptions}
+          onSort={onChangeSortCallback}
+          isDisabled={isDisabled}
+        />
+      )}
       {isFetching && !isLoading && <Loading />}
       {!!decks?.items.length && (
         <Pagination
