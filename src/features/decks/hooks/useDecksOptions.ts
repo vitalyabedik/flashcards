@@ -67,14 +67,7 @@ export const useDecksOptions = () => {
     dispatch(setTabValue({ tabValue: 'all' }))
     dispatch(setSliderValues({ sliderValues: [0, 10] }))
     dispatch(setAuthorId({ authorId: undefined }))
-    dispatch(
-      setSortOptions({
-        sortOptions: {
-          key: 'updated',
-          direction: 'asc',
-        },
-      })
-    )
+    dispatch(setSortOptions({ sortOptions: null }))
   }
 
   const onChangeCurrentPageCallback = (currentPage: number) => {
