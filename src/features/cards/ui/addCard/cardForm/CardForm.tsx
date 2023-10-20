@@ -66,7 +66,9 @@ export const CardForm = ({
     answerCover && formData.append('answerImg', answerCover)
 
     onSubmit(formData)
-    closeModal()
+    if (!questionCoverError || !answerCoverError) {
+      closeModal()
+    }
   }
   const onLoadQuestionCover = (data: File) => {
     setQuestionCover(data)

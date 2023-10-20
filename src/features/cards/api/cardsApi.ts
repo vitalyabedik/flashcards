@@ -37,7 +37,8 @@ export const cardsApi = baseApi.injectEndpoints({
       }),
       async onQueryStarted({ cardId, deckId, body }, { dispatch, getState, queryFulfilled }) {
         const state = getState() as RootState
-
+        let questionImageUrl = ''
+        let answerImageUrl = ''
         const patchResult = dispatch(
           cardsApi.util.updateQueryData(
             'getCards',
@@ -60,10 +61,12 @@ export const cardsApi = baseApi.injectEndpoints({
                 }
 
                 if (questionImg) {
-                  updatedCard.questionImg = URL.createObjectURL(questionImg)
+                  questionImageUrl = URL.createObjectURL(questionImg)
+                  updatedCard.questionImg = questionImageUrl
                 }
                 if (answerImg) {
-                  updatedCard.answerImg = URL.createObjectURL(answerImg)
+                  answerImageUrl = URL.createObjectURL(answerImg)
+                  updatedCard.answerImg = answerImageUrl
                 }
 
                 draft.items[index] = { ...draft.items[index], ...updatedCard }
@@ -76,6 +79,9 @@ export const cardsApi = baseApi.injectEndpoints({
           await queryFulfilled
         } catch (e) {
           patchResult.undo()
+        } finally {
+          URL.revokeObjectURL(questionImageUrl)
+          URL.revokeObjectURL(answerImageUrl)
         }
       },
       invalidatesTags: ['Cards'],
