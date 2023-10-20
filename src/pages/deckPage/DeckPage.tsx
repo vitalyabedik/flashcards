@@ -45,39 +45,40 @@ export const DeckPage = (): JSX.Element => {
   const { data: deckData } = useGetCardsQuery(queryParams)
 
   const isOwner = user?.id === deck?.userId
-  const isCardsData = deck && deck.cardsCount > 0
+  const isEmptyCard = deck && deck.cardsCount > 0
 
   return (
     <Page>
       <GoBack className={s.link} title="Back to Decks List" />
       {deck && <DeckPageHeader isOwner={isOwner} deck={deck} />}
-      {!!isCardsData && (
-        <>
-          <Input
-            className={s.input}
-            leftIcon={<SearchIcon size={2} />}
-            value={question}
-            onChangeValue={onChangeQuestion}
-            placeholder="Input search"
-          />
-          <CardsTable isOwner={isOwner} cards={deckData.items} sort={sort} onSort={onChangeSort} />
-          <Pagination
-            totalCount={deckData.pagination.totalItems}
-            pageSize={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={onChangePage}
-            onValueChange={onChangePageSize}
-            value={String(itemsPerPage)}
-            options={paginationOptions}
-          />
-        </>
-      )}
-      {isOwner && !isCardsData && (
+      <Input
+        className={s.input}
+        leftIcon={<SearchIcon size={2} />}
+        value={question}
+        onChangeValue={onChangeQuestion}
+        placeholder="Input search"
+      />
+      <CardsTable
+        isOwner={isOwner}
+        cards={deckData?.items || []}
+        sort={sort}
+        onSort={onChangeSort}
+      />
+      <Pagination
+        totalCount={deckData?.pagination.totalItems || 0}
+        pageSize={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={onChangePage}
+        onValueChange={onChangePageSize}
+        value={String(itemsPerPage)}
+        options={paginationOptions}
+      />
+      {isOwner && !isEmptyCard && (
         <Table.Empty>
           <AddCard id={id} />
         </Table.Empty>
       )}
-      {!isOwner && !isCardsData && (
+      {!isOwner && !isEmptyCard && (
         <Table.Empty text="The deck is empty, please go back to learn other decks." />
       )}
     </Page>
