@@ -45,7 +45,7 @@ export const DeckPage = (): JSX.Element => {
   const { data: deckData } = useGetCardsQuery(queryParams)
 
   const isOwner = user?.id === deck?.userId
-  const isCardsData = deckData?.items.length
+  const isCardsData = deck && deck.cardsCount > 0
 
   return (
     <Page>
