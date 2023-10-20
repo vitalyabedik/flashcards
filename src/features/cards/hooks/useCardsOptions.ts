@@ -17,7 +17,9 @@ export const useCardsOptions = () => {
   const sort = useAppSelector(selectCardsSortParams)
   const paginationOptions = useAppSelector(selectCardsPaginationOptions)
   const orderBy = formatSortedString(sort)
-
+  const onSetInitialState = () => {
+    dispatch(cardsActions.setInitialState())
+  }
   const onChangeQuestion = (searchQuestion: string) => {
     dispatch(cardsActions.setSearchByQuestion({ searchQuestion }))
   }
@@ -42,5 +44,6 @@ export const useCardsOptions = () => {
     onChangePage,
     onChangePageSize,
     onChangeSort,
+    onSetInitialState,
   }
 }

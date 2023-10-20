@@ -1,9 +1,12 @@
+import { useEffect } from 'react'
+
 import { useParams } from 'react-router-dom'
 
 import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
+import { useDebounce } from '@/common'
 import { GoBack, Input, Page, Pagination, Table } from '@/components'
 import {
   AddCard,
@@ -27,11 +30,16 @@ export const DeckPage = (): JSX.Element => {
     onChangePage,
     onChangePageSize,
     onChangeSort,
+    onSetInitialState,
   } = useCardsOptions()
   const queryParams = {
     id,
-    params: { question, orderBy, currentPage, itemsPerPage },
+    params: { question: useDebounce(question, 200), orderBy, currentPage, itemsPerPage },
   }
+
+  useEffect(() => {
+    return () => onSetInitialState()
+  }, [])
   const { data: user } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id })
   const { data: deckData } = useGetCardsQuery(queryParams)

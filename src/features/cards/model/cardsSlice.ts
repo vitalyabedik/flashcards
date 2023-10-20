@@ -32,6 +32,7 @@ export const cardsSlice = createSlice({
     setSortOrderBy: (state, action: PayloadAction<{ sortParams: Sort }>) => {
       state.sortParams = action.payload.sortParams
     },
+    setInitialState: () => initialState,
   },
 })
 
