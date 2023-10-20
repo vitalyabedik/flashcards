@@ -4,17 +4,11 @@ import s from './DeckPage.module.scss'
 import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
-import { formatSortedString, useAppDispatch, useAppSelector } from '@/common'
-import { GoBack, Input, Page, Pagination, Sort, Table } from '@/components'
+import { GoBack, Input, Page, Pagination, Table } from '@/components'
 import {
   AddCard,
-  cardsActions,
   CardsTable,
-  selectCardsCurrentPage,
-  selectCardsPageSize,
-  selectCardsPaginationOptions,
-  selectCardsQuestion,
-  selectCardsSortParams,
+  useCardsOptions,
   useGetCardsQuery,
   useGetDeckQuery,
   useMeQuery,
@@ -22,15 +16,18 @@ import {
 
 export const DeckPage = (): JSX.Element => {
   const { id = '' } = useParams<{ id: string }>()
-
-  const dispatch = useAppDispatch()
-
-  const question = useAppSelector(selectCardsQuestion)
-  const currentPage = useAppSelector(selectCardsCurrentPage)
-  const itemsPerPage = useAppSelector(selectCardsPageSize)
-  const sort = useAppSelector(selectCardsSortParams)
-  const paginationOptions = useAppSelector(selectCardsPaginationOptions)
-  const orderBy = formatSortedString(sort)
+  const {
+    question,
+    sort,
+    orderBy,
+    currentPage,
+    itemsPerPage,
+    paginationOptions,
+    onChangeQuestion,
+    onChangePage,
+    onChangePageSize,
+    onChangeSort,
+  } = useCardsOptions()
   const queryParams = {
     id,
     params: { question, orderBy, currentPage, itemsPerPage },
@@ -41,19 +38,6 @@ export const DeckPage = (): JSX.Element => {
 
   const isOwner = user?.id === deck?.userId
   const isCardsData = deckData?.items.length
-
-  const onChangeQuestion = (searchQuestion: string) => {
-    dispatch(cardsActions.setSearchByQuestion({ searchQuestion }))
-  }
-  const onChangePage = (currentPage: number) => {
-    dispatch(cardsActions.setCurrentPage({ currentPage }))
-  }
-  const onChangePageSize = (value: string) => {
-    dispatch(cardsActions.setPageSize({ pageSize: Number(value) }))
-  }
-  const onChangeSort = (sortParams: Sort) => {
-    dispatch(cardsActions.setSortOrderBy({ sortParams }))
-  }
 
   return (
     <Page>
