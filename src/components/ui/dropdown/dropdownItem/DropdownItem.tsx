@@ -21,9 +21,18 @@ export const DropdownItem = forwardRef<
   DropdownItemProps
 >(({ children, onSelect, className }, ref): JSX.Element => {
   const DropdownItemClasses = cn(s.item, className)
+  const onSelectHandler = (e: Event) => {
+    onSelect && onSelect(e)
+    e.preventDefault()
+  }
 
   return (
-    <DropdownPrimitive.Item ref={ref} className={DropdownItemClasses} onSelect={onSelect} asChild>
+    <DropdownPrimitive.Item
+      ref={ref}
+      className={DropdownItemClasses}
+      onSelect={onSelectHandler}
+      asChild
+    >
       <motion.div {...dropdownAnimations.item}>{children}</motion.div>
     </DropdownPrimitive.Item>
   )
@@ -41,6 +50,10 @@ export const DropdownItemWithIcon = forwardRef<
     item: cn(s.item, className),
     itemIcon: s.itemIcon,
   }
+  const onSelectHandler = (e: Event) => {
+    onSelect && onSelect(e)
+    e.preventDefault()
+  }
 
   return (
     <DropdownPrimitive.Item
@@ -48,7 +61,7 @@ export const DropdownItemWithIcon = forwardRef<
       className={classNames.item}
       asChild
       {...props}
-      onSelect={onSelect}
+      onSelect={onSelectHandler}
     >
       <motion.div {...dropdownAnimations.item}>
         <div className={classNames.itemIcon}>{icon}</div>

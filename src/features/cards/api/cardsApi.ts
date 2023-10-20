@@ -1,13 +1,15 @@
 import {
+  Card,
   CardRateRequest,
   CardResponse,
   CardsParams,
   CardsResponseType,
   RandomCardRequest,
-  Card,
 } from './cardsApi.types'
 
-import { baseApi } from '@/common'
+import { RootState } from '@/app'
+import { baseApi, getTextFromFormData, getFileFromFormData, updateCardsQueryData } from '@/common'
+import { CardValues } from '@/features'
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -25,21 +27,95 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Decks', 'Cards', { type: 'Decks', id: 'List' }],
+      invalidatesTags: ['Cards', 'Decks', { type: 'Decks', id: 'List' }],
     }),
-    updateCard: builder.mutation<Card, { id: string; body: FormData }>({
-      query: ({ id, body }) => ({
-        url: `cards/${id}`,
+    updateCard: builder.mutation<Card, { cardId: string; deckId: string; body: FormData }>({
+      query: ({ cardId, body }) => ({
+        url: `cards/${cardId}`,
         method: 'PATCH',
         body,
       }),
+      async onQueryStarted({ cardId, deckId, body }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+        let questionImageUrl = ''
+        let answerImageUrl = ''
+        const patchResult = dispatch(
+          cardsApi.util.updateQueryData(
+            'getCards',
+            {
+              id: deckId,
+              params: updateCardsQueryData(state),
+            },
+            draft => {
+              const index = draft.items.findIndex(card => card.id === cardId)
+
+              if (index !== -1) {
+                const question = getTextFromFormData(body.get('question'))
+                const answer = getTextFromFormData(body.get('answer'))
+                const questionImg = getFileFromFormData(body.get('questionImg'))
+                const answerImg = getFileFromFormData(body.get('answerImg'))
+
+                const updatedCard: Partial<CardValues> = {
+                  question,
+                  answer,
+                }
+
+                if (questionImg) {
+                  questionImageUrl = URL.createObjectURL(questionImg)
+                  updatedCard.questionImg = questionImageUrl
+                }
+                if (answerImg) {
+                  answerImageUrl = URL.createObjectURL(answerImg)
+                  updatedCard.answerImg = answerImageUrl
+                }
+
+                draft.items[index] = { ...draft.items[index], ...updatedCard }
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          patchResult.undo()
+        } finally {
+          URL.revokeObjectURL(questionImageUrl)
+          URL.revokeObjectURL(answerImageUrl)
+        }
+      },
       invalidatesTags: ['Cards'],
     }),
-    deleteCard: builder.mutation<void, { id: string }>({
-      query: ({ id }) => ({
-        url: `cards/${id}`,
+    deleteCard: builder.mutation<void, { cardId: string; deckId: string }>({
+      query: ({ cardId }) => ({
+        url: `cards/${cardId}`,
         method: 'DELETE',
       }),
+      async onQueryStarted({ cardId, deckId }, { dispatch, getState, queryFulfilled }) {
+        const state = getState() as RootState
+        const deleteResult = dispatch(
+          cardsApi.util.updateQueryData(
+            'getCards',
+            {
+              id: deckId,
+              params: updateCardsQueryData(state),
+            },
+            draft => {
+              const index = draft.items.findIndex(card => card.id === cardId)
+
+              if (index !== -1) {
+                draft.items = draft.items.filter((_, cardIndex) => cardIndex !== index)
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          deleteResult.undo()
+        }
+      },
       invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({

@@ -47,12 +47,12 @@ export const CardsTable = ({ isOwner, cards, sort, onSort }: Props): JSX.Element
                 </Typography>
               </Table.Cell>
               <Table.Cell>
-                <Rating rating={card.rating} />
+                <Rating rating={card.grade} />
               </Table.Cell>
               {isOwner && (
                 <Table.Cell className={cellIconClassName}>
                   <EditCard card={card} />
-                  <DeleteCard id={card.id} />
+                  <DeleteCard cardId={card.id} deckId={card.deckId} />
                 </Table.Cell>
               )}
             </Table.Row>
