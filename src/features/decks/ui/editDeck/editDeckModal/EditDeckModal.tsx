@@ -1,18 +1,32 @@
 import { useState } from 'react'
 
+import { mutationNotificationHandler } from '@/common'
 import { Modal } from '@/components'
-import { DeckForm, DeckProps } from '@/features'
+import { DeckForm, AddDeckModalProps, useUpdateDeckMutation } from '@/features'
+
+export type EditDeckModalProps = AddDeckModalProps & {
+  id: string
+}
 
 export const EditDeckModal = ({
   trigger,
   buttonTitle,
   values,
-  onSubmit,
-}: DeckProps): JSX.Element => {
+  id,
+}: EditDeckModalProps): JSX.Element => {
   const [open, setOpen] = useState(false)
+  const [updateDeck, { error }] = useUpdateDeckMutation()
 
   const closeModal = () => {
     setOpen(false)
+  }
+
+  const editDeckCallback = (data: FormData) => {
+    mutationNotificationHandler(updateDeck({ id, body: data }), true).then(data => {
+      if (data?.status === 'success') {
+        closeModal()
+      }
+    })
   }
 
   return (
@@ -20,8 +34,9 @@ export const EditDeckModal = ({
       <DeckForm
         buttonTitle={buttonTitle}
         values={values}
-        onSubmit={onSubmit}
+        onSubmit={editDeckCallback}
         onClose={closeModal}
+        errorMessage={error}
       />
     </Modal>
   )
