@@ -25,42 +25,53 @@ export const mutationNotificationHandler = async (
   successMessage?: string
 ) => {
   try {
+    // debugger
     const result = await request
-    const error = result.error as ResponseErrorType
 
-    debugger
+    if ('data' in result) {
+      // debugger
+      if (successMessage) {
+        // debugger
+        toast.success(successMessage)
+      }
 
-    if ('data' in result || successMessage) {
-      toast.success(successMessage)
-
-      debugger
+      // debugger
 
       return { status: 'success', data: result.data, error: null }
-    } else if ('data' in error && 'error' in result && 'message' in result.error.data && !isForm) {
-      debugger
-      const errorMessage =
-        error.data?.errorMessages?.[0]?.message || error.data?.message || 'Some error occurred'
+    } else if ('data' in result.error) {
+      const error = result.error as ResponseErrorType
 
-      toast.error(errorMessage)
+      // debugger
+      const errorMessage = error?.data?.errorMessages?.[0]?.message || 'Some error occurred'
 
-      return { status: 'error', data: null, error: result.error }
-    } else if ('data' in error) {
-      debugger
+      if (!isForm) {
+        // debugger
+        toast.error(errorMessage)
+      }
 
-      toast.error(error?.data?.message)
+      if ('message' in result.error.data) {
+        toast.error(error?.data?.message)
 
-      return { status: 'error', data: null, error: error?.data?.message }
+        return {
+          status: 'error',
+          data: null,
+          error: error?.data?.message,
+        }
+      }
+      // debugger
+
+      return { status: 'error', data: null, error: errorMessage }
     } else if ('error' in result) {
-      debugger
+      // debugger
 
       const error = result.error as CommonErrorType
 
-      toast.error(error.error)
+      // toast.error(error.error)
 
-      return { status: 'error', data: null, error: result.error }
+      return { status: 'error', data: null, error: error.error }
     }
   } catch (error) {
-    debugger
+    // debugger
     toast.error('Some error occurred')
   }
 }

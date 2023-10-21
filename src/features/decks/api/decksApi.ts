@@ -20,7 +20,10 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'GET',
         params: params ?? {},
       }),
-      transformErrorResponse: response => queryNotificationHandler(response),
+      transformErrorResponse: response => {
+        // debugger
+        queryNotificationHandler(response)
+      },
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<DeckType, FormData>({
