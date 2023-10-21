@@ -1,5 +1,3 @@
-import { toast } from 'react-toastify'
-
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
@@ -42,7 +40,6 @@ export const DecksPage = (): JSX.Element => {
     currentData: decks,
     isLoading,
     isFetching,
-    error,
     isError,
   } = useGetDecksQuery({
     name: debouncedSearchName,
@@ -53,22 +50,6 @@ export const DecksPage = (): JSX.Element => {
     itemsPerPage: pageSize,
     currentPage,
   })
-
-  // if (error && 'error' in error) {
-  //   console.log(error)
-  //   toast.error(error.error)
-  // }
-
-  if (
-    error &&
-    'status' in error &&
-    typeof error.data === 'object' &&
-    error.data &&
-    'message' in error.data
-  ) {
-    console.log(error.data.message)
-    toast.error(error.data.message as string)
-  }
 
   const isDisabled = isLoading || isFetching || isError
 

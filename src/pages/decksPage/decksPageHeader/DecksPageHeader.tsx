@@ -1,24 +1,24 @@
 import s from './DecksPageHeader.module.scss'
 
-import { mutationNotificationHandler, TypographyVariant, useAppDispatch } from '@/common'
+import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddDeckModal, decksActions, useCreateDeckMutation } from '@/features'
+import { AddDeckModal } from '@/features'
 
 type Props = {
   isDisabled?: boolean
 }
 
 export const DecksPageHeader = ({ isDisabled }: Props): JSX.Element => {
-  const { setCurrentPage } = decksActions
-
-  const dispatch = useAppDispatch()
-
-  const [createDeck] = useCreateDeckMutation()
-
-  const createDeckCallback = (data: FormData) => {
-    dispatch(setCurrentPage({ currentPage: 1 }))
-    mutationNotificationHandler(createDeck(data))
-  }
+  // const { setCurrentPage } = decksActions
+  //
+  // const dispatch = useAppDispatch()
+  //
+  // const [createDeck] = useCreateDeckMutation()
+  //
+  // const createDeckCallback = (data: FormData) => {
+  //   dispatch(setCurrentPage({ currentPage: 1 }))
+  //   mutationNotificationHandler(createDeck(data))
+  // }
 
   return (
     <div className={s.root}>
@@ -34,7 +34,7 @@ export const DecksPageHeader = ({ isDisabled }: Props): JSX.Element => {
           </Button>
         }
         buttonTitle="Add New Deck"
-        onSubmit={createDeckCallback}
+        // onSubmit={createDeckCallback}
       />
     </div>
   )

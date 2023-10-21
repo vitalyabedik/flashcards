@@ -1,9 +1,10 @@
 import { ReactNode, useState } from 'react'
 
+import { mutationNotificationHandler, useAppDispatch } from '@/common'
 import { Modal } from '@/components'
-import { DeckForm } from '@/features'
+import { DeckForm, decksActions, useCreateDeckMutation } from '@/features'
 
-export type DeckProps = {
+export type AddDeckModalProps = {
   trigger: ReactNode
   buttonTitle: string
   values?: {
@@ -11,19 +12,48 @@ export type DeckProps = {
     isPrivate?: boolean
     cover?: string | null
   }
-  onSubmit: (data: FormData) => void
 }
 
-export const AddDeckModal = ({
-  trigger,
-  buttonTitle,
-  values,
-  onSubmit,
-}: DeckProps): JSX.Element => {
+export const AddDeckModal = ({ trigger, buttonTitle, values }: AddDeckModalProps): JSX.Element => {
   const [open, setOpen] = useState(false)
+  const [createDeck, { error }] = useCreateDeckMutation()
+  const { setCurrentPage } = decksActions
+
+  const dispatch = useAppDispatch()
 
   const closeModal = () => {
     setOpen(false)
+  }
+
+  const createDeckCallback = (data: FormData) => {
+    dispatch(setCurrentPage({ currentPage: 1 }))
+
+    mutationNotificationHandler(createDeck(data), true).then(data => {
+      if (data?.status === 'success') {
+        closeModal()
+      }
+
+      // если нужно отсюда доставать ошибку и тогда return mutationNotificationHandler
+
+      // if (data?.status === 'error') {
+      //   setMyError(data.error)
+      // }
+    })
+
+    // если нужно без утилиты и далее прописывать if
+    // createDeck(data)
+    //   .unwrap()
+    //   .then(() => {
+    //     closeModal()
+    //   })
+    //   .catch(error => {
+    //     debugger
+    //     toast.error(error.error)
+    //
+    //     if ('data' in error) {
+    //       toast.error(error.data.message)
+    //     }
+    //   })
   }
 
   return (
@@ -31,8 +61,9 @@ export const AddDeckModal = ({
       <DeckForm
         buttonTitle={buttonTitle}
         values={values}
-        onSubmit={onSubmit}
+        onSubmit={createDeckCallback}
         onClose={closeModal}
+        errorMessage={error}
       />
     </Modal>
   )

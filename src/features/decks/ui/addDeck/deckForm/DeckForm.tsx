@@ -1,15 +1,17 @@
 import { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
+import { SerializedError } from '@reduxjs/toolkit'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import s from './DeckForm.module.scss'
 
 import { ImageIcon } from '@/assets'
-import { ButtonVariant, TypographyVariant } from '@/common'
+import { ButtonVariant, formatMutationError, TypographyVariant } from '@/common'
 import { Button, ControlledCheckbox, ControlledInput, Typography, Uploader } from '@/components'
 import { DeckFormValues, useDeckForm } from '@/features'
 
-type DeckFormProps = {
+export type DeckFormProps = {
   buttonTitle: string
   values?: {
     name: string
@@ -18,6 +20,7 @@ type DeckFormProps = {
   }
   onSubmit: (data: FormData) => void
   onClose: () => void
+  errorMessage?: FetchBaseQueryError | SerializedError | undefined
 }
 
 export const DeckForm = ({
@@ -25,16 +28,31 @@ export const DeckForm = ({
   values,
   onSubmit,
   onClose,
+  errorMessage,
 }: DeckFormProps): JSX.Element => {
   const [cover, setCover] = useState<File | null>(null)
   const [error, setError] = useState<null | string>(null)
 
   // --- for toast component error
   console.log(error)
-  const { control, handleSubmit } = useDeckForm({
+
+  const {
+    control,
+    handleSubmit,
+    setError: setFormError,
+  } = useDeckForm({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,
   })
+
+  const formatErrorMessage = formatMutationError(errorMessage)
+
+  if (formatErrorMessage) {
+    setFormError('name', {
+      type: 'custom',
+      message: formatErrorMessage || undefined,
+    })
+  }
 
   const imageUrl = cover ? URL.createObjectURL(cover) : values?.cover
 
@@ -47,8 +65,8 @@ export const DeckForm = ({
     cover && formData.append('cover', cover)
 
     onSubmit(formData)
-    onClose()
   }
+
   const onLoadCover = (data: File) => {
     setCover(data)
     setError(null)
