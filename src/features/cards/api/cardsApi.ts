@@ -8,7 +8,13 @@ import {
 } from './cardsApi.types'
 
 import { RootState } from '@/app'
-import { baseApi, getTextFromFormData, getFileFromFormData, updateCardsQueryData } from '@/common'
+import {
+  baseApi,
+  getTextFromFormData,
+  getFileFromFormData,
+  updateCardsQueryData,
+  queryNotificationHandler,
+} from '@/common'
 import { CardValues } from '@/features'
 
 export const cardsApi = baseApi.injectEndpoints({
@@ -19,6 +25,9 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'GET',
         params: params,
       }),
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
       providesTags: ['Cards'],
     }),
     createCard: builder.mutation<Card, { id: string; body: FormData }>({

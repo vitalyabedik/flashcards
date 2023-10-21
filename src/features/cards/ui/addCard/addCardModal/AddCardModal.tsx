@@ -1,20 +1,32 @@
 import { ReactNode, useState } from 'react'
 
+import { useParams } from 'react-router-dom'
+
+import { mutationNotificationHandler } from '@/common'
 import { Modal, OptionType } from '@/components'
-import { CardForm } from '@/features'
+import { CardForm, useCreateCardMutation } from '@/features'
 
 type Props = {
   trigger: ReactNode
   placeholder: ReactNode
   options: OptionType[]
-  onSubmit: (data: FormData) => void
 }
 
-export const AddCardModal = ({ trigger, placeholder, options, onSubmit }: Props): JSX.Element => {
+export const AddCardModal = ({ trigger, placeholder, options }: Props): JSX.Element => {
+  const { id = '' } = useParams<{ id: string }>()
   const [isOpen, setIsOpen] = useState(false)
+  const [createCard, { error }] = useCreateCardMutation()
 
+  console.log(error)
   const closeModal = () => {
     setIsOpen(false)
+  }
+  const onSubmit = (body: FormData) => {
+    mutationNotificationHandler(createCard({ id, body }), true).then(data => {
+      if (data?.status === 'success') {
+        closeModal()
+      }
+    })
   }
 
   return (

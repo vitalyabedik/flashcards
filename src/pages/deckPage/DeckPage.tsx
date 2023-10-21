@@ -34,7 +34,7 @@ export const DeckPage = (): JSX.Element => {
   } = useCardsOptions()
   const queryParams = {
     id,
-    params: { question: useDebounce(question, 200), orderBy, currentPage, itemsPerPage },
+    params: { question: useDebounce(question, 300), orderBy, currentPage, itemsPerPage },
   }
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const DeckPage = (): JSX.Element => {
       )}
       {isOwner && !isEmptyCard && !loadingStatus && (
         <Table.Empty>
-          <AddCard id={id} />
+          <AddCard />
         </Table.Empty>
       )}
       {!isOwner && !isEmptyCard && !loadingStatus && (

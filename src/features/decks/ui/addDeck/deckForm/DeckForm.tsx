@@ -44,9 +44,13 @@ export const DeckForm = ({
   const formatError = formatMutationError(error)
 
   if (formatError) {
-    setError('name', {
-      type: 'custom',
-      message: formatError || undefined,
+    formatError.forEach(error => {
+      const errorField = error.field as 'name' | 'isPrivate'
+
+      setError(errorField, {
+        type: 'custom',
+        message: error.message || undefined,
+      })
     })
   }
 
