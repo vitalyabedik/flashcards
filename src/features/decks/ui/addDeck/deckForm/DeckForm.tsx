@@ -20,7 +20,7 @@ export type DeckFormProps = {
   }
   onSubmit: (data: FormData) => void
   onClose: () => void
-  errorMessage?: FetchBaseQueryError | SerializedError | undefined
+  error?: FetchBaseQueryError | SerializedError | undefined
 }
 
 export const DeckForm = ({
@@ -28,35 +28,31 @@ export const DeckForm = ({
   values,
   onSubmit,
   onClose,
-  errorMessage,
+  error,
 }: DeckFormProps): JSX.Element => {
   const [cover, setCover] = useState<File | null>(null)
-  const [error, setError] = useState<null | string>(null)
+  const [coverError, setCoverError] = useState<null | string>(null)
 
   // --- for toast component error
-  console.log(error)
+  console.log(coverError)
 
-  const {
-    control,
-    handleSubmit,
-    setError: setFormError,
-  } = useDeckForm({
+  const { control, handleSubmit, setError } = useDeckForm({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,
   })
 
-  const formatErrorMessage = formatMutationError(errorMessage)
+  const formatError = formatMutationError(error)
 
-  if (formatErrorMessage) {
-    setFormError('name', {
+  if (formatError) {
+    setError('name', {
       type: 'custom',
-      message: formatErrorMessage || undefined,
+      message: formatError || undefined,
     })
   }
 
   const imageUrl = cover ? URL.createObjectURL(cover) : values?.cover
-
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
+
   const onSubmitHandler = (data: DeckFormValues) => {
     const formData = new FormData()
 
@@ -69,10 +65,11 @@ export const DeckForm = ({
 
   const onLoadCover = (data: File) => {
     setCover(data)
-    setError(null)
+    setCoverError(null)
   }
+
   const onLoadCoverError = (error: string) => {
-    setError(error)
+    setCoverError(error)
   }
 
   return (

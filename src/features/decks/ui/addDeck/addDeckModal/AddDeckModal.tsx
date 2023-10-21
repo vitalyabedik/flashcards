@@ -19,8 +19,6 @@ export const AddDeckModal = ({ trigger, buttonTitle, values }: AddDeckModalProps
   const [createDeck, { error }] = useCreateDeckMutation()
   const { setCurrentPage } = decksActions
 
-  const [myError, setMyError] = useState<string | undefined | null>('')
-
   const dispatch = useAppDispatch()
 
   const closeModal = () => {
@@ -34,16 +32,8 @@ export const AddDeckModal = ({ trigger, buttonTitle, values }: AddDeckModalProps
       if (data?.status === 'success') {
         closeModal()
       }
-
-      // debugger
-      if (data?.status === 'error') {
-        setMyError(data?.error)
-      }
     })
   }
-
-  // debugger
-  console.log(myError)
 
   return (
     <Modal trigger={trigger} open={open} setOpen={setOpen} title="Add New Deck">
@@ -52,7 +42,7 @@ export const AddDeckModal = ({ trigger, buttonTitle, values }: AddDeckModalProps
         values={values}
         onSubmit={createDeckCallback}
         onClose={closeModal}
-        errorMessage={error}
+        error={error}
       />
     </Modal>
   )

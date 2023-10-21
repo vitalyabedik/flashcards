@@ -36,7 +36,7 @@ export const EditDeckModal = ({
         values={values}
         onSubmit={editDeckCallback}
         onClose={closeModal}
-        errorMessage={error}
+        error={error}
       />
     </Modal>
   )
