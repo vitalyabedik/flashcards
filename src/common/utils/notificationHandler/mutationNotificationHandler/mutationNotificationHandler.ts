@@ -66,8 +66,6 @@ export const mutationNotificationHandler = async (
 
       const error = result.error as CommonErrorType
 
-      // toast.error(error.error)
-
       return { status: 'error', data: null, error: error.error }
     }
   } catch (error) {

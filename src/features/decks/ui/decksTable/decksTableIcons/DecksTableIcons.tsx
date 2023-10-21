@@ -39,7 +39,6 @@ export const DecksTableIcons = ({ deck, isDisabled }: Props): JSX.Element => {
           <EditDeckModal
             trigger={<IconButton icon={<EditIcon />} size={1.6} disabled={isDisabled} />}
             buttonTitle="Save Changes"
-            // onSubmit={editDeckCallback}
             values={{ name, cover, isPrivate }}
             id={id}
           />

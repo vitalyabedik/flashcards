@@ -9,17 +9,6 @@ type Props = {
 }
 
 export const DecksPageHeader = ({ isDisabled }: Props): JSX.Element => {
-  // const { setCurrentPage } = decksActions
-  //
-  // const dispatch = useAppDispatch()
-  //
-  // const [createDeck] = useCreateDeckMutation()
-  //
-  // const createDeckCallback = (data: FormData) => {
-  //   dispatch(setCurrentPage({ currentPage: 1 }))
-  //   mutationNotificationHandler(createDeck(data))
-  // }
-
   return (
     <div className={s.root}>
       <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
@@ -34,7 +23,6 @@ export const DecksPageHeader = ({ isDisabled }: Props): JSX.Element => {
           </Button>
         }
         buttonTitle="Add New Deck"
-        // onSubmit={createDeckCallback}
       />
     </div>
   )
