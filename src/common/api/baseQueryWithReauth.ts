@@ -28,7 +28,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           extraOptions
         )
 
-        if (!refreshResult.error) {
+        if (refreshResult?.meta?.response?.status === 204) {
           result = await baseQuery(args, api, extraOptions)
         }
       } finally {
