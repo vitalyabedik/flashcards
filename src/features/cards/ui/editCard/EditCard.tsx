@@ -6,11 +6,11 @@ type Props = {
   card: Card
 }
 export const EditCard = ({ card }: Props): JSX.Element => {
-  const { id, answer, answerImg, question, questionImg } = card
+  const { id, answer, answerImg, question, questionImg, deckId } = card
 
   const [updateCard] = useUpdateCardMutation()
   const updateCardCallBack = (body: FormData) => {
-    updateCard({ id, body })
+    updateCard({ cardId: id, deckId, body })
   }
 
   return (

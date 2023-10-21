@@ -13,7 +13,7 @@ export type Card = {
   questionImg: string | null
   questionVideo: string
   answerVideo: string
-  rating: number
+  grade: number
   created: string
   updated: string
 }

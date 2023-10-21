@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { Loading } from '@/assets'
 import { Route } from '@/common'
+import { Preloader } from '@/components'
 import { useMeQuery } from '@/features'
 
 export const PrivateRoutes = () => {
@@ -9,7 +9,7 @@ export const PrivateRoutes = () => {
   const isAuth = !isError
 
   if (isLoading) {
-    return <Loading />
+    return <Preloader />
   }
 
   return isAuth ? <Outlet /> : <Navigate to={Route.SignIn} />
