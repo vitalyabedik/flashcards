@@ -10,7 +10,7 @@ import {
 } from './decksApi.types'
 
 import { RootState } from '@/app'
-import { baseApi, updateDecksQueryData } from '@/common'
+import { baseApi, queryNotificationHandler, updateDecksQueryData } from '@/common'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -20,6 +20,7 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'GET',
         params: params ?? {},
       }),
+      transformErrorResponse: response => queryNotificationHandler(response),
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<DeckType, FormData>({
