@@ -32,28 +32,7 @@ export const AddDeckModal = ({ trigger, buttonTitle, values }: AddDeckModalProps
       if (data?.status === 'success') {
         closeModal()
       }
-
-      // если нужно отсюда доставать ошибку и тогда return mutationNotificationHandler
-
-      // if (data?.status === 'error') {
-      //   setMyError(data.error)
-      // }
     })
-
-    // если нужно без утилиты и далее прописывать if
-    // createDeck(data)
-    //   .unwrap()
-    //   .then(() => {
-    //     closeModal()
-    //   })
-    //   .catch(error => {
-    //     debugger
-    //     toast.error(error.error)
-    //
-    //     if ('data' in error) {
-    //       toast.error(error.data.message)
-    //     }
-    //   })
   }
 
   return (

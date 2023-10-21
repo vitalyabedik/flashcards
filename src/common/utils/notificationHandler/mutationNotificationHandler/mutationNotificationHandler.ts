@@ -49,7 +49,7 @@ export const mutationNotificationHandler = async (
 
       toast.error(error?.data?.message)
 
-      return { status: 'error', data: null, error: error.data?.errorMessages[0].message }
+      return { status: 'error', data: null, error: error?.data?.message }
     } else if ('error' in result) {
       debugger
 
