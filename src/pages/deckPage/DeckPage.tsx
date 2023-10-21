@@ -7,7 +7,7 @@ import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { useDebounce } from '@/common'
-import { GoBack, Input, Page, Pagination, Table } from '@/components'
+import { GoBack, Input, Page, Pagination, Preloader, Table } from '@/components'
 import {
   AddCard,
   CardsTable,
@@ -42,16 +42,18 @@ export const DeckPage = (): JSX.Element => {
   }, [])
   const { data: user } = useMeQuery()
   const { data: deck } = useGetDeckQuery({ id })
-  const { data: deckData } = useGetCardsQuery(queryParams)
+  const { data: deckData, isLoading, isFetching } = useGetCardsQuery(queryParams)
 
   const isOwner = user?.id === deck?.userId
   const isEmptyCard = deck && deck.cardsCount > 0
+  const loadingStatus = isLoading || isFetching
 
   return (
     <Page>
       <GoBack className={s.link} title="Back to Decks List" />
       {deck && <DeckPageHeader isOwner={isOwner} deck={deck} />}
-      {isEmptyCard && (
+      {loadingStatus && <Preloader />}
+      {isEmptyCard && !loadingStatus && (
         <>
           <Input
             className={s.input}
@@ -77,12 +79,12 @@ export const DeckPage = (): JSX.Element => {
           />
         </>
       )}
-      {isOwner && !isEmptyCard && (
+      {isOwner && !isEmptyCard && !loadingStatus && (
         <Table.Empty>
           <AddCard id={id} />
         </Table.Empty>
       )}
-      {!isOwner && !isEmptyCard && (
+      {!isOwner && !isEmptyCard && !loadingStatus && (
         <Table.Empty text="The deck is empty, please go back to learn other decks." />
       )}
     </Page>
