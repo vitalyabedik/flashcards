@@ -1,9 +1,8 @@
-import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { DeckProps, EditDeckModal } from '@/features'
+import { EditDeckModalProps, EditDeckModal } from '@/features'
 
 const meta: Meta<typeof EditDeckModal> = {
   title: 'Decks/EditDeckModal',
@@ -14,8 +13,8 @@ const meta: Meta<typeof EditDeckModal> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const DeckWithHooks = (args: DeckProps) => {
-  return <EditDeckModal {...args} values={args.values} onSubmit={args.onSubmit} />
+const DeckWithHooks = (args: EditDeckModalProps) => {
+  return <EditDeckModal {...args} values={args.values} />
 }
 
 export const ControlledEditDeck: Story = {
@@ -33,9 +32,6 @@ export const ControlledEditDeck: Story = {
       isPrivate: true,
       cover:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFfO_eNEJGw_BJiSB99LmDGCOny9NeGaDDAg&usqp=CAU',
-    },
-    onSubmit: (data: FormData) => {
-      action('Add new Deck')(data)
     },
   },
   render: args => <DeckWithHooks {...args} />,

@@ -13,9 +13,10 @@ type Props = {
   decksData: DecksResponseType
   sort: Sort | undefined
   onSort: (sort: Sort) => void
+  isDisabled: boolean
 }
 
-export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
+export const DecksTable = ({ decksData, sort, onSort, isDisabled }: Props): JSX.Element => {
   return (
     <>
       {!!decksData?.items.length && (
@@ -49,7 +50,7 @@ export const DecksTable = ({ decksData, sort, onSort }: Props): JSX.Element => {
                     <Typography variant={TypographyVariant.Body2}>{item.author.name}</Typography>
                   </Table.Cell>
                   <Table.Cell className={cellIconClasses}>
-                    <DecksTableIcons deck={item} />
+                    <DecksTableIcons deck={item} isDisabled={isDisabled} />
                   </Table.Cell>
                 </Table.Row>
               )

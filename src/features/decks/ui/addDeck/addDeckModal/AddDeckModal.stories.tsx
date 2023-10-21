@@ -1,9 +1,8 @@
-import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddDeckModal, DeckProps } from '@/features'
+import { AddDeckModal, AddDeckModalProps } from '@/features'
 
 const meta: Meta<typeof AddDeckModal> = {
   title: 'Decks/AddDeckModal',
@@ -14,8 +13,8 @@ const meta: Meta<typeof AddDeckModal> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const DeckWithHooks = (args: DeckProps) => {
-  return <AddDeckModal {...args} values={args.values} onSubmit={args.onSubmit} />
+const DeckWithHooks = (args: AddDeckModalProps) => {
+  return <AddDeckModal {...args} values={args.values} />
 }
 
 export const ControlledAddDeck: Story = {
@@ -28,9 +27,6 @@ export const ControlledAddDeck: Story = {
       </Button>
     ),
     buttonTitle: 'Add Deck',
-    onSubmit: (data: FormData) => {
-      action('Add new Deck')(data)
-    },
   },
   render: args => <DeckWithHooks {...args} />,
 }

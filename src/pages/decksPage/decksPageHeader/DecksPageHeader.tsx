@@ -1,27 +1,14 @@
-import { toast } from 'react-toastify'
-
 import s from './DecksPageHeader.module.scss'
 
-import { TypographyVariant, useAppDispatch } from '@/common'
+import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddDeckModal, decksActions, useCreateDeckMutation } from '@/features'
+import { AddDeckModal } from '@/features'
 
-export const DecksPageHeader = (): JSX.Element => {
-  const { setCurrentPage } = decksActions
+type Props = {
+  isDisabled?: boolean
+}
 
-  const dispatch = useAppDispatch()
-
-  const [createDeck] = useCreateDeckMutation()
-
-  const createDeckCallback = (data: FormData) => {
-    dispatch(setCurrentPage({ currentPage: 1 }))
-    createDeck(data)
-      .unwrap()
-      .catch(e => {
-        toast.error(e.data.errorMessages[0].message)
-      })
-  }
-
+export const DecksPageHeader = ({ isDisabled }: Props): JSX.Element => {
   return (
     <div className={s.root}>
       <Typography className={s.formHeader} variant={TypographyVariant.Large} as="h1">
@@ -29,14 +16,13 @@ export const DecksPageHeader = (): JSX.Element => {
       </Typography>
       <AddDeckModal
         trigger={
-          <Button>
+          <Button disabled={isDisabled}>
             <Typography variant={TypographyVariant.Subtitle2} as="span">
               Add New Deck
             </Typography>
           </Button>
         }
         buttonTitle="Add New Deck"
-        onSubmit={createDeckCallback}
       />
     </div>
   )

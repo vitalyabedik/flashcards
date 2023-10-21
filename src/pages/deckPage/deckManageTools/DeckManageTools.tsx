@@ -3,12 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { DeleteIcon, EditIcon, PlayCircleIcon } from '@/assets'
 import { Route } from '@/common'
 import { Dialog, DropdownItemWithIcon, IconButton } from '@/components'
-import {
-  EditDeckModal,
-  GetDeckResponseType,
-  useDeleteDeckMutation,
-  useUpdateDeckMutation,
-} from '@/features'
+import { EditDeckModal, GetDeckResponseType, useDeleteDeckMutation } from '@/features'
 
 type Props = {
   isOwner: boolean
@@ -19,17 +14,14 @@ type Props = {
 export const DeckManageTools = ({ isOwner, variant, deck }: Props): JSX.Element => {
   const { id, name, isPrivate, cover } = deck
   const [deleteDeck] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
   const navigate = useNavigate()
+
   const toLearnDeck = () => {
     navigate(`${Route.Decks}/${deck.id}/learn`)
   }
+
   const deleteDeckCallback = () => {
     deleteDeck({ id })
-  }
-
-  const editDeckCallback = (data: FormData) => {
-    updateDeck({ id, body: data })
   }
 
   const learnIcon =
@@ -65,8 +57,8 @@ export const DeckManageTools = ({ isOwner, variant, deck }: Props): JSX.Element 
           <EditDeckModal
             trigger={editIcon}
             buttonTitle="Save Changes"
-            onSubmit={editDeckCallback}
             values={{ name, cover, isPrivate }}
+            id={id}
           />
           <Dialog
             trigger={deleteIcon}

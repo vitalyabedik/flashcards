@@ -1,6 +1,7 @@
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
+import { Loading } from '@/assets'
 import { formatSortedString, useDebounce } from '@/common'
 import { Page, Pagination, Panel } from '@/components'
 import { DecksTable, useDecksOptions, useGetDecksQuery } from '@/features'
@@ -35,7 +36,12 @@ export const DecksPage = (): JSX.Element => {
   const debouncedSearchName = useDebounce(searchName, delay)
   const sortedString = formatSortedString(sortOptions)
 
-  const { currentData: decks } = useGetDecksQuery({
+  const {
+    currentData: decks,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetDecksQuery({
     name: debouncedSearchName,
     authorId,
     minCardsCount: sliderValues[0],
@@ -45,9 +51,11 @@ export const DecksPage = (): JSX.Element => {
     currentPage,
   })
 
+  const isDisabled = isLoading || isFetching || isError
+
   return (
     <Page className={s.root}>
-      <DecksPageHeader />
+      <DecksPageHeader isDisabled={isDisabled} />
       <Panel
         className={s.panelWrapper}
         inputValue={searchName}
@@ -61,8 +69,17 @@ export const DecksPage = (): JSX.Element => {
         sliderLabel="Number of cards"
         onChangeSliderValue={onChangeSliderValueCallback}
         onClearFilter={onClearFilterCallback}
+        isDisabled={isDisabled}
       />
-      {decks && <DecksTable decksData={decks} sort={sortOptions} onSort={onChangeSortCallback} />}
+      {decks && (
+        <DecksTable
+          decksData={decks}
+          sort={sortOptions}
+          onSort={onChangeSortCallback}
+          isDisabled={isDisabled}
+        />
+      )}
+      {isFetching && !isLoading && <Loading />}
       {!!decks?.items.length && (
         <Pagination
           totalCount={decks?.pagination.totalItems || 10}

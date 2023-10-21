@@ -10,7 +10,7 @@ import {
 } from './decksApi.types'
 
 import { RootState } from '@/app'
-import { baseApi, updateDecksQueryData } from '@/common'
+import { baseApi, queryNotificationHandler, updateDecksQueryData } from '@/common'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -20,6 +20,10 @@ export const decksApi = baseApi.injectEndpoints({
         method: 'GET',
         params: params ?? {},
       }),
+      transformErrorResponse: response => {
+        // debugger
+        queryNotificationHandler(response)
+      },
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<DeckType, FormData>({
@@ -31,17 +35,13 @@ export const decksApi = baseApi.injectEndpoints({
       async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
         const state = getState() as RootState
 
-        try {
-          const response = await queryFulfilled
+        const response = await queryFulfilled
 
-          dispatch(
-            decksApi.util.updateQueryData('getDecks', updateDecksQueryData(state), draft => {
-              draft.items.unshift(response.data)
-            })
-          )
-        } catch (error) {
-          console.log(error)
-        }
+        dispatch(
+          decksApi.util.updateQueryData('getDecks', updateDecksQueryData(state), draft => {
+            draft.items.unshift(response.data)
+          })
+        )
       },
       invalidatesTags: ['Decks'],
     }),

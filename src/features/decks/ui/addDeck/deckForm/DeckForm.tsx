@@ -1,15 +1,17 @@
 import { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
+import { SerializedError } from '@reduxjs/toolkit'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import s from './DeckForm.module.scss'
 
 import { ImageIcon } from '@/assets'
-import { ButtonVariant, TypographyVariant } from '@/common'
+import { ButtonVariant, formatMutationError, TypographyVariant } from '@/common'
 import { Button, ControlledCheckbox, ControlledInput, Typography, Uploader } from '@/components'
 import { DeckFormValues, useDeckForm } from '@/features'
 
-type DeckFormProps = {
+export type DeckFormProps = {
   buttonTitle: string
   values?: {
     name: string
@@ -18,6 +20,7 @@ type DeckFormProps = {
   }
   onSubmit: (data: FormData) => void
   onClose: () => void
+  error?: FetchBaseQueryError | SerializedError | undefined
 }
 
 export const DeckForm = ({
@@ -25,20 +28,31 @@ export const DeckForm = ({
   values,
   onSubmit,
   onClose,
+  error,
 }: DeckFormProps): JSX.Element => {
   const [cover, setCover] = useState<File | null>(null)
-  const [error, setError] = useState<null | string>(null)
+  const [coverError, setCoverError] = useState<null | string>(null)
 
   // --- for toast component error
-  console.log(error)
-  const { control, handleSubmit } = useDeckForm({
+  console.log(coverError)
+
+  const { control, handleSubmit, setError } = useDeckForm({
     name: values?.name || '',
     isPrivate: values?.isPrivate || false,
   })
 
-  const imageUrl = cover ? URL.createObjectURL(cover) : values?.cover
+  const formatError = formatMutationError(error)
 
+  if (formatError) {
+    setError('name', {
+      type: 'custom',
+      message: formatError || undefined,
+    })
+  }
+
+  const imageUrl = cover ? URL.createObjectURL(cover) : values?.cover
   const buttonUploadText = imageUrl ? 'Change Cover' : ' Add Cover'
+
   const onSubmitHandler = (data: DeckFormValues) => {
     const formData = new FormData()
 
@@ -47,14 +61,15 @@ export const DeckForm = ({
     cover && formData.append('cover', cover)
 
     onSubmit(formData)
-    onClose()
   }
+
   const onLoadCover = (data: File) => {
     setCover(data)
-    setError(null)
+    setCoverError(null)
   }
+
   const onLoadCoverError = (error: string) => {
-    setError(error)
+    setCoverError(error)
   }
 
   return (
