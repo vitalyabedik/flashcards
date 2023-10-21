@@ -45,7 +45,7 @@ export const DeckForm = ({
 
   if (formatError) {
     formatError.forEach(error => {
-      const errorField = error.field as 'name' | 'isPrivate'
+      const errorField = error.field as keyof DeckFormValues
 
       setError(errorField, {
         type: 'custom',

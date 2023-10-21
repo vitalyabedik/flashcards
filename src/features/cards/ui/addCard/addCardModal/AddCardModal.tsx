@@ -17,7 +17,6 @@ export const AddCardModal = ({ trigger, placeholder, options }: Props): JSX.Elem
   const [isOpen, setIsOpen] = useState(false)
   const [createCard, { error }] = useCreateCardMutation()
 
-  console.log(error)
   const closeModal = () => {
     setIsOpen(false)
   }
@@ -37,6 +36,7 @@ export const AddCardModal = ({ trigger, placeholder, options }: Props): JSX.Elem
         options={options}
         onSubmit={onSubmit}
         closeModal={closeModal}
+        error={error}
       />
     </Modal>
   )
