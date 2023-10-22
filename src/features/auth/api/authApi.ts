@@ -7,7 +7,7 @@ import {
   ResetPasswordParamsType,
 } from './authApi.types'
 
-import { baseApi } from '@/common'
+import { baseApi, getTextFromFormData } from '@/common'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -24,10 +24,10 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ['Me'],
     }),
     login: builder.mutation<LoginResponseType, LoginParamsType>({
-      query: params => ({
+      query: body => ({
         url: 'auth/login',
         method: 'POST',
-        body: params,
+        body,
       }),
       invalidatesTags: ['Me'],
     }),
@@ -62,6 +62,37 @@ export const authApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body,
       }),
+      // transformErrorResponse: response => queryNotificationHandler(response),
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        let avatar = ''
+
+        const patchResult = dispatch(
+          authApi.util.updateQueryData('me', undefined, draft => {
+            const name = getTextFromFormData(body.get('name'))
+            const avatarBlob = body.get('avatar')
+
+            if (avatarBlob instanceof Blob) {
+              avatar = URL.createObjectURL(avatarBlob)
+            }
+
+            if (avatar) {
+              draft.avatar = avatar
+            }
+
+            if (name) {
+              draft.name = name
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        } finally {
+          URL.revokeObjectURL(avatar)
+        }
+      },
       invalidatesTags: ['Me'],
     }),
   }),
