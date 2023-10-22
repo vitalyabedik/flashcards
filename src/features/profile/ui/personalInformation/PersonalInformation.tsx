@@ -4,13 +4,7 @@ import s from './PersonalInformation.module.scss'
 
 import { TypographyVariant } from '@/common'
 import { Card, Typography } from '@/components'
-import {
-  EditProfileValues,
-  AvatarUploader,
-  EditProfile,
-  ProfileInfo,
-  useUpdateProfileMutation,
-} from '@/features'
+import { EditProfileValues, AvatarUploader, EditProfile, ProfileInfo } from '@/features'
 
 export type ProfileDataType = {
   avatar?: string
@@ -26,8 +20,6 @@ type Props = {
 export const PersonalInformation = ({ data, update }: Props): JSX.Element => {
   const { email, name, avatar } = data
   const [editMode, setEditMode] = useState(false)
-
-  const [updateProfile] = useUpdateProfileMutation()
 
   const onEditProfile = () => {
     setEditMode(true)
@@ -48,7 +40,6 @@ export const PersonalInformation = ({ data, update }: Props): JSX.Element => {
         avatar={avatar}
         name={name}
         editable={!editMode}
-        updateAvatar={updateProfile}
       />
       {editMode ? (
         <EditProfile onSubmit={onSubmit} initialValues={{ name }} />
