@@ -30,6 +30,7 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: params,
       }),
+      transformErrorResponse: response => queryNotificationHandler(response),
       invalidatesTags: ['Me'],
     }),
     logout: builder.mutation<void, void>({
