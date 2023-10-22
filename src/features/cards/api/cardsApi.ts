@@ -10,10 +10,10 @@ import {
 import { RootState } from '@/app'
 import {
   baseApi,
-  getTextFromFormData,
   getFileFromFormData,
-  updateCardsQueryData,
+  getTextFromFormData,
   queryNotificationHandler,
+  updateCardsQueryData,
 } from '@/common'
 import { CardValues } from '@/features'
 
@@ -127,7 +127,10 @@ export const cardsApi = baseApi.injectEndpoints({
           deleteResult.undo()
         }
       },
-      invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
+      invalidatesTags: ['Decks', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({
       query: ({ id, previousCardId }) => ({
