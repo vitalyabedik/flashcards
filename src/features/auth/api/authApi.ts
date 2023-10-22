@@ -7,7 +7,7 @@ import {
   ResetPasswordParamsType,
 } from './authApi.types'
 
-import { baseApi, getTextFromFormData } from '@/common'
+import { baseApi, getTextFromFormData, queryNotificationHandler } from '@/common'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -45,6 +45,7 @@ export const authApi = baseApi.injectEndpoints({
           patchResult.undo()
         }
       },
+      transformErrorResponse: response => queryNotificationHandler(response),
       invalidatesTags: ['Me'],
     }),
     recoverPassword: builder.mutation<void, RecoverPasswordParamsType>({
