@@ -93,7 +93,9 @@ export const cardsApi = baseApi.injectEndpoints({
           URL.revokeObjectURL(answerImageUrl)
         }
       },
-      invalidatesTags: ['Cards'],
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
     }),
     deleteCard: builder.mutation<void, { cardId: string; deckId: string }>({
       query: ({ cardId }) => ({

@@ -10,7 +10,12 @@ import { CardFormValuesType, useCardForm } from './useAddForm'
 
 import { ButtonVariant, formatMutationError, TypographyVariant } from '@/common'
 import { Button, ControlledSelect, OptionType, Typography } from '@/components'
-import { CardValues } from '@/features'
+export type CardValues = {
+  answer: string
+  question: string
+  answerImg: string | null
+  questionImg: string | null
+}
 
 type Props = {
   buttonTitle: string
@@ -83,7 +88,6 @@ export const CardForm = ({
     formData.append('answer', data.answer)
     questionCover && formData.append('questionImg', questionCover)
     answerCover && formData.append('answerImg', answerCover)
-
     onSubmit(formData)
   }
   const onLoadQuestionCover = (data: File) => {
