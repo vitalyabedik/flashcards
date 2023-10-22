@@ -7,7 +7,7 @@ import {
   ResetPasswordParamsType,
 } from './authApi.types'
 
-import { baseApi } from '@/common'
+import { baseApi, queryNotificationHandler } from '@/common'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -21,6 +21,7 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: params,
       }),
+      transformErrorResponse: response => queryNotificationHandler(response),
       invalidatesTags: ['Me'],
     }),
     login: builder.mutation<LoginResponseType, LoginParamsType>({
