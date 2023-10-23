@@ -31,6 +31,7 @@ export const SignInForm = ({ onSubmit }: Props): JSX.Element => {
           label="Password"
         />
         <ControlledCheckbox
+          className={s.checkbox}
           control={control}
           name="rememberMe"
           label="Remember me"
