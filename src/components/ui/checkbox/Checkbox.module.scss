@@ -35,14 +35,17 @@
       border: 2px solid var(--color-dark-100);
     }
 
-    &:active:not([data-disabled]) {
+    &:hover:active([data-state='checked']) {
+      background-color: var(--color-dark-100);
+    }
+
+    &:hover:active:not([data-disabled]) {
       background-color: var(--color-dark-900);
       border: 2px solid var(--color-light-100);
     }
 
-    &:not([data-state='checked']):focus-within {
+    &:hover:active:not([data-state='checked'], [data-disabled]) {
       background-color: var(--color-dark-100);
-      border: 2px solid var(--color-light-900);
     }
 
     &[data-state='checked'][data-disabled] {
@@ -57,16 +60,12 @@
     height: 3.6rem;
     border-radius: 50%;
 
-    &:focus-within {
-      background-color: var(--color-dark-100);
-    }
-
     &:hover:not(.disabled) {
       background-color: var(--color-dark-500);
     }
 
-    &:hover:not(.disabled) .root:not([data-state='checked']) {
-      background-color: var(--color-dark-500);
+    &:hover:active:not(.disabled) {
+      background-color: var(--color-dark-100);
     }
 
     &.left {
