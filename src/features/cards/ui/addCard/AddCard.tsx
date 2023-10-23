@@ -1,18 +1,8 @@
 import { TypographyVariant } from '@/common'
 import { Button, Typography } from '@/components'
-import { AddCardModal, useCreateCardMutation } from '@/features'
+import { AddCardModal } from '@/features'
 
-type Props = {
-  id: string
-}
-
-export const AddCard = ({ id }: Props): JSX.Element => {
-  const [createCard] = useCreateCardMutation()
-
-  const createCardCallback = (body: FormData) => {
-    createCard({ id, body }).unwrap()
-  }
-
+export const AddCard = (): JSX.Element => {
   return (
     <AddCardModal
       trigger={
@@ -27,7 +17,6 @@ export const AddCard = ({ id }: Props): JSX.Element => {
         { value: 'text', title: 'Text' },
         { value: 'picture', title: 'Picture' },
       ]}
-      onSubmit={createCardCallback}
     />
   )
 }

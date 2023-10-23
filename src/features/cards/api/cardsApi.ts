@@ -8,7 +8,13 @@ import {
 } from './cardsApi.types'
 
 import { RootState } from '@/app'
-import { baseApi, getTextFromFormData, getFileFromFormData, updateCardsQueryData } from '@/common'
+import {
+  baseApi,
+  getFileFromFormData,
+  getTextFromFormData,
+  queryNotificationHandler,
+  updateCardsQueryData,
+} from '@/common'
 import { CardValues } from '@/features'
 
 export const cardsApi = baseApi.injectEndpoints({
@@ -19,6 +25,9 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'GET',
         params: params,
       }),
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
       providesTags: ['Cards'],
     }),
     createCard: builder.mutation<Card, { id: string; body: FormData }>({
@@ -84,7 +93,9 @@ export const cardsApi = baseApi.injectEndpoints({
           URL.revokeObjectURL(answerImageUrl)
         }
       },
-      invalidatesTags: ['Cards'],
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
     }),
     deleteCard: builder.mutation<void, { cardId: string; deckId: string }>({
       query: ({ cardId }) => ({
@@ -116,7 +127,10 @@ export const cardsApi = baseApi.injectEndpoints({
           deleteResult.undo()
         }
       },
-      invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
+      invalidatesTags: ['Decks', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse, RandomCardRequest>({
       query: ({ id, previousCardId }) => ({

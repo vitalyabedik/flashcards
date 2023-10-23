@@ -41,12 +41,15 @@ export const mutationNotificationHandler = async (
     } else if ('data' in result.error) {
       const error = result.error as ResponseErrorType
 
-      debugger
-      const errorMessage = error?.data?.errorMessages?.[0]?.message || 'Some error occurred'
+      // debugger
+      const errorMessage =
+        error?.data?.errorMessages?.[0]?.message ||
+        error?.data?.errorMessages?.[0] ||
+        'Some error occurred'
 
       if (!isForm) {
-        debugger
-        toast.error(errorMessage)
+        // debugger
+        toast.error(errorMessage as string)
       }
 
       if ('message' in result.error.data) {
@@ -58,18 +61,18 @@ export const mutationNotificationHandler = async (
           error: error?.data?.message,
         }
       }
-      debugger
+      // debugger
 
       return { status: 'error', data: null, error: errorMessage }
     } else if ('error' in result) {
-      debugger
+      // debugger
 
       const error = result.error as CommonErrorType
 
       return { status: 'error', data: null, error: error.error }
     }
   } catch (error) {
-    debugger
+    // debugger
     toast.error('Some error occurred')
   }
 }

@@ -19,15 +19,26 @@ const options: OptionType[] = [
   { value: 'picture', title: 'Picture' },
 ]
 
+const card = {
+  id: '1234sdafcsf',
+  deckId: 'sdf3asd32',
+  userId: 'user1',
+  shots: 0,
+  grade: 3,
+  question: 'What is JS',
+  answer: 'It is programming language',
+  questionImg: null,
+  answerImg: null,
+  created: new Date().toDateString(),
+  updated: new Date().toDateString(),
+  questionVideo: 'no-video',
+  answerVideo: 'no-video',
+}
+
 export const DefaultEditCardModal: Story = {
   args: {
     trigger: <IconButton size={1.6} icon={<EditIcon />} />,
     options,
-    cardValues: {
-      question: 'What is JS',
-      answer: 'It is programming language',
-      questionImg: null,
-      answerImg: null,
-    },
+    card,
   },
 }
