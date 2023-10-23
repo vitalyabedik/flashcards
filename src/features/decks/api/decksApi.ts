@@ -116,6 +116,9 @@ export const decksApi = baseApi.injectEndpoints({
         url: `decks/${id}`,
         method: 'GET',
       }),
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
       providesTags: ['Decks', { type: 'Decks', id: 'List' }],
     }),
   }),

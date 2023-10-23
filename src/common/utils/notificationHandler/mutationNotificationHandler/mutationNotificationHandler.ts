@@ -50,6 +50,12 @@ export const mutationNotificationHandler = async (
       if (!isForm) {
         debugger
         toast.error(errorMessage as string)
+
+        return {
+          status: 'error',
+          data: null,
+          error: error?.data?.message,
+        }
       }
 
       if ('message' in result.error.data) {
@@ -68,6 +74,10 @@ export const mutationNotificationHandler = async (
       debugger
 
       const error = result.error as CommonErrorType
+
+      if (!isForm) {
+        toast.error(error.error)
+      }
 
       return { status: 'error', data: null, error: error.error }
     }
