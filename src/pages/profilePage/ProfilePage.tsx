@@ -1,4 +1,4 @@
-import { Route } from '@/common'
+import { mutationNotificationHandler, Route } from '@/common'
 import { GoBack, Page } from '@/components'
 import {
   EditProfileValues,
@@ -19,7 +19,7 @@ export const ProfilePage = (): JSX.Element => {
       form.append(key, data[key as keyof EditProfileValues])
     })
 
-    updateProfile(form)
+    mutationNotificationHandler(updateProfile(form), false, `Name is successfully updated.`)
   }
 
   return (

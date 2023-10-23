@@ -7,11 +7,11 @@ import {
   ResetPasswordParamsType,
 } from './authApi.types'
 
-import { baseApi, queryNotificationHandler } from '@/common'
+import { baseApi, getTextFromFormData, queryNotificationHandler } from '@/common'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    me: builder.query<BaseResponseType, void>({
+    me: builder.query<BaseResponseType | null, void>({
       query: () => 'auth/me',
       providesTags: ['Me'],
     }),
@@ -25,10 +25,10 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ['Me'],
     }),
     login: builder.mutation<LoginResponseType, LoginParamsType>({
-      query: params => ({
+      query: body => ({
         url: 'auth/login',
         method: 'POST',
-        body: params,
+        body,
       }),
       transformErrorResponse: response => queryNotificationHandler(response),
       invalidatesTags: ['Me'],
@@ -38,6 +38,16 @@ export const authApi = baseApi.injectEndpoints({
         url: 'auth/logout',
         method: 'POST',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(authApi.util.updateQueryData('me', undefined, () => null))
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
+      transformErrorResponse: response => queryNotificationHandler(response),
       invalidatesTags: ['Me'],
     }),
     recoverPassword: builder.mutation<void, RecoverPasswordParamsType>({
@@ -64,6 +74,37 @@ export const authApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body,
       }),
+      transformErrorResponse: response => queryNotificationHandler(response),
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        let avatar = ''
+
+        const patchResult = dispatch(
+          authApi.util.updateQueryData('me', undefined, draft => {
+            const name = getTextFromFormData(body.get('name'))
+            const avatarBlob = body.get('avatar')
+
+            if (avatarBlob instanceof Blob) {
+              avatar = URL.createObjectURL(avatarBlob)
+            }
+
+            if (draft && avatar) {
+              draft.avatar = avatar
+            }
+
+            if (draft && name) {
+              draft.name = name
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        } finally {
+          URL.revokeObjectURL(avatar)
+        }
+      },
       invalidatesTags: ['Me'],
     }),
   }),

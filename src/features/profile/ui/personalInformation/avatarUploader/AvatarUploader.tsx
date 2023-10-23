@@ -3,14 +3,15 @@ import cn from 'classnames'
 import s from './AvatarUploader.module.scss'
 
 import { EditIcon } from '@/assets'
+import { mutationNotificationHandler } from '@/common'
 import { Avatar, IconButton, Uploader } from '@/components'
+import { useUpdateProfileMutation } from '@/features'
 
 type Props = {
   avatar?: string
   name: string
   editable?: boolean
   className?: string
-  updateAvatar: (formData: FormData) => void
 }
 
 export const AvatarUploader = ({
@@ -18,15 +19,17 @@ export const AvatarUploader = ({
   name,
   editable = true,
   className,
-  updateAvatar,
 }: Props): JSX.Element => {
+  const [updateProfile] = useUpdateProfileMutation()
+
   const avatarUploaderClasses = cn(s.root, className)
 
   const onLoadCover = async (data: File) => {
     const formData = new FormData()
 
     await formData.append('avatar', data)
-    updateAvatar(formData)
+
+    mutationNotificationHandler(updateProfile(formData), false, `Photo is successfully updated.`)
   }
 
   return (

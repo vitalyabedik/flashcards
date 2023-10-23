@@ -25,30 +25,30 @@ export const mutationNotificationHandler = async (
   successMessage?: string
 ) => {
   try {
-    debugger
+    // debugger
     const result = await request
 
     if ('data' in result) {
-      debugger
+      // debugger
       if (successMessage) {
-        debugger
+        // debugger
         toast.success(successMessage)
       }
 
-      debugger
+      // debugger
 
       return { status: 'success', data: result.data, error: null }
     } else if ('data' in result.error) {
       const error = result.error as ResponseErrorType
 
-      debugger
+      // debugger
       const errorMessage =
         error?.data?.errorMessages?.[0]?.message ||
         error?.data?.errorMessages?.[0] ||
         'Some error occurred'
 
       if (!isForm) {
-        debugger
+        // debugger
         toast.error(errorMessage as string)
       }
 
@@ -61,18 +61,18 @@ export const mutationNotificationHandler = async (
           error: error?.data?.message,
         }
       }
-      debugger
+      // debugger
 
       return { status: 'error', data: null, error: errorMessage }
     } else if ('error' in result) {
-      debugger
+      // debugger
 
       const error = result.error as CommonErrorType
 
       return { status: 'error', data: null, error: error.error }
     }
   } catch (error) {
-    debugger
+    // debugger
     toast.error('Some error occurred')
   }
 }
