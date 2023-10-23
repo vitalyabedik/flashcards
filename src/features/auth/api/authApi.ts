@@ -74,7 +74,7 @@ export const authApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body,
       }),
-      // transformErrorResponse: response => queryNotificationHandler(response),
+      transformErrorResponse: response => queryNotificationHandler(response),
       async onQueryStarted(body, { dispatch, queryFulfilled }) {
         let avatar = ''
 
