@@ -1,21 +1,31 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
+import { mutationNotificationHandler, Route } from '@/common'
 import { Page } from '@/components'
 import { CreateNewPasswordForm, useResetPasswordMutation } from '@/features'
 
 export const CreateNewPasswordPage = (): JSX.Element => {
+  const navigate = useNavigate()
   const { token } = useParams<{ token: string }>()
   const [resetPassword] = useResetPasswordMutation()
 
-  const resetPasswordHandler = (data: { password: string }) => {
+  const onSubmit = (data: { password: string }) => {
     if (token) {
-      resetPassword({ ...data, token })
+      mutationNotificationHandler(
+        resetPassword({ ...data, token }),
+        false,
+        'Your password has been successfully changed. Try to login.'
+      ).then(data => {
+        if (data?.status === 'success') {
+          navigate(Route.SignIn)
+        }
+      })
     }
   }
 
   return (
     <Page>
-      <CreateNewPasswordForm onSubmit={resetPasswordHandler} />
+      <CreateNewPasswordForm onSubmit={onSubmit} />
     </Page>
   )
 }

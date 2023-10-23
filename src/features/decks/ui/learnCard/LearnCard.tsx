@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom'
 import s from './LearnCard.module.scss'
 import { RateLearnCard, RateLearnCardValues } from './rateLearnCard'
 
-import { TypographyVariant } from '@/common'
+import { mutationNotificationHandler, TypographyVariant } from '@/common'
 import { Button, Card, Typography } from '@/components'
-import { useGetDeckQuery, useGetRandomCardQuery, useRateCardMutation } from '@/features'
+import { useGetRandomCardQuery, useRateCardMutation } from '@/features'
 
 export const LearnCard = (): JSX.Element => {
   const [isShowAnswer, setIsShowAnswer] = useState(false)
@@ -16,7 +16,7 @@ export const LearnCard = (): JSX.Element => {
 
   const params = useParams()
   const id = params.id as string
-  const { data: deck } = useGetDeckQuery({ id })
+  /*  const { data: deck } = useGetDeckQuery({ id })*/
   const { data: card } = useGetRandomCardQuery({ id })
 
   const onShowAnswer = () => {
@@ -24,14 +24,20 @@ export const LearnCard = (): JSX.Element => {
   }
 
   const onSubmit = (data: RateLearnCardValues) => {
-    setIsShowAnswer(false)
-    rateCard({ deckId: id, cardId: card!.id, grade: Number(data.grade) })
+    mutationNotificationHandler(
+      rateCard({ deckId: id, cardId: card!.id, grade: Number(data.grade) }),
+      false
+    ).then(data => {
+      if (data?.status === 'success') {
+        setIsShowAnswer(false)
+      }
+    })
   }
 
   return (
     <Card className={s.root}>
       <Typography className={s.title} variant={TypographyVariant.Large} as="h2">
-        Learn {deck?.name}
+        Learn {card?.name}
       </Typography>
       <Typography className={s.question}>
         <b>Question:</b> {card?.question}

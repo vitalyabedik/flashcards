@@ -26,7 +26,7 @@ export const CreateNewPasswordForm = ({ onSubmit }: Props): JSX.Element => {
           label="Password"
         />
         <Typography className={s.instructionText} variant={TypographyVariant.Body2}>
-          Create new password and we will send you further instructions to email
+          Enter a new password to log into the application and follow further instructions
         </Typography>
         <Button type="submit" fullWidth>
           Create New Password

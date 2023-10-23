@@ -1,3 +1,5 @@
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+
 import {
   Card,
   CardRateRequest,
@@ -15,7 +17,8 @@ import {
   queryNotificationHandler,
   updateCardsQueryData,
 } from '@/common'
-import { CardValues } from '@/features'
+
+import { CardValues, GetDeckResponseType } from '@/features'
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -132,31 +135,48 @@ export const cardsApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks', { type: 'Decks', id: 'List' }],
     }),
-    getRandomCard: builder.query<CardResponse, RandomCardRequest>({
-      query: ({ id, previousCardId }) => ({
-        url: `decks/${id}/learn`,
-        method: 'GET',
-        params: { previousCardId },
-      }),
+    getRandomCard: builder.query<CardResponse & { name?: string }, RandomCardRequest>({
+      queryFn: async (arg, _api, _extraOptions, fetchWithBQ) => {
+        const deckResponse = await fetchWithBQ(`decks/${arg.id}`)
+
+        if (deckResponse.error) {
+          queryNotificationHandler(deckResponse.error)
+
+          return { error: deckResponse.error as FetchBaseQueryError }
+        }
+
+        const cardsResponse = await fetchWithBQ({
+          url: `decks/${arg.id}/learn`,
+          method: 'GET',
+          params: { previousCardId: arg.previousCardId },
+        })
+
+        if (cardsResponse.error) {
+          queryNotificationHandler(cardsResponse.error)
+
+          return { error: cardsResponse.error as FetchBaseQueryError }
+        }
+        const deckData = deckResponse.data as GetDeckResponseType
+        const cardData = cardsResponse.data as CardResponse
+
+        return { data: { ...cardData, name: deckData.name } }
+      },
     }),
+
     rateCard: builder.mutation<CardResponse, CardRateRequest>({
       query: ({ deckId, ...rest }) => ({
-        url: `decks/${deckId}/learn`,
+        url: `decks/${deckId}/learns`,
         method: 'POST',
         body: rest,
       }),
       async onQueryStarted({ deckId }, { dispatch, queryFulfilled }) {
-        try {
-          const { data: newCard } = await queryFulfilled
+        const { data: newCard } = await queryFulfilled
 
-          dispatch(
-            cardsApi.util.updateQueryData('getRandomCard', { id: deckId }, () => {
-              return newCard
-            })
-          )
-        } catch (e) {
-          console.error(e)
-        }
+        dispatch(
+          cardsApi.util.updateQueryData('getRandomCard', { id: deckId }, () => {
+            return newCard
+          })
+        )
       },
       invalidatesTags: ['Cards'],
     }),
