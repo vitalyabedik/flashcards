@@ -1,3 +1,7 @@
 .root {
-  margin-top: 10rem;
+  /* margin-top: 10rem; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

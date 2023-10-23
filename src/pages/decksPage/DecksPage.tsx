@@ -1,9 +1,8 @@
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
-import { Loading } from '@/assets'
 import { formatSortedString, useDebounce } from '@/common'
-import { Page, Pagination, Panel } from '@/components'
+import { Page, Pagination, Panel, Preloader } from '@/components'
 import { DecksTable, useDecksOptions, useGetDecksQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
@@ -71,6 +70,7 @@ export const DecksPage = (): JSX.Element => {
         onClearFilter={onClearFilterCallback}
         isDisabled={isDisabled}
       />
+      {isFetching && !isLoading && <Preloader />}
       {decks && (
         <DecksTable
           decksData={decks}
@@ -79,7 +79,6 @@ export const DecksPage = (): JSX.Element => {
           isDisabled={isDisabled}
         />
       )}
-      {isFetching && !isLoading && <Loading />}
       {!!decks?.items.length && (
         <Pagination
           totalCount={decks?.pagination.totalItems || 10}

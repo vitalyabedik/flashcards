@@ -24,7 +24,7 @@ export const DeckPageHeader = ({ isOwner, deck }: Props): JSX.Element => {
           </Dropdown>
         )}
       </div>
-      {isOwner && !!deck.cardsCount && <AddCard id={deck.id} />}
+      {isOwner && !!deck.cardsCount && <AddCard />}
       {!isOwner && (
         <Button as={Link} to={`${Route.Decks}/${deck.id}/learn`}>
           <Typography variant={TypographyVariant.Subtitle2} as="span">

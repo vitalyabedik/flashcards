@@ -1,34 +1,32 @@
 import { ReactNode, useState } from 'react'
 
+import { mutationNotificationHandler } from '@/common'
 import { Modal, OptionType } from '@/components'
-import { CardForm } from '@/features'
-
-export type CardValues = {
-  answer: string
-  question: string
-  answerImg: string | null
-  questionImg: string | null
-}
+import { Card, CardForm, useUpdateCardMutation } from '@/features'
 
 type Props = {
   trigger: ReactNode
-  cardValues: CardValues
+  card: Card
   placeholder: ReactNode
   options: OptionType[]
-  onSubmit: (data: FormData) => void
 }
 
-export const EditCardModal = ({
-  trigger,
-  cardValues,
-  placeholder,
-  options,
-  onSubmit,
-}: Props): JSX.Element => {
+export const EditCardModal = ({ trigger, card, placeholder, options }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const [updateCard, { error }] = useUpdateCardMutation()
+  const { id, answer, answerImg, question, questionImg, deckId } = card
+  const cardValues = { answer, answerImg, question, questionImg }
 
   const closeModal = () => {
     setIsOpen(false)
+  }
+  const onSubmit = (body: FormData) => {
+    mutationNotificationHandler(updateCard({ cardId: id, deckId, body }), true).then(data => {
+      if (data?.status === 'success') {
+        closeModal()
+      }
+    })
   }
 
   return (
@@ -40,6 +38,7 @@ export const EditCardModal = ({
         cardValues={cardValues}
         onSubmit={onSubmit}
         closeModal={closeModal}
+        error={error}
       />
     </Modal>
   )
