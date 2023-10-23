@@ -1,14 +1,21 @@
 import { ReactNode, useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
+import { SerializedError } from '@reduxjs/toolkit'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import s from './CardForm.module.scss'
 import { CardFormField } from './CardFormField'
 import { CardFormValuesType, useCardForm } from './useAddForm'
 
-import { ButtonVariant, TypographyVariant } from '@/common'
+import { ButtonVariant, formatMutationError, TypographyVariant } from '@/common'
 import { Button, ControlledSelect, OptionType, Typography } from '@/components'
-import { CardValues } from '@/features'
+export type CardValues = {
+  answer: string
+  question: string
+  answerImg: string | null
+  questionImg: string | null
+}
 
 type Props = {
   buttonTitle: string
@@ -17,6 +24,7 @@ type Props = {
   cardValues?: CardValues
   onSubmit: (data: FormData) => void
   closeModal: () => void
+  error?: FetchBaseQueryError | SerializedError | undefined
 }
 
 export const CardForm = ({
@@ -26,6 +34,7 @@ export const CardForm = ({
   cardValues,
   onSubmit,
   closeModal,
+  error,
 }: Props): JSX.Element => {
   const [questionCover, setQuestionCover] = useState<File | null>(null)
   const [answerCover, setAnswerCover] = useState<File | null>(null)
@@ -40,7 +49,9 @@ export const CardForm = ({
     watch,
     formState: { errors },
     setValue,
+    setError,
   } = useCardForm({ answer: cardValues?.answer || '', question: cardValues?.question || '' })
+
   const questionFormat = watch('questionFormat')
   const questionError = errors.question?.message
   const answerFormat = watch('answerFormat')
@@ -51,6 +62,19 @@ export const CardForm = ({
   }
   if (answerError && answerFormat === 'picture') {
     setValue('answerFormat', 'text')
+  }
+  const formatError = formatMutationError(error)
+
+  if (formatError) {
+    formatError.forEach(error => {
+      const errorField = error.field as keyof CardFormValuesType
+
+      !errors[errorField] &&
+        setError(errorField, {
+          type: 'custom',
+          message: error.message || undefined,
+        })
+    })
   }
   const questionImageUrl = questionCover
     ? URL.createObjectURL(questionCover)
@@ -64,11 +88,7 @@ export const CardForm = ({
     formData.append('answer', data.answer)
     questionCover && formData.append('questionImg', questionCover)
     answerCover && formData.append('answerImg', answerCover)
-
     onSubmit(formData)
-    if (!questionCoverError || !answerCoverError) {
-      closeModal()
-    }
   }
   const onLoadQuestionCover = (data: File) => {
     setQuestionCover(data)

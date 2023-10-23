@@ -17,6 +17,7 @@ import {
   queryNotificationHandler,
   updateCardsQueryData,
 } from '@/common'
+
 import { CardValues, GetDeckResponseType } from '@/features'
 
 export const cardsApi = baseApi.injectEndpoints({
@@ -27,6 +28,9 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'GET',
         params: params,
       }),
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
       providesTags: ['Cards'],
     }),
     createCard: builder.mutation<Card, { id: string; body: FormData }>({
@@ -92,7 +96,9 @@ export const cardsApi = baseApi.injectEndpoints({
           URL.revokeObjectURL(answerImageUrl)
         }
       },
-      invalidatesTags: ['Cards'],
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
     }),
     deleteCard: builder.mutation<void, { cardId: string; deckId: string }>({
       query: ({ cardId }) => ({
@@ -124,7 +130,10 @@ export const cardsApi = baseApi.injectEndpoints({
           deleteResult.undo()
         }
       },
-      invalidatesTags: ['Cards', { type: 'Decks', id: 'List' }],
+      transformErrorResponse: response => {
+        queryNotificationHandler(response)
+      },
+      invalidatesTags: ['Decks', { type: 'Decks', id: 'List' }],
     }),
     getRandomCard: builder.query<CardResponse & { name?: string }, RandomCardRequest>({
       queryFn: async (arg, _api, _extraOptions, fetchWithBQ) => {
