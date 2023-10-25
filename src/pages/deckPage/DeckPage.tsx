@@ -7,7 +7,7 @@ import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { useDebounce } from '@/common'
-import { GoBack, Input, Page, Pagination, Table } from '@/components'
+import { GoBack, Input, LinearProgressBar, Page, Pagination, Table } from '@/components'
 import {
   AddCard,
   CardsTable,
@@ -16,7 +16,6 @@ import {
   useGetDeckQuery,
   useMeQuery,
 } from '@/features'
-import { LinearProgressBar } from '@components/ui/linearProgressBar'
 
 export const DeckPage = (): JSX.Element => {
   const { id = '' } = useParams<{ id: string }>()
