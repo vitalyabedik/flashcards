@@ -1,0 +1,31 @@
+.progress {
+  position: relative;
+  width: 100%;
+}
+
+.progressBar {
+  position: absolute;
+  left: 0;
+
+  height: 0.8rem;
+
+  background: var(--color-accent-500);
+
+  animation: infiniti-line 1.2s infinite linear;
+}
+
+@keyframes infiniti-line {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0.5;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
