@@ -1,8 +1,12 @@
-import s from './LinearProgressBar.module.scss'
+import cn from 'classnames'
 
-export const LinearProgressBar = (): JSX.Element => {
+import s from './LinearProgressBar.module.scss'
+type Props = {
+  className?: string
+}
+export const LinearProgressBar = ({ className }: Props): JSX.Element => {
   return (
-    <div className={s.container}>
+    <div className={cn(s.container, className)}>
       <div className={s.progressBar}></div>
     </div>
   )

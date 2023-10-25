@@ -7,7 +7,7 @@ import { DeckPageHeader } from './deckPageHeader'
 
 import { SearchIcon } from '@/assets'
 import { useDebounce } from '@/common'
-import { GoBack, Input, Page, Pagination, Preloader, Table } from '@/components'
+import { GoBack, Input, Page, Pagination, Table } from '@/components'
 import {
   AddCard,
   CardsTable,
@@ -16,6 +16,7 @@ import {
   useGetDeckQuery,
   useMeQuery,
 } from '@/features'
+import { LinearProgressBar } from '@components/ui/linearProgressBar'
 
 export const DeckPage = (): JSX.Element => {
   const { id = '' } = useParams<{ id: string }>()
@@ -49,44 +50,46 @@ export const DeckPage = (): JSX.Element => {
   const loadingStatus = isLoading || isFetching
 
   return (
-    <Page>
-      <GoBack className={s.link} title="Back to Decks List" />
-      {deck && <DeckPageHeader isOwner={isOwner} deck={deck} />}
-      {loadingStatus && <Preloader />}
-      {isEmptyCard && !loadingStatus && (
-        <>
-          <Input
-            className={s.input}
-            leftIcon={<SearchIcon size={2} />}
-            value={question}
-            onChangeValue={onChangeQuestion}
-            placeholder="Input search"
-          />
-          <CardsTable
-            isOwner={isOwner}
-            cards={deckData?.items || []}
-            sort={sort}
-            onSort={onChangeSort}
-          />
-          <Pagination
-            totalCount={deckData?.pagination.totalItems || 0}
-            pageSize={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={onChangePage}
-            onValueChange={onChangePageSize}
-            value={String(itemsPerPage)}
-            options={paginationOptions}
-          />
-        </>
-      )}
-      {isOwner && !isEmptyCard && !loadingStatus && (
-        <Table.Empty>
-          <AddCard />
-        </Table.Empty>
-      )}
-      {!isOwner && !isEmptyCard && !loadingStatus && (
-        <Table.Empty text="The deck is empty, please go back to learn other decks." />
-      )}
-    </Page>
+    <>
+      {loadingStatus && <LinearProgressBar />}
+      <Page>
+        <GoBack className={s.link} title="Back to Decks List" />
+        {deck && <DeckPageHeader isOwner={isOwner} deck={deck} isEmptyCard={!!isEmptyCard} />}
+        {isEmptyCard && (
+          <>
+            <Input
+              className={s.input}
+              leftIcon={<SearchIcon size={2} />}
+              value={question}
+              onChangeValue={onChangeQuestion}
+              placeholder="Input search"
+            />
+            <CardsTable
+              isOwner={isOwner}
+              cards={deckData?.items || []}
+              sort={sort}
+              onSort={onChangeSort}
+            />
+            <Pagination
+              totalCount={deckData?.pagination.totalItems || 0}
+              pageSize={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={onChangePage}
+              onValueChange={onChangePageSize}
+              value={String(itemsPerPage)}
+              options={paginationOptions}
+            />
+          </>
+        )}
+        {isOwner && !isEmptyCard && (
+          <Table.Empty>
+            <AddCard />
+          </Table.Empty>
+        )}
+        {!isOwner && !isEmptyCard && !loadingStatus && (
+          <Table.Empty text="The deck is empty, please go back to learn other decks." />
+        )}
+      </Page>
+    </>
   )
 }

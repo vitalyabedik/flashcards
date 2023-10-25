@@ -9,9 +9,10 @@ import { DeckManageTools } from '@/pages'
 
 type Props = {
   isOwner: boolean
+  isEmptyCard: boolean
   deck: GetDeckResponseType
 }
-export const DeckPageHeader = ({ isOwner, deck }: Props): JSX.Element => {
+export const DeckPageHeader = ({ isOwner, isEmptyCard, deck }: Props): JSX.Element => {
   return (
     <div className={s.root}>
       <div className={s.deckOwnerWrapper}>
@@ -25,7 +26,7 @@ export const DeckPageHeader = ({ isOwner, deck }: Props): JSX.Element => {
         )}
       </div>
       {isOwner && !!deck.cardsCount && <AddCard />}
-      {!isOwner && (
+      {!isOwner && isEmptyCard && (
         <Button as={Link} to={`${Route.Decks}/${deck.id}/learn`}>
           <Typography variant={TypographyVariant.Subtitle2} as="span">
             Learn Deck
