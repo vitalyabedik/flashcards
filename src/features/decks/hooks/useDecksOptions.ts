@@ -34,6 +34,7 @@ export const useDecksOptions = () => {
   const {
     setSearchByName,
     setTabValue,
+    setCardsCount,
     setAuthorId,
     setSortOptions,
     setCurrentPage,
@@ -65,6 +66,7 @@ export const useDecksOptions = () => {
   const onChangeSliderValueCallback = (sliderValues: number[]) => {
     dispatch(resetCurrentPage())
     setSliderRangeValue({ min: sliderValues[0], max: sliderValues[1] })
+    setCardsCount({ cardsCount: { min: sliderValues[0], max: sliderValues[1] } })
   }
 
   const onChangeSortCallback = (orderBy: Sort) => {
@@ -96,6 +98,7 @@ export const useDecksOptions = () => {
     pageOptions,
     onSearchCallback,
     onChangeTabValueCallback,
+    setCardsCount,
     onChangeSliderValueCallback,
     onChangeSortCallback,
     onClearFilterCallback,

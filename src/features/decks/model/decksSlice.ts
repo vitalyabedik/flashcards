@@ -40,6 +40,9 @@ export const decksSlice = createSlice({
     setTabValue: (state, action: PayloadAction<{ tabValue: string }>) => {
       state.tabValue = action.payload.tabValue
     },
+    setCardsCount: (state, action: PayloadAction<{ cardsCount: CardsCountType }>) => {
+      state.cardsCount = action.payload.cardsCount
+    },
     setAuthorId: (state, action: PayloadAction<{ authorId: string | undefined }>) => {
       state.authorId = action.payload.authorId
     },
