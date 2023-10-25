@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 
-import { Route, TypographyVariant } from '@/common'
-import { Page, Typography } from '@/components'
+import { Route } from '@/common'
+import { Page, Preloader } from '@/components'
 import { LoginParamsType, SignInForm, useLoginMutation, useMeQuery } from '@/features'
 
 export const SignInPage = (): JSX.Element => {
@@ -15,11 +15,7 @@ export const SignInPage = (): JSX.Element => {
   }
 
   if (isLoading) {
-    return (
-      <Typography variant={TypographyVariant.Large} as="h1">
-        Loading...
-      </Typography>
-    )
+    return <Preloader />
   }
 
   if (isAuth) return <Navigate to={Route.Main} replace={true} />
