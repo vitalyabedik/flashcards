@@ -10,7 +10,7 @@ import { useLogoutMutation, useMeQuery } from '@/features'
 const AppLayout = () => {
   const { data, isError } = useMeQuery()
 
-  const [logout] = useLogoutMutation()
+  const [logout, { isLoading }] = useLogoutMutation()
   const isAuth = !isError
 
   return (
@@ -22,6 +22,7 @@ const AppLayout = () => {
         email={data?.email}
         isLoggedIn={isAuth}
         logout={logout}
+        isDisabled={isLoading}
       />
       <Outlet />
     </>
