@@ -37,7 +37,7 @@ export const DecksPage = (): JSX.Element => {
 
   const sortedString = formatSortedString(sortOptions)
 
-  let { data, currentData, isLoading, isFetching } = useGetDecksQuery({
+  let { currentData, data, isLoading, isFetching } = useGetDecksQuery({
     name: debouncedSearchName,
     authorId,
     minCardsCount: debouncedSliderRangeValue.min,
@@ -55,7 +55,8 @@ export const DecksPage = (): JSX.Element => {
     if (
       debouncedSliderRangeValue.max === undefined ||
       debouncedSliderRangeValue.max === null ||
-      debouncedSliderRangeValue.max !== currentData?.maxCardsCount
+      debouncedSliderRangeValue.max !== currentData?.maxCardsCount ||
+      !currentData?.maxCardsCount
     ) {
       onChangeSliderValueCallback([0, currentData?.maxCardsCount ?? 0])
       dispatch(setCardsCount({ cardsCount: { min: 0, max: currentData?.maxCardsCount ?? 0 } }))
