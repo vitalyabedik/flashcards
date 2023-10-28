@@ -105,7 +105,6 @@ export const authApi = baseApi.injectEndpoints({
           URL.revokeObjectURL(avatar)
         }
       },
-      invalidatesTags: ['Me'],
     }),
   }),
 })
