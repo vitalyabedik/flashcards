@@ -4,7 +4,7 @@ export const selectSearchName = (state: RootState) => state.decks.searchName
 
 export const selectTabValue = (state: RootState) => state.decks.tabValue
 
-export const selectSliderValues = (state: RootState) => state.decks.sliderValues
+export const selectCardsCount = (state: RootState) => state.decks.cardsCount
 
 export const selectAuthorId = (state: RootState) => state.decks.authorId
 

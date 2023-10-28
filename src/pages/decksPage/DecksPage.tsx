@@ -1,15 +1,20 @@
+import { useEffect } from 'react'
+
+import { useDispatch } from 'react-redux'
+
 import s from './DecksPage.module.scss'
 import { DecksPageHeader } from './decksPageHeader'
 
 import { formatSortedString, useDebounce } from '@/common'
-import { Page, Pagination, Panel, Preloader } from '@/components'
+import { LinearProgressBar, Page, Pagination, Panel } from '@/components'
 import { DecksTable, useDecksOptions, useGetDecksQuery } from '@/features'
 
 export const DecksPage = (): JSX.Element => {
   const {
     searchName,
     tabValue,
-    sliderValues,
+    cardsCount,
+    sliderRangeValue,
     authorId,
     sortOptions,
     currentPage,
@@ -18,78 +23,91 @@ export const DecksPage = (): JSX.Element => {
     onSearchCallback,
     onChangeTabValueCallback,
     onChangeSliderValueCallback,
+    setCardsCount,
     onChangeSortCallback,
     onClearFilterCallback,
     onChangePageSizeCallback,
     onChangeCurrentPageCallback,
   } = useDecksOptions()
 
-  let delay
+  const dispatch = useDispatch()
 
-  if (searchName === '') {
-    delay = 0
-  } else {
-    delay = 1500
-  }
+  const debouncedSearchName = useDebounce(searchName)
+  const debouncedSliderRangeValue = useDebounce(sliderRangeValue)
 
-  const debouncedSearchName = useDebounce(searchName, delay)
   const sortedString = formatSortedString(sortOptions)
 
-  const {
-    currentData: decks,
-    isLoading,
-    isFetching,
-    isError,
-  } = useGetDecksQuery({
+  let { currentData, data, isLoading, isFetching } = useGetDecksQuery({
     name: debouncedSearchName,
     authorId,
-    minCardsCount: sliderValues[0],
-    maxCardsCount: sliderValues[1],
+    minCardsCount: debouncedSliderRangeValue.min,
+    maxCardsCount: debouncedSliderRangeValue.max,
     orderBy: sortedString,
     itemsPerPage: pageSize,
     currentPage,
   })
 
-  const isDisabled = isLoading || isFetching || isError
+  if (!currentData && data) {
+    currentData = { ...data }
+  }
+
+  useEffect(() => {
+    if (
+      debouncedSliderRangeValue.max === undefined ||
+      debouncedSliderRangeValue.max === null ||
+      debouncedSliderRangeValue.max !== currentData?.maxCardsCount ||
+      !currentData?.maxCardsCount
+    ) {
+      onChangeSliderValueCallback([0, currentData?.maxCardsCount ?? 0])
+      dispatch(setCardsCount({ cardsCount: { min: 0, max: currentData?.maxCardsCount ?? 0 } }))
+    }
+  }, [currentData?.maxCardsCount])
+
+  const loadingStatus = isLoading || isFetching
 
   return (
-    <Page className={s.root}>
-      <DecksPageHeader isDisabled={isDisabled} />
-      <Panel
-        className={s.panelWrapper}
-        inputValue={searchName}
-        onChangeInputValue={onSearchCallback}
-        tabValue={tabValue}
-        tabLabel="Show packs cards"
-        sliderValue={sliderValues}
-        onChangeTabValue={onChangeTabValueCallback}
-        minSliderValue={0}
-        maxSliderValue={10}
-        sliderLabel="Number of cards"
-        onChangeSliderValue={onChangeSliderValueCallback}
-        onClearFilter={onClearFilterCallback}
-        isDisabled={isDisabled}
-      />
-      {isFetching && !isLoading && <Preloader />}
-      {decks && (
-        <DecksTable
-          decksData={decks}
-          sort={sortOptions}
-          onSort={onChangeSortCallback}
-          isDisabled={isDisabled}
+    <>
+      {loadingStatus && <LinearProgressBar />}
+      <Page className={s.root}>
+        <DecksPageHeader isDisabled={loadingStatus} />
+        <Panel
+          className={s.panelWrapper}
+          inputValue={searchName}
+          onChangeInputValue={onSearchCallback}
+          tabValue={tabValue}
+          tabLabel="Show decks cards"
+          sliderValue={[
+            sliderRangeValue?.min ?? 0,
+            sliderRangeValue?.max ?? currentData?.maxCardsCount ?? 0,
+          ]}
+          onChangeTabValue={onChangeTabValueCallback}
+          minSliderValue={cardsCount.min}
+          maxSliderValue={Number(data?.maxCardsCount)}
+          sliderLabel="Number of cards"
+          onChangeSliderValue={onChangeSliderValueCallback}
+          onClearFilter={onClearFilterCallback}
+          isDisabled={loadingStatus}
         />
-      )}
-      {!!decks?.items.length && (
-        <Pagination
-          totalCount={decks?.pagination.totalItems || 10}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          value={String(pageSize)}
-          onPageChange={onChangeCurrentPageCallback}
-          onValueChange={onChangePageSizeCallback}
-          options={pageOptions}
-        />
-      )}
-    </Page>
+        {currentData && currentData.items.length > 0 && (
+          <>
+            <DecksTable
+              decksData={currentData}
+              sort={sortOptions}
+              onSort={onChangeSortCallback}
+              isDisabled={loadingStatus}
+            />
+            <Pagination
+              totalCount={currentData?.pagination.totalItems || 10}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              value={String(pageSize)}
+              onPageChange={onChangeCurrentPageCallback}
+              onValueChange={onChangePageSizeCallback}
+              options={pageOptions}
+            />
+          </>
+        )}
+      </Page>
+    </>
   )
 }

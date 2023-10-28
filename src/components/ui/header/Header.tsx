@@ -24,11 +24,20 @@ type Props = {
   email?: string
   className?: string
   logout: () => void
+  isDisabled: boolean
 } & ComponentPropsWithoutRef<'div'>
 
 export const Header = forwardRef<ElementRef<'div'>, Props>(
   (
-    { name = 'name', avatar = 'avatar', email = 'email', isLoggedIn, className, logout },
+    {
+      name = 'name',
+      avatar = 'avatar',
+      email = 'email',
+      isLoggedIn,
+      className,
+      logout,
+      isDisabled,
+    },
     ref
   ): JSX.Element => {
     const classNames = {
@@ -70,6 +79,7 @@ export const Header = forwardRef<ElementRef<'div'>, Props>(
                   icon={<LogoutIcon size={1.6} />}
                   text="Logout"
                   onSelect={logout}
+                  disabled={isDisabled}
                 />
               </Dropdown>
             </div>

@@ -66,7 +66,6 @@ export const decksApi = baseApi.injectEndpoints({
           patchResult.undo()
         }
       },
-      invalidatesTags: ['Decks'],
     }),
     updateDeck: builder.mutation<DeckType, UpdateDeckParamsType>({
       query: ({ id, body }) => ({
@@ -84,8 +83,11 @@ export const decksApi = baseApi.injectEndpoints({
 
             const name = body.get('name')
             const isPrivate = body.get('isPrivate')
+            const coverBlob = body.get('cover')
 
-            cover = URL.createObjectURL(body.get('cover') as Blob)
+            if (coverBlob instanceof Blob) {
+              cover = URL.createObjectURL(coverBlob)
+            }
 
             if (index !== -1) {
               draft.items[index] = {
@@ -106,7 +108,6 @@ export const decksApi = baseApi.injectEndpoints({
           URL.revokeObjectURL(cover)
         }
       },
-      invalidatesTags: ['Decks'],
     }),
     getDeck: builder.query<GetDeckResponseType, GetDeckParamsType>({
       query: ({ id }) => ({

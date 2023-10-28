@@ -62,10 +62,10 @@ export const Panel = ({
         onValueChange={onChangeTabValue}
       >
         <TabItem value="my" disabled={isDisabled}>
-          My Cards
+          My Decks
         </TabItem>
         <TabItem value="all" disabled={isDisabled}>
-          All Cards
+          All Decks
         </TabItem>
       </Tabs>
       <Slider

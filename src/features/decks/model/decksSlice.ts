@@ -2,6 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Sort } from '@/components'
 
+export type CardsCountType = {
+  min: number
+  max: number | undefined
+}
+
 type PageOptionType = {
   value: string
   title: string
@@ -10,7 +15,10 @@ type PageOptionType = {
 const initialState = {
   searchName: '',
   tabValue: 'all',
-  sliderValues: [0, 10] as number[],
+  cardsCount: {
+    min: 0,
+    max: undefined,
+  } as CardsCountType,
   authorId: undefined as string | undefined,
   currentPage: 1,
   pageSize: 10,
@@ -32,8 +40,8 @@ export const decksSlice = createSlice({
     setTabValue: (state, action: PayloadAction<{ tabValue: string }>) => {
       state.tabValue = action.payload.tabValue
     },
-    setSliderValues: (state, action: PayloadAction<{ sliderValues: number[] }>) => {
-      state.sliderValues = action.payload.sliderValues
+    setCardsCount: (state, action: PayloadAction<{ cardsCount: CardsCountType }>) => {
+      state.cardsCount = action.payload.cardsCount
     },
     setAuthorId: (state, action: PayloadAction<{ authorId: string | undefined }>) => {
       state.authorId = action.payload.authorId
@@ -46,6 +54,15 @@ export const decksSlice = createSlice({
     },
     setPageSize: (state, action: PayloadAction<{ pageSize: number }>) => {
       state.pageSize = action.payload.pageSize
+    },
+    resetCurrentPage: state => {
+      state.currentPage = 1
+    },
+    clearFilters: state => {
+      state.searchName = ''
+      state.tabValue = 'all'
+      state.authorId = undefined
+      state.sortOptions = null
     },
   },
 })

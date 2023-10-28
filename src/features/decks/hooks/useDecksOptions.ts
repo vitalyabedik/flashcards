@@ -1,36 +1,46 @@
+import { useState } from 'react'
+
 import { useAppDispatch, useAppSelector } from '@/common'
 import { Sort } from '@/components'
 import {
-  decksActions,
+  CardsCountType,
+  selectSearchName,
+  selectTabValue,
+  selectCardsCount,
   selectAuthorId,
   selectCurrentPage,
-  selectPageOptions,
   selectPageSize,
-  selectSearchName,
-  selectSliderValues,
   selectSortOptions,
-  selectTabValue,
+  selectPageOptions,
+  decksActions,
   useMeQuery,
 } from '@/features'
 
 export const useDecksOptions = () => {
   const searchName = useAppSelector(selectSearchName)
   const tabValue = useAppSelector(selectTabValue)
-  const sliderValues = useAppSelector(selectSliderValues)
+  const cardsCount = useAppSelector(selectCardsCount)
   const authorId = useAppSelector(selectAuthorId)
   const sortOptions = useAppSelector(selectSortOptions)
   const currentPage = useAppSelector(selectCurrentPage)
   const pageSize = useAppSelector(selectPageSize)
   const pageOptions = useAppSelector(selectPageOptions)
 
+  const [sliderRangeValue, setSliderRangeValue] = useState<CardsCountType>({
+    min: 0,
+    max: undefined,
+  })
+
   const {
     setSearchByName,
     setTabValue,
-    setSliderValues,
+    setCardsCount,
     setAuthorId,
     setSortOptions,
     setCurrentPage,
     setPageSize,
+    resetCurrentPage,
+    clearFilters,
   } = decksActions
 
   const dispatch = useAppDispatch()
@@ -39,11 +49,11 @@ export const useDecksOptions = () => {
 
   const onSearchCallback = (name: string) => {
     dispatch(setSearchByName({ searchName: name }))
-    dispatch(setCurrentPage({ currentPage: 1 }))
+    dispatch(resetCurrentPage())
   }
 
   const onChangeTabValueCallback = (tabValue: string) => {
-    dispatch(setCurrentPage({ currentPage: 1 }))
+    dispatch(resetCurrentPage())
     dispatch(setTabValue({ tabValue }))
 
     if (tabValue === 'my') {
@@ -54,8 +64,9 @@ export const useDecksOptions = () => {
   }
 
   const onChangeSliderValueCallback = (sliderValues: number[]) => {
-    dispatch(setCurrentPage({ currentPage: 1 }))
-    dispatch(setSliderValues({ sliderValues }))
+    dispatch(resetCurrentPage())
+    setSliderRangeValue({ min: sliderValues[0], max: sliderValues[1] })
+    setCardsCount({ cardsCount: { min: sliderValues[0], max: sliderValues[1] } })
   }
 
   const onChangeSortCallback = (orderBy: Sort) => {
@@ -63,11 +74,8 @@ export const useDecksOptions = () => {
   }
 
   const onClearFilterCallback = () => {
-    dispatch(setSearchByName({ searchName: '' }))
-    dispatch(setTabValue({ tabValue: 'all' }))
-    dispatch(setSliderValues({ sliderValues: [0, 10] }))
-    dispatch(setAuthorId({ authorId: undefined }))
-    dispatch(setSortOptions({ sortOptions: null }))
+    dispatch(clearFilters())
+    setSliderRangeValue({ min: 0, max: undefined })
   }
 
   const onChangeCurrentPageCallback = (currentPage: number) => {
@@ -81,7 +89,8 @@ export const useDecksOptions = () => {
   return {
     searchName,
     tabValue,
-    sliderValues,
+    cardsCount,
+    sliderRangeValue,
     authorId,
     sortOptions,
     currentPage,
@@ -89,6 +98,7 @@ export const useDecksOptions = () => {
     pageOptions,
     onSearchCallback,
     onChangeTabValueCallback,
+    setCardsCount,
     onChangeSliderValueCallback,
     onChangeSortCallback,
     onClearFilterCallback,
