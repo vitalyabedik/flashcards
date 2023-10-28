@@ -45,7 +45,7 @@ export type DropdownItemWithIconProps = Omit<DropdownItemProps, 'children'> & {
 export const DropdownItemWithIcon = forwardRef<
   ElementRef<typeof DropdownPrimitive.Item>,
   DropdownItemWithIconProps
->(({ icon, text, onSelect, className, ...props }, ref): JSX.Element => {
+>(({ icon, text, onSelect, className, ...restProps }, ref): JSX.Element => {
   const classNames = {
     item: cn(s.item, className),
     itemIcon: s.itemIcon,
@@ -60,7 +60,7 @@ export const DropdownItemWithIcon = forwardRef<
       ref={ref}
       className={classNames.item}
       asChild
-      {...props}
+      {...restProps}
       onSelect={onSelectHandler}
     >
       <motion.div {...dropdownAnimations.item}>
